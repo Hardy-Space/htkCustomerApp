@@ -212,7 +212,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
             }
         }
         productStr = "["+productStr+"]";
-        refreshUI();
+        refreshUI(); // ce shi
     }
 
     private void refreshUI(){
