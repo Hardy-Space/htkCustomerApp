@@ -32,8 +32,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
-
 
 /**
  * Created by asus on 2017/10/25.--- 商品详情页
@@ -164,29 +162,29 @@ public class GoodDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initView() {
-        img_lefticon =findViewById(R.id.img_lefticon);
-        img_zhutu =findViewById(R.id.img_zhutu);
-        xxa =findViewById(R.id.xingxinga);
-        xxb =findViewById(R.id.xingxingb);
-        xxc =findViewById(R.id.xingxingc);
-        xxd =findViewById(R.id.xingxingd);
-        xxe =findViewById(R.id.xingxinge);
-        tv_yx = findViewById(R.id.tv_yuexiao);
-        img_shoucang =findViewById(R.id.img_shoucang);
-        img_jia =findViewById(R.id.img_add);
-        img_jian =findViewById(R.id.img_jian);
-        tv_title = findViewById(R.id.tv_title);
-        tv_price = findViewById(R.id.tv_price);
-        tv_sum = findViewById(R.id.tv_sum);
-        tv_pinglunshu = findViewById(R.id.tv_pinglunshu);
-        taocanprice = findViewById(R.id.taocanprice);
-        linearTc =findViewById(R.id.linear_tc);
-        zongjia = findViewById(R.id.zongjia);
-        tv_jianjie = findViewById(R.id.tv_jianjie);
-        tv_leftstate = findViewById(R.id.tv_leftstate);
-        tv_common_title = findViewById(R.id.tv_common_title);
-        spxq_listview = findViewById(R.id.spxq_listview);
-        spxq_pinglun = findViewById(R.id.spxq_pinglun);
+        img_lefticon = (ImageView) findViewById(R.id.img_lefticon);
+        img_zhutu = (ImageView) findViewById(R.id.img_zhutu);
+        xxa = (ImageView) findViewById(R.id.xingxinga);
+        xxb = (ImageView) findViewById(R.id.xingxingb);
+        xxc = (ImageView) findViewById(R.id.xingxingc);
+        xxd = (ImageView) findViewById(R.id.xingxingd);
+        xxe = (ImageView) findViewById(R.id.xingxinge);
+        tv_yx = (TextView) findViewById(R.id.tv_yuexiao);
+        img_shoucang = (ImageView) findViewById(R.id.img_shoucang);
+        img_jia = (ImageView) findViewById(R.id.img_add);
+        img_jian = (ImageView) findViewById(R.id.img_jian);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_price = (TextView) findViewById(R.id.tv_price);
+        tv_sum = (TextView) findViewById(R.id.tv_sum);
+        tv_pinglunshu = (TextView) findViewById(R.id.tv_pinglunshu);
+        taocanprice = (TextView) findViewById(R.id.taocanprice);
+        linearTc = (LinearLayout) findViewById(R.id.linear_tc);
+        zongjia = (TextView) findViewById(R.id.zongjia);
+        tv_jianjie = (TextView) findViewById(R.id.tv_jianjie);
+        tv_leftstate = (TextView) findViewById(R.id.tv_leftstate);
+        tv_common_title = (TextView) findViewById(R.id.tv_common_title);
+        spxq_listview = (MyListview) findViewById(R.id.spxq_listview);
+        spxq_pinglun = (MyListview) findViewById(R.id.spxq_pinglun);
         tv_leftstate.setText(""+getResources().getString(R.string.goback));
         img_lefticon.setImageResource(R.drawable.icon_goback);
         btmView = findViewById(R.id.bbbb);

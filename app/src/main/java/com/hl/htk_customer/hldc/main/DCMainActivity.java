@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.hldc.bean.GoodBean;
-import com.hl.htk_customer.hldc.bean.OrderFoodBean;
 import com.hl.htk_customer.hldc.http.HttpHelper;
 import com.hl.htk_customer.hldc.http.JsonHandler;
 import com.hl.htk_customer.hldc.utils.PreferencesUtils;
@@ -53,10 +52,10 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
     private void initView(){
         createFragment();
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
-        bottomTab = this.findViewById(R.id.bottomTabs);
-        btnDianCai =  this.findViewById(R.id.rb_diancai);
-        btnOrder =  this.findViewById(R.id.rb_order);
-        btnMine =  this.findViewById(R.id.rb_mine);
+        bottomTab = (RadioGroup) this.findViewById(R.id.bottomTabs);
+        btnDianCai = (RadioButton) this.findViewById(R.id.rb_diancai);
+        btnOrder = (RadioButton) this.findViewById(R.id.rb_order);
+        btnMine = (RadioButton) this.findViewById(R.id.rb_mine);
         manager = getSupportFragmentManager();
         bottomTab.setOnCheckedChangeListener(this);
         onCheckedChanged(bottomTab, R.id.rb_diancai); //
