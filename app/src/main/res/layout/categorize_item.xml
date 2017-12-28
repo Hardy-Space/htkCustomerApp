@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="@color/left_list"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/dp_10"
+    android:paddingRight="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_20"
+    android:paddingBottom="@dimen/dp_20"
+    android:id="@+id/mainitem_txt"
+    android:text="热门分类"
+    android:textColor="#000000"
+    android:textSize="12sp" />

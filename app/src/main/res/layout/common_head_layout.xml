@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_centerVertical="true"
+    android:background="@color/color_zhusediao"
+    android:layout_width="match_parent" android:layout_height="50dp">
+    <ImageView
+        android:id="@+id/img_lefticon"
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_leftstate"
+        android:layout_toRightOf="@id/img_lefticon"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/color_white"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_common_title"
+        android:textColor="@color/color_white"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/img_righticon"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
+    <TextView
+        android:id="@+id/tv_righticontwo"
+        android:textColor="@color/color_white"
+        android:textSize="6sp"
+        android:visibility="gone"
+        android:layout_marginRight="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
+</RelativeLayout>

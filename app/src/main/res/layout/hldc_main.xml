@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/mainFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomTabs" />
+
+    <RadioGroup
+        android:id="@+id/bottomTabs"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/homeBottomBg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <RadioButton
+            android:id="@+id/rb_diancai"
+            style="@style/HomeRadioButton"
+            android:checked="true"
+            android:drawableTop="@drawable/radio_main_reservebox"
+            android:text="@string/diancai_str" />
+
+        <RadioButton
+            android:id="@+id/rb_order"
+            style="@style/HomeRadioButton"
+            android:drawableTop="@drawable/radio_main_record"
+            android:text="@string/order_str" />
+
+        <RadioButton
+            android:id="@+id/rb_mine"
+            style="@style/HomeRadioButton"
+            android:drawableTop="@drawable/radio_main_mine"
+            android:text="@string/mine_str" />
+
+    </RadioGroup>
+
+</RelativeLayout>

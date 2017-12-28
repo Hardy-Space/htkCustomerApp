@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/color_common_bg"
+    android:orientation="vertical"
+    android:theme="@style/MyAppTheme"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <include
+        android:id="@+id/headview"
+        layout="@layout/common_head_layout"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_foodlist"
+        android:layout_below="@id/headview"
+        android:layout_above="@id/view_btm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <include
+        android:id="@+id/view_btm"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        layout="@layout/common_bottom2_layout" />
+</RelativeLayout>

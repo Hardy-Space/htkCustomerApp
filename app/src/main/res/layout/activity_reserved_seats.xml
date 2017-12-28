@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@id/toolbar"
+        layout="@layout/toolbar"/>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_reserved_seats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        fresco:viewAspectRatio="2"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:showDividers="middle"
+        android:divider="@drawable/shape_line"
+        android:dividerPadding="@dimen/dp_15"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <EditText
+            android:id="@+id/edt_reserved_seats_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nulls"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:paddingTop="@dimen/dp_15"
+            android:paddingBottom="@dimen/dp_15"
+            android:drawableLeft="@mipmap/integral"
+            android:drawablePadding="@dimen/dp_20"
+            android:maxLines="1"
+            android:hint="预订人（例如：刘先生）"
+            android:textColorHint="@color/colorTvHint"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack" />
+
+        <EditText
+            android:id="@+id/edt_reserved_seats_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nulls"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:paddingTop="@dimen/dp_15"
+            android:paddingBottom="@dimen/dp_15"
+            android:drawableLeft="@mipmap/integral"
+            android:drawablePadding="@dimen/dp_20"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:maxLength="11"
+            android:hint="手机号"
+            android:textColorHint="@color/colorTvHint"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack" />
+
+        <TextView
+            android:id="@+id/tv_reserved_seats_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nulls"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:paddingTop="@dimen/dp_15"
+            android:paddingBottom="@dimen/dp_15"
+            android:drawableLeft="@mipmap/integral"
+            android:drawablePadding="@dimen/dp_20"
+            android:hint="预定时间"
+            android:textColorHint="@color/colorTvHint"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack" />
+
+        <EditText
+            android:id="@+id/edt_reserved_seats_person_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nulls"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:paddingTop="@dimen/dp_15"
+            android:paddingBottom="@dimen/dp_15"
+            android:drawableLeft="@mipmap/integral"
+            android:drawablePadding="@dimen/dp_20"
+            android:inputType="number"
+            android:maxLength="4"
+            android:maxLines="1"
+            android:hint="预定人数"
+            android:textColorHint="@color/colorTvHint"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_38" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/btn_reserved_seats_submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_38"
+            android:layout_gravity="center_horizontal|bottom"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dp_23"
+            android:layout_marginRight="@dimen/dp_23"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:background="@drawable/selector_btn"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_16"
+            android:text="提交"/>
+    </FrameLayout>
+
+
+
+
+</LinearLayout>

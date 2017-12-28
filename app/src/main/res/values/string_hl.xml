@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="diancai_str">点菜</string>
+    <string name="order_str">订单</string>
+    <string name="mine_str">我的</string>
+    <string name="goback">返回</string>
+
+    <!-- common title -->
+    <string name="comfirmorder">确认订单</string>
+    <string name="orderedlist">已点列表</string>
+    <string name="orderdetail">订单详情</string>
+
+    <!-- dian cai xiao fen lei -->
+    <string name="commond_state">推荐</string>
+    <string name="recai_state">热菜</string>
+    <string name="lengcai_state">冷菜</string>
+    <string name="tianpin_state">甜品</string>
+    <string name="yinshi_state">饮食</string>
+
+    <!-- common button -->
+    <string name="jiacai_state">加菜</string>
+    <string name="comfirmorder_state">确认下单</string>
+    <string name="pay_state">付款</string>
+    <string name="cancelorder_state">取消订单</string>
+    <string name="heji_state">合计:</string>
+    <string name="delete_state">删除</string>
+    <string name="fapiao_state">发票</string>
+    <string name="orderdetail_state">订单详情</string>
+
+    <string name="paid_state">已付款</string>
+    <string name="cooking_state">烹饪中</string>
+    <string name="finished_state">已完成</string>
+
+    <string name="feedback_state">反馈</string>
+    <string name="cuidan_state">催单</string>
+    <string name="tiaodan_state">调单</string>
+    <string name="xiadan_state">下单</string>
+    <string name="beizhu_state">备注</string>
+    <string name="onlinepay_state">在线支付</string>
+    <string name="coupon_state">优惠券</string>
+    <string name="orderedgoods_state">已点商品(%s)</string>
+
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载……</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">上拉或点击以查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+
+
+    <string name="about">关于</string>
+    <string name="advise">建议</string>
+    <string name="jifenduihuan">积分兑换</string>
+    <string name="myfavorite">我的收藏</string>
+    <string name="cookingtip">您点的菜已经告诉后厨!他们正在用心烹制</string>
+
+    <string name="comfirm_tip">确认</string>
+    <string name="goodscommentstip">商品评论</string>
+    <string name="monthsale">月销量</string>
+    <string name="danwei">份</string>
+    <string name="dingdanbianhao">订单:</string>
+    <string name="taocanjia">套餐价:</string>
+    <string name="zongjia">总价:</string>
+    <string name="yuan">元</string>
+    <string name="orderedgoods">已点商品</string>
+    <string name="orderedtimetip">提交订单已:</string>
+    <string name="addtoorderlist">加入订单列表</string>
+</resources>

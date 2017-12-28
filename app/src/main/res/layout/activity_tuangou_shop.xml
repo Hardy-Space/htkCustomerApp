@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:MyRatingBar ="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/tuangou_shop_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="235dp">
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/tuangou_shop_collapsingtoolbarlayout"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/colorBlue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/tuangou_shop_title_bg"
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="parallax"/>
+
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tuangou_shop_toolbar"
+                android:fitsSystemWindows="true"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:minHeight="?attr/actionBarSize"
+                android:background="@color/colorBlue"
+                android:contentInsetStart="0dp"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <TextView
+                    android:id="@+id/tuangou_shop_title"
+                    android:text="团购"
+                    android:textSize="@dimen/sp_16"
+                    android:textColor="@color/colorWhite"
+                    android:drawableLeft="@mipmap/back"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+
+
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:text="点击进入会员尊享平台"
+                android:textSize="@dimen/sp_16"
+                android:textColor="@color/color_orange_dark"
+                android:textStyle="bold" />
+
+            <android.support.constraint.ConstraintLayout
+                android:background="@color/colorWhite"
+                android:padding="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_shopName"
+                    style="@style/blank16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:paddingRight="@dimen/dp_5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/iv_collection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/collection1"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <com.hl.htk_customer.widget.MyRatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    MyRatingBar:canEdit="false"
+                    MyRatingBar:differentSize="false"
+                    MyRatingBar:dividerWidth="5dp"
+                    MyRatingBar:starCount="5"
+                    MyRatingBar:stateResId="@drawable/selector_comment_ratingbar"
+                    MyRatingBar:widthAndHeight="20dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_shopName"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_mean_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:layout_constraintLeft_toRightOf="@+id/ratingBar"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_shopName"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10" />
+
+            <LinearLayout
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    style="@style/blank14"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/tuangou_location"
+                    android:drawablePadding="@dimen/dp_10"/>
+
+                <ImageView
+                    android:id="@+id/iv_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@mipmap/tuangou_phone" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/tuangou_shop_product_rv"
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10" />
+
+            <TextView
+                android:id="@+id/tv_evaluation_num"
+                android:background="@color/colorWhite"
+                style="@style/blank14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/u_06"
+                android:gravity="center_vertical"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:text="" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/tuangou_shop_evaluation_rv"
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_all_evaluate"
+                android:background="@color/colorWhite"
+                style="@style/blank14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:text="查看全部用户评价" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+

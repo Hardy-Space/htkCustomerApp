@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title" />
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/blank14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_yueshou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:paddingTop="10dp"
+            android:text="" />
+
+
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/red14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_yueshou"
+            android:paddingTop="10dp"
+            android:text="" />
+
+
+        <LinearLayout
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_remove"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/ic_remove_circle_red_500_24dp" />
+
+            <TextView
+                android:id="@+id/tv_num"
+                style="@style/blank16"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0"
+                android:textStyle="bold"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_add"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/ic_add_circle_red_500_24dp" />
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_zan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/zan01"
+           android:layout_toLeftOf="@+id/zan_num"
+            android:layout_alignBottom="@+id/tv_price"
+            android:layout_marginRight="5dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/tv_price"
+            android:id="@+id/zan_num"
+            android:text=""
+            />
+
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/colorGrayBack"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="@string/shangpin_jianjie"
+        style="@style/blank14"
+        />
+
+    <TextView
+        android:id="@+id/tv_jianjie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingBottom="15dp"
+        android:text=""
+        style="@style/blank14"
+        />
+
+
+</LinearLayout>

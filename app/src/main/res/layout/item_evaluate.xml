@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:MyRatingBar="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
+    android:paddingBottom="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="10dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/head"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        fresco:placeholderImage="@mipmap/head_default"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:roundAsCircle="true"
+        fresco:layout_constraintLeft_toLeftOf="parent"
+        fresco:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/tv_nickName"
+        style="@style/blank14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fresco:layout_constraintLeft_toRightOf="@+id/head"
+        fresco:layout_constraintTop_toTopOf="parent"/>
+
+
+    <com.hl.htk_customer.widget.MyRatingBar
+        android:id="@+id/ratingBar"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        MyRatingBar:canEdit="false"
+        MyRatingBar:differentSize="false"
+        MyRatingBar:dividerWidth="5dp"
+        MyRatingBar:starCount="5"
+        MyRatingBar:stateResId="@drawable/selector_comment_ratingbar"
+        MyRatingBar:widthAndHeight="20dp"
+        fresco:layout_constraintTop_toBottomOf="@+id/tv_nickName"
+        fresco:layout_constraintLeft_toRightOf="@+id/head"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:gravity="center_vertical"
+        fresco:layout_constraintRight_toRightOf="parent"
+        fresco:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:maxLines="2"
+        fresco:layout_constraintTop_toBottomOf="@+id/ratingBar"
+        fresco:layout_constraintLeft_toRightOf="@+id/head"/>
+
+
+</android.support.constraint.ConstraintLayout>

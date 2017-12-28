@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dp_10"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/tools">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/head"
+        android:layout_width="@dimen/dp_56"
+        android:layout_height="@dimen/dp_56"
+        android:scaleType="fitXY"
+        fresco:roundedCornerRadius="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:textColor="@color/black_light"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp_15"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/head"/>
+
+    <TextView
+        android:id="@+id/tv_inventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:textColor="@color/colorTvHint"
+        android:textSize="@dimen/sp_12"
+        android:text="@string/join_inventory"
+        app:layout_constraintLeft_toRightOf="@+id/head"
+        app:layout_constraintTop_toBottomOf="@+id/name"/>
+
+    <TextView
+        android:id="@+id/prise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:textColor="@color/benefit_style"
+        android:textSize="@dimen/sp_14"
+        android:textStyle="bold"
+        android:text="@string/join_order_money"
+        app:layout_constraintLeft_toRightOf="@+id/head"
+        app:layout_constraintTop_toBottomOf="@+id/tv_inventory"/>
+
+    <TextView
+        android:id="@+id/reduce"
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_20"
+        android:gravity="center"
+        android:background="@drawable/shape_circle_blue"
+        android:text="—"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/shoppingNum"/>
+
+    <TextView
+        android:id="@+id/shoppingNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="10"
+        android:paddingLeft="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_8"
+        android:textColor="@color/black_light"
+        android:textSize="@dimen/sp_14"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/increase"/>
+
+    <TextView
+        android:id="@+id/increase"
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_20"
+        android:gravity="center"
+        android:background="@drawable/shape_circle_blue"
+        android:text="+"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+</android.support.constraint.ConstraintLayout>

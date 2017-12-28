@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
+
+    <EditText
+        android:id="@+id/edt_evaluation_suggest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:minHeight="@dimen/dp_200"
+        android:maxLength="250"
+        android:gravity="top"
+        android:padding="@dimen/dp_15"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/colorBlack"
+        android:textColorHint="@color/colorTvHint"
+        android:hint="请输入您的宝贵建议.."/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20" />
+
+    <TextView
+        android:id="@+id/tv_evaluation_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/selector_btn"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/colorWhite"
+        android:text="提交"/>
+
+</LinearLayout>

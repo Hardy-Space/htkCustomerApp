@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:MyRatingBar ="http://schemas.android.com/apk/res-auto"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="horizontal"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/image"
+        android:layout_gravity="center_vertical"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:focusable="false"
+        android:clickable="false"
+
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_shopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="15sp"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold" />
+
+        <com.hl.htk_customer.widget.MyRatingBar
+            android:id="@+id/ratingBar"
+            android:layout_marginTop="3dp"
+            android:layout_below="@+id/tv_shopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            MyRatingBar:canEdit="false"
+            MyRatingBar:differentSize="false"
+            MyRatingBar:dividerWidth="5dp"
+            MyRatingBar:starCount="5"
+            MyRatingBar:stateResId="@drawable/selector_comment_ratingbar"
+            MyRatingBar:widthAndHeight="12dp"/>
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_toRightOf="@+id/ratingBar"
+            android:layout_toEndOf="@+id/ratingBar"
+            android:layout_below="@+id/tv_shopName"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"
+            style="@style/red16"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/tv_sellNum"
+            android:layout_marginTop="3dp"
+            android:layout_below="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/colorTvHint"
+            android:text="" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/iv_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:src="@mipmap/collection1" />
+
+        <TextView
+            android:id="@+id/tv_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:textSize="12sp"
+            android:textColor="@color/colorTvHint"
+            android:text="" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

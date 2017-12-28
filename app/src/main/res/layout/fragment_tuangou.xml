@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_tuangou_refresh">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_80">
+            <android.support.design.widget.CollapsingToolbarLayout
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.Toolbar
+                    android:fitsSystemWindows="true"
+                    android:minHeight="?attr/actionBarSize"
+                    android:background="@color/colorBlue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin"
+                    app:contentInsetStart="0dp"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                    <include layout="@layout/layout_search"/>
+
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/fragment_tuangou_scroll"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/fragment_tuangou_vp"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@color/colorWhite" />
+
+                <RadioGroup
+                    android:id="@+id/fragment_tuangou_rg"
+                    android:background="@color/colorWhite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="@dimen/dp_10"
+
+                    android:gravity="center"
+                    android:orientation="horizontal" />
+
+                <ImageView
+                    android:id="@+id/iv_guanggao1"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:clickable="true"
+                    android:scaleType="fitXY" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_guanggao2"
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        android:layout_weight="2"
+                        android:clickable="true"
+                        android:scaleType="fitXY" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="3"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_guanggao3"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:clickable="true"
+                            android:scaleType="fitXY" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="85dp"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/iv_guanggao4"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:scaleType="fitXY" />
+
+                            <ImageView
+                                android:id="@+id/iv_guanggao5"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:scaleType="fitXY" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:paddingRight="@dimen/dp_15"
+                    android:paddingTop="8dp"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/sp_14"
+                    android:text="@string/recommend_shop" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fragment_tuangou_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <FrameLayout
+            android:id="@+id/fragment_tuangou_error"
+            android:visibility="gone"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="出错了\n 点击重试"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center"
+                android:drawableTop="@drawable/empty_icon"
+                android:drawablePadding="@dimen/dp_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/toolBar_buffet_meal"
+            layout="@layout/toolbar"/>
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/tabLayout_buffet_meal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:background="@color/colorPrimary"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            app:tl_indicator_corner_radius="1dp"
+            app:tl_indicator_height="2dp"
+            app:tl_indicator_width="@dimen/dp_40"
+            app:tl_tab_space_equal="true"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_buffet_meal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="@dimen/dp_56"
+        android:layout_height="@dimen/dp_56"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="@dimen/dp_20"
+        app:borderWidth="0dp"
+        app:backgroundTint="@color/colorBlue"
+        android:src="@mipmap/shopping_cart" />
+
+</android.support.design.widget.CoordinatorLayout>

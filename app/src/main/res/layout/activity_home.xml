@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.hl.htk_customer.widget.MyViewPager
+        android:id="@+id/myViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/colorWhite"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <RadioButton
+            android:id="@+id/rb1_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/radio_waimai"
+            android:gravity="center"
+            android:text="@string/waimai_home"
+            android:textColor="@drawable/radio_text"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb2_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/radio_tuangou"
+            android:gravity="center_horizontal"
+            android:text="@string/tuangou_home"
+            android:textColor="@drawable/radio_text"
+            android:textSize="12sp" />
+
+
+        <RadioButton
+            android:id="@+id/rb3_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/radio_dingdan"
+            android:gravity="center_horizontal"
+            android:text="@string/order"
+            android:textColor="@drawable/radio_text"
+            android:textSize="12sp" />
+
+
+        <RadioButton
+            android:id="@+id/rb4_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/radio_wode"
+            android:gravity="center_horizontal"
+            android:text="@string/mine_home"
+            android:textColor="@drawable/radio_text"
+            android:textSize="12sp" />
+
+
+    </RadioGroup>
+
+
+</LinearLayout>

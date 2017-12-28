@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:padding="15dp">
+
+
+    <TextView
+        android:id="@+id/tv_info"
+        style="@style/blank16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="蔡 先生 15066197363" />
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_info"
+        android:layout_marginTop="5dp"
+        android:text="苏宁生活广场C座902"
+        android:textSize="14dp" />
+
+    <ImageView
+        android:id="@+id/iv_change_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:src="@mipmap/change_address" />
+
+
+</RelativeLayout>

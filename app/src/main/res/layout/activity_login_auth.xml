@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/include_title" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <LinearLayout
+        android:background="@color/colorWhite"
+        android:divider="@drawable/shape_line"
+        android:showDividers="middle"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <EditText
+                android:id="@+id/et_phoneNumber"
+                android:drawableLeft="@drawable/user"
+                android:drawablePadding="15dp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="45dp"
+                android:background="@drawable/nulls"
+                android:hint="@string/hint_phoneNumber"
+                android:textColorHint="@color/colorTvHint"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:singleLine="true"
+                android:textColor="@color/colorGrayText"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_getAuthCode"
+                android:text="@string/authCode_get"
+                android:textSize="14sp"
+                android:textColor="@color/colorWhite"
+                android:gravity="center"
+                android:background="@drawable/shape_authcode"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+
+
+        <EditText
+            android:id="@+id/et_authCode"
+            android:textColor="@color/colorGrayText"
+            android:textSize="14sp"
+            android:drawableLeft="@drawable/yanzhengma"
+            android:drawablePadding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/nulls"
+            android:hint="@string/hint_authCode"
+            android:textColorHint="@color/colorTvHint"
+            android:inputType="number"
+            android:maxLength="6"
+            android:singleLine="true" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:id="@+id/btn_login"
+        style="@style/white16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_btn"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        android:text="@string/login" />
+
+
+</LinearLayout>
+

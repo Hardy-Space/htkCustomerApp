@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_10"
+    android:layout_marginLeft="@dimen/dp_10"
+    android:layout_marginRight="@dimen/dp_10"
+    app:cardBackgroundColor="@color/colorWhite"
+    app:cardElevation="1dp"
+    app:contentPadding="@dimen/dp_15">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_reservation_seat_order_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTvHint"
+                android:textSize="@dimen/sp_14"
+                android:text="@string/join_reservation_seat_order_number"/>
+
+            <TextView
+                android:id="@+id/tv_reservation_seat_order_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp_14" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_5" />
+
+        <View
+            android:background="@color/colorTvHint"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_5" />
+
+        <TextView
+            android:id="@+id/tv_reservation_seat_order_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14"
+            android:text="@string/join_reservation_seat_order_time"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/tv_reservation_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14"
+            android:text="@string/join_reservation_user"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/tv_reservation_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14"
+            android:text="@string/join_reservation_phone"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/tv_reservation_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14"
+            android:text="@string/join_reservation_time"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/tv_reservation_number_of_people"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14"
+            android:text="@string/join_reservation_number_of_people"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/tv_reservation_seat_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14"
+            android:text="@string/join_reservation_seat_number"/>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

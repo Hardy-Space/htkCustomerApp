@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/view1"
+        android:background="@color/colorBlue"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_return"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/fh_03" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/iv_callShop"
+            style="@style/white14"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="取消订单"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/tv_menu"
+            style="@style/white16"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="菜单" />
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:layout_below="@+id/rl_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_order_state"
+                style="@style/blank18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="10dp"
+                android:paddingTop="35dp"
+                android:text=""
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_thanks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_order_state"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/thanks"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/tv_state"
+                style="@style/white14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_thanks"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/selected_sex"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:text="去支付"
+                android:visibility="gone"
+                />
+
+
+
+            <TextView
+                android:id="@+id/tv_jiacai"
+                style="@style/white14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_thanks"
+                android:layout_toLeftOf="@+id/tv_state"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/selected_sex"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:text="催单"
+                android:visibility="gone"
+                 />
+
+
+
+            <TextView
+                android:id="@+id/tv_tuicai"
+                style="@style/white14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_thanks"
+                android:layout_toRightOf="@+id/tv_state"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/selected_sex"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:visibility="gone"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:text="退菜"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_countdown"
+                style="@style/blue18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_thanks"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/tv_state"
+                android:text=""
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_below="@+id/tv_state"
+                android:background="@color/colorGrayBack" />
+
+
+            <RelativeLayout
+                android:id="@+id/rl_shopName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line1"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:scaleType="centerCrop" />
+
+
+                <TextView
+                    android:id="@+id/tv_shopName"
+                    style="@style/blank14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/iv_logo"
+                    android:paddingLeft="10dp"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/tv_seat"
+                    style="@style/blank14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_shopName"
+                    android:paddingLeft="10dp"
+                    android:text="" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@mipmap/u_06"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+
+            <com.hl.htk_customer.widget.MyListView
+                android:id="@+id/listView_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_shopName"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:divider="@color/colorWhite"
+                android:dividerHeight="0dp"
+                android:listSelector="@color/colorWhite" />
+
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/listView_item"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorGrayBack"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line2"
+                android:paddingLeft="15dp"
+                android:text="@string/mark_cheap"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_cheap_price"
+                style="@style/red14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/line2"
+                android:paddingRight="15dp"
+                android:text="-￥7"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/tv_pay_price"
+                style="@style/red16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_cheap_price"
+                android:padding="15dp"
+                android:text="" />
+
+
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_head"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/view1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        fresco:placeholderImage="@mipmap/head_default"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:roundAsCircle="true" />
+
+</RelativeLayout>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:showDividers="middle"
+    android:divider="@drawable/shape_line"
+    android:dividerPadding="@dimen/dp_15">
+
+    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10" />
+
+    <LinearLayout
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack"
+            android:text="支付金额"/>
+
+        <TextView
+            android:id="@+id/tv_transaction_record_details_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/color_orange_dark"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack"
+            android:text="支付状态"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack"
+            android:text="支付成功"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack"
+            android:text="支付方式"/>
+
+        <TextView
+            android:id="@+id/tv_transaction_record_details_pay_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack"
+            android:text="支付创建时间"/>
+
+        <TextView
+            android:id="@+id/tv_transaction_record_details_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack"
+            android:text="回头客订单号"/>
+
+        <TextView
+            android:id="@+id/tv_transaction_record_details_order_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack"
+            android:text="订单类型"/>
+
+        <TextView
+            android:id="@+id/tv_transaction_record_details_order_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/colorBlack"/>
+
+    </LinearLayout>
+
+</LinearLayout>

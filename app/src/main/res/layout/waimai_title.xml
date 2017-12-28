@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <ImageView
+        android:id="@+id/iv_erweima"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:src="@mipmap/erweima" />
+
+
+    <ImageView
+        android:id="@+id/iv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:src="@mipmap/location" />
+
+    <TextView
+        android:id="@+id/tv_location"
+        style="@style/white16"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="50dp"
+        android:layout_toRightOf="@+id/iv_location"
+        android:drawablePadding="5dp"
+        android:drawableRight="@mipmap/jt_bottom"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:singleLine="true"
+        android:text="@string/location_doing"
+        android:textStyle="bold" />
+
+</RelativeLayout>

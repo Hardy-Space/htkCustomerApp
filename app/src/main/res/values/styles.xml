@@ -1,0 +1,185 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Activity无标题栏 开始-->  
+    <style name="MyAppTheme" parent="AppTheme">  
+          <item name="android:windowNoTitle">true</item>  
+    </style> 
+
+    <style name="dialog_anim" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_appler</item>
+        <item name="android:windowExitAnimation">@anim/dialog_disappler</item>
+    </style>
+
+
+
+    <style name="white10">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="white12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+    <style name="white14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+    <style name="white16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+    <style name="white18">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+
+
+    <style name="gray12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorGrayBack</item>
+    </style>
+    <style name="gray14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorGrayBack</item>
+    </style>
+    <style name="gray16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorGrayBack</item>
+    </style>
+    <style name="gray18">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorGrayBack</item>
+    </style>
+
+
+    <style name="blue12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorBlue</item>
+    </style>
+    <style name="blue14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorBlue</item>
+    </style>
+    <style name="blue16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorBlue</item>
+    </style>
+    <style name="blue18">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorBlue</item>
+    </style>
+
+    <style name="blue22">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorBlue</item>
+    </style>
+
+
+    <style name="blank12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorGrayText</item>
+    </style>
+    <style name="blank14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorGrayText</item>
+    </style>
+    <style name="blank16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorGrayText</item>
+    </style>
+    <style name="blank18">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorGrayText</item>
+    </style>
+
+
+    <style name="blank20">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorGrayText</item>
+    </style>
+
+    <style name="red16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorRedText</item>
+    </style>
+
+    <style name="red14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorRedText</item>
+    </style>
+
+
+
+
+    <style name="roomRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
+        <item   name="android:minHeight">25dp</item>
+        <item   name="android:maxHeight">25dp</item>
+        <!-- 设置用户不能点击RatingBar -->
+        <item name="android:isIndicator">true</item>
+    </style>
+
+
+
+    <style name="RatingBar_evaluate" parent="@android:style/Widget.RatingBar">
+
+        <item name="android:progressDrawable">@drawable/rating_evalutae</item>
+
+        <!-- <item name="android:minHeight">10dp</item>
+
+         <item name="android:maxHeight">10dp</item>-->
+
+    </style>
+
+
+    <!-- 自定义loading dialog -->
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/toast_back</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
+    <declare-styleable name="XlHRatingBar">
+        <attr name="starCount" format="integer" /><!--总的星星数-->
+        <attr name="canEdit" format="boolean" /><!--是否可以点击选择，有时候纯展示用不需要选择-->
+        <attr name="widthAndHeight" format="dimension" /><!--单个星星的宽度-->
+        <attr name="dividerWidth" format="dimension" /><!--星星左右间距-->
+        <attr name="countSelected" format="integer" /><!--当前已选中的星星个数-->
+        <attr name="stateResId" format="reference" /><!--单个星星不同状态下对应的图标-->
+        <attr name="differentSize" format="boolean" /><!--是否支持大小不等星星样式-->
+    </declare-styleable>
+    <!-- Activity无标题栏 结束-->
+    <style name="HomeRadioButton">
+        <item name="android:button">@null</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0px</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@drawable/bg_main_radiobutton_red_black</item>
+    </style>
+    <style name="AnimationPreview">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+</resources>

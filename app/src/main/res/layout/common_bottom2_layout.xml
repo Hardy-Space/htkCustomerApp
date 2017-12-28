@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/text_gray3_color"
+    android:layout_width="match_parent" android:layout_height="50dp">
+    <TextView
+        android:id="@+id/tv_jiacai"
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"
+        android:background="@color/red_light"
+        android:textSize="18sp"
+        android:text="@string/jiacai_state"
+        android:textColor="@color/color_white"
+        android:gravity="center"
+        android:layout_width="90dp"
+        android:layout_height="40dp" />
+    <LinearLayout
+        android:id="@+id/linear_money"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_foodtypemount"
+            android:text="4份"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_moneytip"
+            android:text="367元"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/red_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_bottompay"
+        android:background="@color/red_light"
+        android:textSize="18sp"
+        android:textColor="@color/color_white"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_marginRight="@dimen/dimen_40"
+        android:text="@string/comfirmorder_state"
+        android:layout_width="90dp"
+        android:layout_height="40dp" />
+</RelativeLayout>

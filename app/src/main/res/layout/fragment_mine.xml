@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@drawable/shape_line"
+    android:showDividers="middle"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:paddingTop="@dimen/dp_23"
+        android:minHeight="?attr/actionBarSize"
+        android:contentInsetStart="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:contentInsetStart="0dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="@color/colorBlue"
+        android:layout_width="match_parent"
+        android:layout_height="163dp">
+
+        <LinearLayout
+            android:id="@+id/ll_mine_userInfo"
+            android:padding="15dp"
+            android:gravity="center_vertical"
+            style="@style/MatchMatch.Horizontal">
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/head"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                fresco:placeholderImage="@mipmap/head_default"
+                fresco:placeholderImageScaleType="fitXY"
+                fresco:roundAsCircle="true" />
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                style="@style/AutoMatch.Vertical">
+                <TextView
+                    android:id="@+id/tv_nickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorWhite" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <TextView
+                    android:id="@+id/tv_phoneNumber"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/phone"
+                    android:drawablePadding="10dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/jt_right" />
+
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:drawableLeft="@mipmap/address"
+        android:drawablePadding="15dp"
+        android:drawableRight="@mipmap/u_06"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        android:text="@string/address" />
+
+
+    <TextView
+        android:id="@+id/tv_mycollection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:drawableLeft="@mipmap/mycollection"
+        android:drawablePadding="15dp"
+        android:drawableRight="@mipmap/u_06"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        android:text="@string/my_collection" />
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:drawableLeft="@mipmap/integral"
+        android:drawablePadding="15dp"
+        android:drawableRight="@mipmap/u_06"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        android:text="@string/message" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+
+    <TextView
+        android:id="@+id/tv_myInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:drawableLeft="@mipmap/personal21"
+        android:drawablePadding="15dp"
+        android:drawableRight="@mipmap/u_06"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        android:text="@string/personal_info" />
+
+
+    <TextView
+        android:id="@+id/tv_changePass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:drawableLeft="@mipmap/change_pass"
+        android:drawablePadding="15dp"
+        android:drawableRight="@mipmap/u_06"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        android:text="@string/change_pass" />
+
+
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:drawableLeft="@mipmap/address"
+        android:drawablePadding="15dp"
+        android:drawableRight="@mipmap/u_06"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        android:text="@string/version" />
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <TextView
+        android:id="@+id/tv_feedBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:drawableLeft="@mipmap/address"
+        android:drawablePadding="15dp"
+        android:drawableRight="@mipmap/u_06"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        android:text="@string/feed_back" />
+
+</LinearLayout>

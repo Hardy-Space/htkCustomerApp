@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBlue"
+    android:paddingBottom="@dimen/dp_20"
+    android:paddingLeft="@dimen/dp_38"
+    android:paddingRight="@dimen/dp_38"
+    android:paddingTop="@dimen/dp_20"
+    android:id="@+id/cl_mine_head">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_mine_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        fresco:roundAsCircle="true"
+        android:layout_width="@dimen/dp_72"
+        android:layout_height="@dimen/dp_72" />
+
+    <TextView
+        android:id="@+id/tv_mine_name"
+        app:layout_constraintLeft_toRightOf="@+id/iv_mine_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_15"
+        android:text="老王"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:id="@+id/tv_mine_phone"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_mine_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mine_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="18660616161"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/sp_14" />
+
+</android.support.constraint.ConstraintLayout>

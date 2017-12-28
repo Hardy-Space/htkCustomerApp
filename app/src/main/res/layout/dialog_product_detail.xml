@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/product_icon"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/product_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/product_icon"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/colorRedText"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/product_title"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

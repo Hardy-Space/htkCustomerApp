@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGrayBack"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/account_et"
+            style="@style/blank14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nulls"
+            android:hint="@string/hint_phoneNumber"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:padding="10dp"
+            android:singleLine="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/colorGrayBack" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/authCode_et"
+                style="@style/blank14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/nulls"
+                android:hint="@string/hint_authCode"
+                android:padding="10dp"
+                android:singleLine="true" />
+
+            <View
+                android:layout_width="0.8dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorGrayLine" />
+
+            <TextView
+                android:id="@+id/getAuthCode_text"
+                style="@style/blue14"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/authCode" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/colorGrayBack" />
+
+
+        <EditText
+            android:id="@+id/newPass_text"
+            style="@style/blank14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nulls"
+            android:hint="请输入新密码(1-12位字母、数字或字符)"
+            android:inputType="textPassword"
+            android:maxLength="12"
+            android:padding="10dp"
+
+            android:singleLine="true" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/colorGrayBack" />
+
+
+        <EditText
+            android:id="@+id/passWord2_et"
+            style="@style/blank14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nulls"
+            android:hint="@string/hint_pass_again"
+            android:inputType="textPassword"
+            android:maxLength="12"
+            android:padding="10dp"
+            android:singleLine="true" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/over_text"
+        style="@style/white18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/selector_btn"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/ok" />
+
+
+</LinearLayout>

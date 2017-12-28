@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:padding="15dp">
+
+
+    <ImageView
+        android:id="@+id/iv_mark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:src="@mipmap/message_mark" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/blank16"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/iv_mark"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/tv_time"
+        android:text="5折热送,暖胃暖心" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title"
+        android:layout_marginTop="5dp"
+        android:maxLines="2"
+        android:layout_toRightOf="@id/iv_mark"
+        android:text="5折热送,御寒暖餐,躲避掉冷飓飓的寒风,在家舒服享美食,戳→" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="12-19 11:31" />
+
+</RelativeLayout>

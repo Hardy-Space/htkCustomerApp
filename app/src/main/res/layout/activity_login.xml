@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title" />
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <LinearLayout
+        android:background="@color/colorWhite"
+        android:divider="@drawable/shape_line"
+        android:showDividers="middle"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_account"
+            android:drawableLeft="@drawable/user"
+            android:drawablePadding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/nulls"
+            android:hint="@string/hint_phoneNumber"
+            android:textColorHint="@color/colorTvHint"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:singleLine="true"
+            android:textColor="@color/colorGrayText"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_passWord"
+            android:textColor="@color/colorGrayText"
+            android:textSize="14sp"
+            android:drawableLeft="@drawable/lock"
+            android:drawablePadding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/nulls"
+            android:hint="@string/hint_passWord"
+            android:textColorHint="@color/colorTvHint"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:singleLine="true" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:id="@+id/btn_login"
+        style="@style/white16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_btn"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        android:text="@string/login" />
+
+
+    <TextView
+        android:id="@+id/tv_forget_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:padding="15dp"
+        android:text="@string/forget_pass" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:text="其他登录方式"
+        android:textColor="@color/colorTvHint"
+        android:textSize="14sp"
+        android:gravity="bottom|center_horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp" />
+
+    <LinearLayout
+        android:paddingTop="8dp"
+        android:paddingBottom="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="90dp">
+
+        <TextView
+            android:id="@+id/iv_login_by_qq"
+            android:text="QQ"
+            android:textSize="12sp"
+            android:textColor="@color/colorTvHint"
+            android:drawableTop="@mipmap/qq"
+            android:drawablePadding="10dp"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/iv_login_by_wx"
+            android:text="微信"
+            android:textSize="12sp"
+            android:textColor="@color/colorTvHint"
+            android:drawableTop="@mipmap/wx"
+            android:drawablePadding="10dp"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/iv_login_by_yzm"
+            android:text="手机验证码"
+            android:textSize="12sp"
+            android:textColor="@color/colorTvHint"
+            android:drawableTop="@mipmap/wx"
+            android:drawablePadding="10dp"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+

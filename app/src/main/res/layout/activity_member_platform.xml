@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@drawable/shape_line"
+    android:showDividers="middle">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_member_platform_content"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_member_platform_content"
+            android:background="@color/colorBgMemberPlatform"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:divider="@drawable/shape_line_vertical"
+        android:orientation="horizontal"
+        android:showDividers="middle">
+
+        <TextView
+            android:id="@+id/tv_member_platform_reserved_seats"
+            style="@style/AutoMatch"
+            android:gravity="center"
+            android:text="@string/reserved_seats"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/tv_member_platform_join_members"
+            style="@style/AutoMatch"
+            android:gravity="center"
+            android:text="@string/join_members"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/tv_member_platform_mine"
+            style="@style/AutoMatch"
+            android:gravity="center"
+            android:text="@string/mine"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_14" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/collection_list_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                style="@style/MatchWrap.Horizontal">
+
+                <TextView
+                    android:id="@+id/collection_list_sort"
+                    android:text="@string/text_sort"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/sp_14"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingBottom="@dimen/dp_8"
+                    style="@style/AutoWrap" />
+
+                <View
+                    android:background="@color/colorGrayLine"
+                    android:layout_width=".5dp"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/collection_list_distance"
+                    android:text="@string/text_distance"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/sp_14"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingBottom="@dimen/dp_8"
+                    style="@style/AutoWrap" />
+
+                <View
+                    android:background="@color/colorGrayLine"
+                    android:layout_width=".5dp"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/collection_list_filter"
+                    android:text="@string/text_filter"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/sp_14"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingBottom="@dimen/dp_8"
+                    style="@style/AutoWrap" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/collection_list_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/collection_tv_recommend"
+                android:padding="@dimen/dp_10"
+                android:gravity="center_horizontal"
+                android:text="----猜你喜欢----"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/collection_recommend_list_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</LinearLayout>

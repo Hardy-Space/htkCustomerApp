@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    app:cardCornerRadius="@dimen/dp_4"
+    app:cardBackgroundColor="@color/colorBlue"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/pop_window_tv"
+        android:text="@string/text_cancel_collection"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/colorWhite"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</android.support.v7.widget.CardView>

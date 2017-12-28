@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGrayBack">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title" />
+
+    <com.yydcdut.sdlv.SlideAndDragListView
+        android:id="@+id/listView_address"
+        android:divider="@color/colorTvHint"
+        android:dividerHeight=".2dp"
+        android:layout_below="@+id/include_title"
+        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/empty_view"
+        android:visibility="gone"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:src="@drawable/empty_icon"/>
+
+    <LinearLayout
+        android:id="@+id/rl_addAddress"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:background="@color/colorWhite"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp">
+
+        <TextView
+            style="@style/blank14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/add"
+            android:drawablePadding="5dp"
+            android:text="@string/add_address" />
+
+    </LinearLayout>
+
+</RelativeLayout>

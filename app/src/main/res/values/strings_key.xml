@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="key_map">fdd1a35a644360cc9c16f19e99891fd4</string>
+    <string name="key_map_test">ffe947615cd99284a7e36e8a7064b4d8</string>
+
+    <string name="key_wx_appid">wxb872a94f23cc21a0</string>
+    <string name="key_wx_appSecret">eae133cb9f8ded0f5c7075af2ba5aba4</string>
+
+    <string name="key_jpush_appkey">34402e29f287d20e6cd8ab21</string>
+    <string name="key_jpush_master">d2918475263e25254f509f97</string>
+
+    <string name="key_qq_appid">1106298698</string>
+    <string name="key_qq_appid_tencent">tencent1106298698</string>
+    <string name="key_qq_appkey">OCqmKJAFk1ZhPR3B</string>
+
+
+</resources>

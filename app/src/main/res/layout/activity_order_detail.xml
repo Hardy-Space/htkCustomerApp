@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorBlue"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ll_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/iv_callShop"
+            style="@style/white14"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_10"
+            android:gravity="center"
+            android:text="取消订单"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_title">
+
+        <LinearLayout
+            android:background="@color/colorGrayBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_order_state"
+                    style="@style/blank18"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="35dp"
+                    android:text=""
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_thanks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/thanks"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:textSize="@dimen/sp_18"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/tv_reminder"
+                        style="@style/white14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="@dimen/dp_10"
+                        android:background="@drawable/selected_sex"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/reminder" />
+
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/tv_againItem"
+                        style="@style/white14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="@dimen/dp_10"
+                        android:background="@drawable/selected_sex"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/againItem" />
+
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/tv_evaluate"
+                        style="@style/white14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="@dimen/dp_10"
+                        android:background="@drawable/selected_sex"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/evaluate" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_countdown"
+                    style="@style/blue18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10" />
+
+            <android.support.v7.widget.CardView
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_5"
+                fresco:cardBackgroundColor="@color/colorWhite"
+                fresco:contentPadding="@dimen/dp_8"
+                fresco:cardElevation="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/iv_logo"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/ic_launcher"
+                        fresco:layout_constraintLeft_toLeftOf="parent"
+                        fresco:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv_shopName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@mipmap/u_06"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_10"
+                        fresco:layout_constraintLeft_toRightOf="@+id/iv_logo"
+                        fresco:layout_constraintTop_toTopOf="parent"
+                        fresco:layout_constraintRight_toRightOf="parent"
+                        android:layout_marginStart="@dimen/dp_10" />
+
+                    <com.hl.htk_customer.widget.MyListView
+                        android:id="@+id/listView_item"
+                        android:clickable="false"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        fresco:layout_constraintLeft_toLeftOf="parent"
+                        fresco:layout_constraintTop_toBottomOf="@+id/tv_shopName" />
+
+                    <TextView
+                        android:text="配送费"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        fresco:layout_constraintLeft_toLeftOf="parent"
+                        fresco:layout_constraintTop_toBottomOf="@+id/listView_item"/>
+
+                    <TextView
+                        android:id="@+id/tv_price_send"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        fresco:layout_constraintRight_toRightOf="parent"
+                        fresco:layout_constraintTop_toBottomOf="@+id/listView_item"/>
+
+                    <TextView
+                        android:id="@+id/tv_call_shop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_sex"
+                        android:drawableLeft="@mipmap/mobile_07"
+                        android:drawablePadding="8dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="5dp"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/call_shop"
+                        fresco:layout_constraintLeft_toLeftOf="parent"
+                        fresco:layout_constraintTop_toBottomOf="@+id/tv_price_send"/>
+
+                    <TextView
+                        android:id="@+id/tv_pay_price"
+                        style="@style/red16"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:padding="15dp"
+                        android:text=""
+                        fresco:layout_constraintLeft_toRightOf="@+id/tv_call_shop"
+                        fresco:layout_constraintTop_toBottomOf="@+id/tv_price_send"
+                        fresco:layout_constraintRight_toRightOf="parent"/>
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10" />
+
+            <android.support.v7.widget.CardView
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_5"
+                fresco:cardElevation="0dp"
+                fresco:cardBackgroundColor="@color/colorWhite"
+                fresco:contentPadding="@dimen/dp_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_mark_address"
+                        android:layout_width="342dp"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:text="@string/address"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp_16"
+                        fresco:layout_constraintLeft_toLeftOf="parent"
+                        fresco:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        fresco:layout_constraintLeft_toLeftOf="parent"
+                        fresco:layout_constraintTop_toBottomOf="@+id/tv_mark_address"/>
+
+                    <TextView
+                        android:id="@+id/tv_phoneNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:text=""
+                        fresco:layout_constraintRight_toRightOf="parent"
+                        fresco:layout_constraintLeft_toRightOf="@+id/tv_name"
+                        fresco:layout_constraintTop_toBottomOf="@+id/tv_mark_address" />
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text=""
+                        fresco:layout_constraintLeft_toLeftOf="parent"
+                        fresco:layout_constraintTop_toBottomOf="@+id/tv_name"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10" />
+
+            <android.support.v7.widget.CardView
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_5"
+                fresco:cardElevation="0dp"
+                fresco:cardBackgroundColor="@color/colorWhite"
+                fresco:contentPadding="@dimen/dp_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/mark_item_info"
+                        android:textSize="@dimen/sp_16"
+                        android:textColor="@color/colorBlack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/item_info" />
+
+                    <TextView
+                        android:id="@+id/tv_orderId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/tv_order_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:text="" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_head"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        fresco:placeholderImage="@mipmap/head_default"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:roundAsCircle="true" />
+
+</RelativeLayout>

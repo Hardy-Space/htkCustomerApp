@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\Users\\asus\\Desktop\\HuaLing_Develop\\shenyali\\htk_customer\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
+        "source": "C:\\Users\\asus\\Desktop\\HuaLing_Develop\\shenyali\\htk_customer\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
+    },
+    {
+        "merged": "C:\\Users\\asus\\Desktop\\HuaLing_Develop\\shenyali\\htk_customer\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
+        "source": "C:\\Users\\asus\\Desktop\\HuaLing_Develop\\shenyali\\htk_customer\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
+    },
+    {
+        "merged": "D:\\AndroidProjs_MPH\\htk_customer\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
+        "source": "D:\\AndroidProjs_MPH\\htk_customer\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
+    },
+    {
+        "merged": "D:\\AndroidProjs_MPH\\htk_customer\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
+        "source": "D:\\AndroidProjs_MPH\\htk_customer\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
+    }
+]

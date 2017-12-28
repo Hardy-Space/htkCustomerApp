@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/sp_14"
+        android:text="下载回头客APP二维码"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10" />
+
+    <ImageView
+        android:id="@+id/iv_download_app_QR_code"
+        android:layout_width="@dimen/dp_170"
+        android:layout_height="@dimen/dp_170"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_horizontal"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/sp_14"
+        android:text="加入会员二维码"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10" />
+
+    <ImageView
+        android:id="@+id/iv_join_members_QR_code"
+        android:layout_width="@dimen/dp_170"
+        android:layout_height="@dimen/dp_170"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_horizontal"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/btn_join_members_submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_38"
+            android:layout_gravity="center_horizontal|bottom"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dp_23"
+            android:layout_marginRight="@dimen/dp_23"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:background="@drawable/selector_btn"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_16"
+            android:text="我要加入"/>
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

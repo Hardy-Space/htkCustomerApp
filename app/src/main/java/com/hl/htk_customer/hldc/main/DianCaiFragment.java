@@ -1,0 +1,186 @@
+package com.hl.htk_customer.hldc.main;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hl.htk_customer.R;
+import com.hl.htk_customer.hldc.base.BaseViewpager;
+import com.hl.htk_customer.hldc.bean.CategoryBean;
+import com.hl.htk_customer.hldc.http.HttpHelper;
+import com.hl.htk_customer.hldc.http.JsonHandler;
+import com.hl.htk_customer.hldc.pager.Tuijianpager;
+import com.hl.htk_customer.hldc.utils.ToolUtils;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
+
+
+/**
+ * Created by asus on 2017/10/25.author lu
+ */
+
+public class DianCaiFragment extends BaseFragment implements OnClickListener{
+    public static final String TAG = DianCaiFragment.class.getSimpleName();
+    private TextView tv_leftstate,tv_title;
+    private ImageView img_lefticon,img_righticon;
+    private ViewPager pager;
+    private TabLayout tab;
+    private View mView;
+    private ArrayList<BaseViewpager> pagerList = new ArrayList<>();
+    private List<String> groupList = new ArrayList<>();
+
+    private static final int GET_PAGER_LIST = 1;
+
+    private Handler myHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch(msg.what){
+                case 1:
+                    Log.d(TAG,"groupList.size() == >>>"+groupList.size());
+                    for(int i=0;i<groupList.size();i++){
+                        pagerList.add(new Tuijianpager(getActivity(),Integer.valueOf(myList.get(i).getId())));
+                    }
+                    initsetAdapter();
+                    break;
+            }
+        }
+    };
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mView=View.inflate(getActivity(), R.layout.layout_diancai,null);
+        initView();
+        getCategoryList();
+        return mView;
+    }
+
+    private void initsetAdapter() {
+        myPagerAdapter myPagerAdapter = new myPagerAdapter();
+        pager.setAdapter(myPagerAdapter);
+        tab.setupWithViewPager(pager);
+        tab.setTabMode(TabLayout.MODE_SCROLLABLE);
+    }
+
+    private void initView() {
+        pager = mView.findViewById(R.id.viewPager);
+        tab = mView.findViewById(R.id.tabLayout);
+        tv_leftstate = mView.findViewById(R.id.tv_leftstate);
+        tv_title =  mView.findViewById(R.id.tv_common_title);
+        img_lefticon = mView.findViewById(R.id.img_lefticon);
+        img_righticon =  mView.findViewById(R.id.img_righticon);
+        tv_title.setText("点菜");
+        tv_leftstate.setText("A区26桌");
+        img_lefticon.setImageResource(R.drawable.icon_location);
+        img_righticon.setImageResource(R.mipmap.search);
+    }
+
+
+    class myPagerAdapter  extends PagerAdapter {
+        @Override
+        public int getCount() {
+            return groupList.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            container.addView(pagerList.get(position).view);
+            pagerList.get(position).initData();
+            return pagerList.get(position).view;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            // super.destroyItem(container, position, object);
+            container.removeView((View) object);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return groupList.get(position);
+        }
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.img_righticon:
+                Toast.makeText(getActivity(),"点击进入查询界面",Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    private void getCategoryList(){
+        HttpHelper.getInstance().getCategoryList(getActivity(), new JsonHandler<String>(){
+
+            @Override
+            public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+                Log.d(TAG,"onSuccess=statusCode>"+statusCode+"<<==responseString==>>"+responseString);
+                convertStringToList(ToolUtils.getJsonParseResult(responseString));
+            }
+
+            @Override
+            public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
+                Log.d(TAG,"onFailure=statusCode>"+statusCode);
+            }
+
+            @Override
+            protected Object parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
+                return null;
+            }
+        });
+    }
+
+    List<CategoryBean> myList = new ArrayList<>();
+    private void convertStringToList(String result){
+        JSONArray obj =  null;
+        try{
+            obj = new JSONArray(result);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(obj.length() > 0){
+            for(int i=0;i<obj.length();i++){
+                CategoryBean bean = new CategoryBean();
+                try{
+                    bean.setId(obj.getJSONObject(i).getString("id"));
+                    bean.setCategoryName(obj.getJSONObject(i).getString("categoryName"));
+                    bean.setShopId(obj.getJSONObject(i).getInt("shopId"));
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                myList.add(bean);
+            }
+            for(int i=0;i<myList.size();i++){
+                groupList.add(myList.get(i).getCategoryName());
+            }
+            Log.d(TAG,"groupList.size()==>>>"+groupList.size());
+            Log.d(TAG,"myList.size()==>>>"+myList.size());
+            if(myList.size() > 0){
+                myHandler.sendEmptyMessage(GET_PAGER_LIST);
+            }
+        }
+    }
+
+}

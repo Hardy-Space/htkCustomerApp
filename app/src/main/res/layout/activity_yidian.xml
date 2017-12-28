@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title" />
+
+
+    <RelativeLayout
+        android:layout_below="@+id/include_title"
+        android:id="@+id/rl_detail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorBlue">
+
+        <Button
+            android:id="@+id/btn_jiacai"
+            style="@style/white14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="6dp"
+            android:background="@color/colorBlue"
+            android:text="@string/jiacai" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/white14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text=""
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/btn_ok"
+            style="@style/white14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="6dp"
+            android:background="@color/colorBlue"
+            android:text="@string/querenxiadan" />
+
+    </RelativeLayout>
+
+
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_detail"
+        android:divider="@color/colorWhite"
+        android:dividerHeight="0dp"
+        android:listSelector="@drawable/nulls"/>
+
+
+
+
+</RelativeLayout>

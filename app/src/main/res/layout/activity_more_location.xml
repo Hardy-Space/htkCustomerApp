@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorGrayBack"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include
+        layout="@layout/include_title" />
+
+    <com.hl.htk_customer.widget.SegmentedGroup
+        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/segmented_group_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        segmentedgroup:sc_checked_text_color="@color/colorWhite"
+        segmentedgroup:sc_tint_color="@color/colorBlue"
+        segmentedgroup:sc_border_width="1dp"
+        segmentedgroup:sc_corner_radius="2dp">
+        <RadioButton
+            android:id="@+id/rb_work"
+            style="@style/RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:checked="true"
+            android:text="@string/location_rb_work" />
+        <RadioButton
+            android:id="@+id/rb_live"
+            style="@style/RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:checked="true"
+            android:text="@string/location_rb_live" />
+        <RadioButton
+            android:id="@+id/rb_school"
+            style="@style/RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:checked="true"
+            android:text="@string/location_rb_school" />
+    </com.hl.htk_customer.widget.SegmentedGroup>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listView"
+        />
+
+</LinearLayout>

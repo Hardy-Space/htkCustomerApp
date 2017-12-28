@@ -1,0 +1,234 @@
+<resources>
+    <string name="app_name">回头客</string>
+
+    <!--Manifest清单文件-->
+    <string name="home">主页</string>
+    <string name="login">登录</string>
+    <string name="changePass">修改密码</string>
+    <string name="splash">闪屏</string>
+    <string name="register">注册</string>
+    <string name="login_please">请先登录</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_failed">登录失败</string>
+    <string name="login_out_prompt">确认注销此账号？</string>
+    <string name="login_cancel">登录已取消</string>
+
+    <string name="server_no_response">服务器未响应</string>
+
+
+    <string name="call">联系</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="waimai_home">外卖</string>
+    <string name="tuangou_home">团购</string>
+    <string name="reservation">预约</string>
+    <string name="order">订单</string>
+    <string name="mine_home">我的</string>
+    <string name="hint_phoneNumber">请输入手机号码</string>
+    <string name="hint_passWord">请输入密码（6-12位）</string>
+    <string name="hint_settingpassWord">请设置密码（6-12位）</string>
+    <string name="hint_settingpassWord_again">请再次验证密码（6-12位）</string>
+    <string name="mark_login">温馨提示:未注册回头客账户的手机号 (原始密码：123456)</string>
+    <string name="authCode">验证码</string>
+    <string name="authCode_get">获取验证码</string>
+    <string name="hint_authCode">请输入验证码</string>
+    <string name="hint_search">输入商家 商品名称</string>
+    <string name="recommend_shop">推荐商家</string>
+    <string name="againItem">再来一单</string>
+    <string name="reminder">催单</string>
+    <string name="evaluate">我要评价</string>
+    <string name="address">收货地址</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="integral">积分</string>
+    <string name="personal_info">个人信息</string>
+    <string name="change_pass">密码修改</string>
+    <string name="version">版本更新</string>
+    <string name="version_title">关于回头客</string>
+    <string name="feed_back">意见反馈</string>
+    <string name="message">通知中心</string>
+    <string name="hint_old_pass">请输入旧密码</string>
+    <string name="hint_new_pass">请输入新密码</string>
+    <string name="hint_new_pass2">请再次确认新密码</string>
+    <string name="hint_address">请输入地址</string>
+    <string name="current_address">当前地址</string>
+    <string name="home_address">收货地址</string>
+    <string name="near_address">附近地址</string>
+    <string name="choose_address">选择收货地址</string>
+    <string name="add_address">新增地址</string>
+    <string name="updata_address">修改地址</string>
+    <string name="contact">联系人</string>
+    <string name="hint_name">姓名</string>
+    <string name="man">先生</string>
+    <string name="woman">女士</string>
+    <string name="phone">电话</string>
+    <string name="hint_home_phoneNumber">收货人电话</string>
+    <string name="dizhi">地址</string>
+    <string name="address_detail">详细地址</string>
+    <string name="search">搜索</string>
+
+    <string name="mark_evaluate">为商家服务打分</string>
+    <string name="hint_evaluate">说说哪里满意，帮大家选</string>
+    <string name="order_detail">订单详情</string>
+    <string name="order_state">订单已完成</string>
+    <string name="order_cancel_changing">订单取消中</string>
+    <string name="thanks">感谢您对回头客的信任,期待再次光临</string>
+    <string name="call_shop">联系商家</string>
+    <string name="mark_cheap">在线支付立减优惠</string>
+    <string name="arrive_info">配送信息</string>
+    <string name="item_info">订单信息</string>
+    <string name="tuangou_shop_detail">团购商家详情</string>
+    <string name="tuangou_taocan">堂食套餐</string>
+    <string name="tuangou_taocan_detail">团购套餐详情</string>
+    <string name="shop_info">商家信息</string>
+    <string name="tuangou_detail">团购详情</string>
+    <string name="taocan">套餐</string>
+    <string name="shop_list">店铺列表</string>
+    <string name="head_image">头像</string>
+    <string name="account">用户名</string>
+    <string name="account_bind">账号绑定</string>
+    <string name="mobile">手机</string>
+    <string name="wx">微信</string>
+    <string name="unbind">未绑定</string>
+    <string name="qq">QQ</string>
+    <string name="exit">退出登录</string>
+    <string name="more_address">更多地址</string>
+    <string name="choose_photo">选择照片</string>
+    <string name="waimai_shop_detail">外卖店铺详情</string>
+    <string name="ok_change">确认修改</string>
+    <string name="erweima">二维码扫描</string>
+    <string name="shangpin">商品</string>
+    <string name="pingjia">评价</string>
+    <string name="settlement">去结算</string>
+    <string name="shopping_cart">购物车</string>
+    <string name="account_evaluate">用户评价</string>
+    <string name="look_all_evaluate">查看全部用户评价</string>
+    <string name="shangjia_detail">商家详情</string>
+    <string name="action_service">活动与服务</string>
+    <string name="more_location">更多地址</string>
+    <string name="has_bind">已绑定</string>
+    <string name="mark_chang_pass">退出登录前请修改一个您的常用密码</string>
+    <string name="confirm_order">确认订单</string>
+    <string name="confirm_receipt">确认收货</string>
+    <string name="daijinquan">商家代金券</string>
+    <string name="integration_voucher">积分代金券</string>
+    <string name="hint_mark">请输入备注内容(可不填)</string>
+    <string name="faild_location">定位失败</string>
+    <string name="free">免费配送</string>
+    <string name="peisongfei">配送费</string>
+    <string name="yuan1">元</string>
+    <string name="style">选择登陆方式</string>
+    <string name="hint_pass_again">请再次输入新密码</string>
+    <string name="loading">加载中...</string>
+    <string name="zizhudiancan">自助点餐</string>
+    <string name="reserved_seats">预定座位</string>
+    <string name="join_members">加入会员</string>
+    <string name="mine">我的</string>
+
+    <string-array name="permissions">
+        <item>@string/permission_recode_audio_hint</item>
+        <item>@string/permission_get_accounts_hint</item>
+        <item>@string/permission_read_phone_hint</item>
+        <item>@string/permission_call_phone_hint</item>
+        <item>@string/permission_camera_hint</item>
+        <item>@string/permission_access_fine_location_hint</item>
+        <item>@string/permission_access_coarse_location_hint</item>
+        <item>@string/permission_read_external_hint</item>
+        <item>@string/permission_white_external_hint</item>
+    </string-array>
+
+    <string name="permission_get_accounts_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_GET_ACCOUNTS</string>
+    <string name="permission_read_phone_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_READ_PHONE_STATE</string>
+    <string name="permission_call_phone_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_CALL_PHONE</string>
+    <string name="permission_camera_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_CAMERA</string>
+    <string name="permission_access_fine_location_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_ACCESS_FINE_LOCATION</string>
+    <string name="permission_access_coarse_location_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_ACCESS_COARSE_LOCATION</string>
+    <string name="permission_read_external_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_READ_EXTERNAL_STORAGE</string>
+    <string name="permission_white_external_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_WRITE_EXTERNAL_STORAGE</string>
+    <string name="permission_recode_audio_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_RECORD_AUDIO</string>
+    <string name="forget_pass">忘记密码</string>
+    <string name="login_qq">QQ登录</string>
+    <string name="login_wx">微信登录</string>
+    <string name="login_phone">手机号登录</string>
+    <string name="login_auth">验证码登录</string>
+    <string name="bind_phoneNumnber">绑定手机号</string>
+    <string name="bind">绑定</string>
+    <string name="al">支付宝</string>
+    <string name="rest">本店休息中，暂不接受订单</string>
+    <string name="number">数量</string>
+    <string name="xiaoji">小计</string>
+    <string name="phone_number">手机号</string>
+    <string name="submit_order">提交订单</string>
+    <string name="config_pay">确认支付</string>
+    <string name="diancan">点餐</string>
+    <string name="yidian_list">已点列表</string>
+    <string name="jiacai">加菜</string>
+    <string name="querenxiadan">确认下单</string>
+    <string name="pay">付款</string>
+    <string name="shangpin_jianjie">商品简介</string>
+    <string name="feed">请输入你要反馈的问题,我们会尽快为你处理</string>
+    <string name="update">更新版本</string>
+
+    <!--二维码界面-->
+    <string name="tvLightOn">轻触照亮</string>
+    <string name="tvLightClose">轻触关闭</string>
+
+    <!--定位-->
+    <string name="location_doing">定位中...</string>
+    <string name="locationStart">开始定位</string>
+    <string name="locationStop">停止定位</string>
+
+    <string name="location_rb_work">写字楼</string>
+    <string name="location_rb_live">小区</string>
+    <string name="location_rb_school">学校</string>
+
+    <string name="empty_no_data">没有数据</string>
+    <string name="error">出错了</string>
+    <string name="error_change">请求失败</string>
+
+    <string name="text_sort">分类</string>
+    <string name="text_distance">距离</string>
+    <string name="text_filter">智能筛选</string>
+    <string name="text_cancel_collection">取消收藏</string>
+
+    <string name="text_tg_order_number">订单号：&#160;&#160;&#8201;&#160;&#160;&#8201;&#160;&#160;&#160;&#160;&#8201;%1$s</string>
+    <string name="text_tg_order_phone">购买手机号：&#160;&#160;&#8201;%1$s</string>
+    <string name="text_tg_order_time">下单时间：&#160;&#160;&#8201;&#160;&#160;&#160;&#8201;%1$s</string>
+    <string name="text_tg_order_num">数量：&#160;&#160;&#8201;&#160;&#160;&#8201;&#160;&#160;&#8201;&#160;&#160;&#160;&#160;&#160;&#160;&#8201;%1$s</string>
+    <string name="text_tg_order_total_price">总价：&#160;&#160;&#8201;&#160;&#160;&#8201;&#160;&#160;&#8201;&#160;&#160;&#160;&#160;&#160;&#8201;￥%.2f</string>
+
+    <!--拼接类字符串-->
+    <string name="join_order_detail">%1$s等%2$d件商品</string>
+    <string name="join_order_money">￥%.2f</string>
+    <string name="join_order_type">%1$s订单：%2$s</string>
+    <string name="join_version_code">v%1$s</string>
+    <string name="join_price_in_store">门市价：￥%.2f</string>
+    <string name="join_inventory">库存%1$s件</string>
+    <string name="join_distance">%.2f&#160;m</string>
+    <string name="join_distance_km">%.2f&#160;km</string>
+    <string name="join_sales_of_month">月售%1$d单</string>
+    <string name="join_group_vouchers">团购券\n\n有效期至：%1$s</string>
+    <string name="join_voucher_code">券码：%1$s</string>
+    <string name="join_num_of_copies">%1$d&#160;&#160;&#8201;份</string>
+    <string name="join_full_amount_preferential">满%1$d元可用</string>
+    <string name="join_coupon_content">%1$s到期\n限收货手机号为%2$s</string>
+    <string name="join_redeem_integration">%1$d积分</string>
+    <string name="join_redeem_title">%1$.1f元优惠券</string>
+    <string name="join_redeem_limit">满%1$.1f元可用</string>
+    <string name="join_reservation_user">预订人：&#160;&#160;&#8201;&#160;&#160;&#8201;&#160;&#160;%1$s</string>
+    <string name="join_reservation_phone">手机号：&#160;&#160;&#8201;&#160;&#160;&#8201;&#160;&#160;%1$s</string>
+    <string name="join_reservation_time">预定时间：&#160;&#160;&#8201;&#160;%1$s</string>
+    <string name="join_reservation_seat_order_time">下单时间：&#160;&#160;&#8201;&#160;%1$s</string>
+    <string name="join_reservation_number_of_people">预定人数：&#160;&#160;&#8201;&#160;%1$2d人</string>
+    <string name="join_reservation_seat_number">预定座位号：%1$s</string>
+    <string name="join_reservation_seat_order_number">预定座位(%1$s)</string>
+    <string name="join_delivery_fee">配送费：￥%1$1s</string>
+    <string name="join_delivery_distance">配送距离：%1$2.2fm</string>
+    <string name="join_announcement">[公告]%1$2s</string>
+    <string name="join_phone">电话：&#160;&#160;&#8201;&#160;&#160;&#8201;&#160;&#160;%1$s</string>
+    <string name="join_address">地址：&#160;&#160;&#8201;&#160;&#160;&#8201;&#160;&#160;%1$s</string>
+    <string name="join_business_hours">营业时间：%1$s</string>
+    <string name="join_num_add">+%1$2d</string>
+    <string name="join_num_cut">-%1$2d</string>
+    <string name="join_amount_cut">-%1$.2f</string>
+
+</resources>
