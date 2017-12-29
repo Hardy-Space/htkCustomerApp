@@ -103,7 +103,7 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
                 break;
             case R.id.rb_order:
                 showFragment(orderFragment, transaction);
-                orderFragment.onHiddenChanged(true);
+//                orderFragment.onHiddenChanged(true);
                 break;
             case R.id.rb_mine:
                 showFragment(mineFragment, transaction);

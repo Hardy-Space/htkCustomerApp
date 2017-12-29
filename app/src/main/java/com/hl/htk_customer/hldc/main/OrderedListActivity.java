@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,8 +23,6 @@ import com.hl.htk_customer.hldc.utils.PreferencesUtils;
 import com.hl.htk_customer.hldc.utils.ToolUtils;
 
 import org.json.JSONArray;
-
-import android.text.TextUtils;
 
 /**
  * Created by asus on 2017/10/25.---已点列表
@@ -121,15 +120,19 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.tv_bottompay:
                 Log.d(TAG,""+productStr);
-                if(foodMount <= 0){
-                    Toast.makeText(OrderedListActivity.this, "食品数量不符合要求", Toast.LENGTH_SHORT).show();
-                }else {
+                /**
+                 * 去掉商品总数量限制，因为如果人家不想点任何菜了，就要把这个已点商品的空json字符串传给数据库
+                 * @modifyBy  马鹏昊
+                 */
+                //                if(foodMount <= 0){
+//                    Toast.makeText(OrderedListActivity.this, "食品数量不符合要求", Toast.LENGTH_SHORT).show();
+//                }else {
                     if(!TextUtils.isEmpty(mType) && "xiadan".equals(mType)){
                         xiaDanBtn();
                     }else if(!TextUtils.isEmpty(mType) && "tiaodan".equals(mType)){
                         tiaoDanBtn();
                     }
-                }
+//                }
                 break;
         }
     }
@@ -214,7 +217,7 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
         });
     }
 
-    private int foodMount = 1;
+    private int foodMount = 0;
     public void showModify(final int x,int y){
         new Handler().postDelayed(new Runnable(){
             @Override
@@ -227,7 +230,7 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
                     Log.d(TAG,"getOrderProductList.QUANTITY"+mBean.getOrderProductList().get(i).getQuantity());
                     foodMount += mBean.getOrderProductList().get(i).getQuantity();
                     Log.d(TAG,"foodMount==>>>"+foodMount);
-                    if(mBean.getOrderProductList().get(i).getQuantity() == 0){
+                    if (mBean.getOrderProductList().get(i).getQuantity() == 0) {
                         mBean.getOrderProductList().remove(i);
                     }
                 }

@@ -18,8 +18,6 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
-
 
 /**
  * Created by Administrator on 2017/10/26.author
@@ -32,7 +30,6 @@ public class Tuijianpager extends BaseViewpager implements XListView.IXListViewL
     private View view;
     private LvAdapter adapter;
     private Context context;
-    private List<GoodBean> mList = new ArrayList<>();
     private int categoryId = 0;
 
     public Tuijianpager(Context context, int categoryId) {
@@ -83,7 +80,7 @@ public class Tuijianpager extends BaseViewpager implements XListView.IXListViewL
     public void onRefresh(XListView lxist) {
         //下拉刷新
         page -= 1;
-        mList.clear();
+        myList.clear();
         if (adapter!=null){
             adapter.notifyDataSetChanged();
         }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +23,6 @@ import com.hl.htk_customer.hldc.utils.ToolUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import android.text.TextUtils;
 
 
 /**
@@ -61,8 +60,17 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
             mOrderedFoodBean.getProductList().clear();
         }
         if(!hidden){
+            Toast.makeText(mActivity, "show", Toast.LENGTH_SHORT).show();
             refreshCurrentUI();
+        }else {
+            Toast.makeText(mActivity, "hide", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshCurrentUI();
     }
 
     public void refreshCurrentUI(){
