@@ -48,7 +48,7 @@ public class Tuijianpager extends BaseViewpager implements XListView.IXListViewL
 
 
     private void init() {
-        listView = view.findViewById(R.id.lv_pager);
+        listView = (XListView) view.findViewById(R.id.lv_pager);
         listView.setXListViewListener(this);
         listView.setPullRefreshEnable(true);
         listView.setPullLoadEnable(true);
@@ -63,7 +63,6 @@ public class Tuijianpager extends BaseViewpager implements XListView.IXListViewL
     @Override
     public void initData() {
         getGoodsList();
-        onLoad(listView);
     }
 
     private void initAdapter(){
@@ -101,11 +100,13 @@ public class Tuijianpager extends BaseViewpager implements XListView.IXListViewL
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
                 Log.d(TAG,"onSuccess() responseString==>>>"+responseString);
                 convertStringToList(ToolUtils.getJsonParseResult(responseString));
+                onLoad(listView); //
             }
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
                 Log.d(TAG,"onFailure() ==>>>");
+                onLoad(listView); //
             }
 
             @Override
