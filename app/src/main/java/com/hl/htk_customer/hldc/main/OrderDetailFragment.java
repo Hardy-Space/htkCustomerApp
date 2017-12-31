@@ -60,10 +60,10 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
             mOrderedFoodBean.getProductList().clear();
         }
         if(!hidden){
-            Toast.makeText(mActivity, "show", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mActivity, "show", Toast.LENGTH_SHORT).show();
             refreshCurrentUI();
         }else {
-            Toast.makeText(mActivity, "hide", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mActivity, "hide", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -200,6 +200,7 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
                 } else {
                     Toast.makeText(getActivity(), "催单失败"+rawJsonResponse, Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override

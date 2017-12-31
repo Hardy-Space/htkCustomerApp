@@ -167,8 +167,8 @@ public class AliPayWaiMai implements PayStyle {
                 if (alPayEntity.getCode() == 100) {
 
                     final String orderInfo = alPayEntity.getData().getAliPayResponseBody();
-                    orderId = alPayEntity.getData().getOrderId();
                     orderNumber = alPayEntity.getData().getOrderNumber();
+                    orderId = alPayEntity.getData().getOrderId();
 
                     new Thread(new Runnable() {
                         @Override
@@ -244,7 +244,7 @@ public class AliPayWaiMai implements PayStyle {
                 Gson gson = new Gson();
                 CommonMsg commonMsg = gson.fromJson(rawJsonResponse, CommonMsg.class);
 
-                Toast.makeText(mContext , commonMsg.getMessage() , Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext , commonMsg.getMessage() , Toast.LENGTH_SHORT).show();
 
             }
         });

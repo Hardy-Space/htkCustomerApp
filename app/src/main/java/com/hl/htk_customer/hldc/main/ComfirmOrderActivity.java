@@ -360,7 +360,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
             Toast.makeText(ComfirmOrderActivity.this,"获取座位列表失败",Toast.LENGTH_SHORT).show();
             return;
         }else{
-            Toast.makeText(ComfirmOrderActivity.this,"chairData.size()==>>>"+chairData.size(),Toast.LENGTH_SHORT).show();
+//            Toast.makeText(ComfirmOrderActivity.this,"chairData.size()==>>>"+chairData.size(),Toast.LENGTH_SHORT).show();
         }
         typeSelectPopup = new SeatPopupWindow(ComfirmOrderActivity.this,this,chairData);
         typeSelectPopup.showPopupWindow(linearLocation);
@@ -413,16 +413,18 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
                 int state = ToolUtils.getNetBackCode(responseString);
                 if(state == 100){
-                    Toast.makeText(ComfirmOrderActivity.this, "调单成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ComfirmOrderActivity.this, "发送调单请求成功，请等待商家确认",Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(ComfirmOrderActivity.this, "调单失败",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ComfirmOrderActivity.this, "发送调单请求失败",Toast.LENGTH_SHORT).show();
                 }
+                finish();
             }
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
                 Log.d(TAG,"commitOrderBtn()==onFailure()==>>>"+responseString);
-                Toast.makeText(ComfirmOrderActivity.this, "调单失败",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ComfirmOrderActivity.this, "接口请求失败",Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override

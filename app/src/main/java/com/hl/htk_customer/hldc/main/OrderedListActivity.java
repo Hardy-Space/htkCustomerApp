@@ -28,15 +28,16 @@ import org.json.JSONArray;
  * Created by asus on 2017/10/25.---已点列表
  */
 
-public class OrderedListActivity extends Activity implements View.OnClickListener{
+public class OrderedListActivity extends Activity implements View.OnClickListener {
     private static final String TAG = OrderedListActivity.class.getSimpleName();
-    private View viewBtm,viewTop;
-    private TextView tvLeftState, tvTitle, tvJiaCai, tvComfirmOrder, tvFoodTypeMount,tvFoodMoney;
+    private View viewBtm, viewTop;
+    private TextView tvLeftState, tvTitle, tvJiaCai, tvComfirmOrder, tvFoodTypeMount, tvFoodMoney;
     private ImageView imgBack;
     private RecyclerView recyclerView;
     private DivideGroupAdapter mAdapter;
     public static OrderedListActivity mInstance;
     private String mType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +46,13 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
         mType = this.getIntent().getStringExtra("type");
         initViews();
         setOnClickListener();
-        orderNumber = PreferencesUtils.getString(this,"orderNumber");
-        if(!TextUtils.isEmpty(orderNumber)){
+        orderNumber = PreferencesUtils.getString(this, "orderNumber");
+        if (!TextUtils.isEmpty(orderNumber)) {
             getOrderedGoodsList();
         }
     }
 
-    private void initViews(){
+    private void initViews() {
         recyclerView = findViewById(R.id.recycle_foodlist);
         viewTop = findViewById(R.id.headview);
         imgBack = viewTop.findViewById(R.id.img_lefticon);
@@ -65,74 +66,71 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
         imgBack.setBackgroundResource(R.drawable.icon_goback);
         tvLeftState.setText(getResources().getString(R.string.goback));
         tvTitle.setText(getResources().getString(R.string.orderedlist));
-        if(!TextUtils.isEmpty(mType) && "xiadan".equals(mType)){
+        if (!TextUtils.isEmpty(mType) && "xiadan".equals(mType)) {
             tvComfirmOrder.setText("确认下单");
-        }else if(!TextUtils.isEmpty(mType) && "tiaodan".equals(mType)){
+        } else if (!TextUtils.isEmpty(mType) && "tiaodan".equals(mType)) {
             tvComfirmOrder.setText("确认调单");
         }
 
     }
 
-    private void setOnClickListener(){
+    private void setOnClickListener() {
         imgBack.setOnClickListener(this);
         tvLeftState.setOnClickListener(this);
         tvJiaCai.setOnClickListener(this);
         tvComfirmOrder.setOnClickListener(this);
     }
 
-    private void refreshUI(int mount, double price){
-        tvFoodTypeMount.setText(mount+"份");
-        tvFoodMoney.setText("共"+price+"元");
+    private void refreshUI(int mount, double price) {
+        tvFoodTypeMount.setText(mount + "份");
+        tvFoodMoney.setText("共" + price + "元");
     }
 
     int mount = 0;
     double price = 0;
     String productStr;
-    private void calulateMoneyAndAmount(){
+
+    private void calulateMoneyAndAmount() {
         mount = 0;
         price = 0;
         productStr = "";
-        for(int i=0;i<mBean.getOrderProductList().size();i++){
+        for (int i = 0; i < mBean.getOrderProductList().size(); i++) {
             OrderFoodBean bean = mBean.getOrderProductList().get(i);
             mount += bean.getQuantity();
-            price += bean.getPrice()*bean.getQuantity();
-            if(i < (mBean.getOrderProductList().size()-1)){
-                productStr += bean.toString()+",";
-            }else{
-                productStr += bean.toString()+"";
+            price += bean.getPrice() * bean.getQuantity();
+            if (i < (mBean.getOrderProductList().size() - 1)) {
+                productStr += bean.toString() + ",";
+            } else {
+                productStr += bean.toString() + "";
             }
         }
-        productStr = "["+productStr+"]";
-        refreshUI(mount,price);
+        productStr = "[" + productStr + "]";
+        refreshUI(mount, price);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.img_lefticon:
             case R.id.tv_leftstate:
                 OrderedListActivity.this.finish();
                 break;
             case R.id.tv_jiacai:
-                Intent mIntent = new Intent(OrderedListActivity.this,DCMainActivity.class);
-                mIntent.putExtra("jiacai","jiacai");
-                startActivityForResult(mIntent,1);
+                Intent mIntent = new Intent(OrderedListActivity.this, DCMainActivity.class);
+                mIntent.putExtra("jiacai", "jiacai");
+                startActivityForResult(mIntent, 1);
                 break;
             case R.id.tv_bottompay:
-                Log.d(TAG,""+productStr);
-                /**
-                 * 去掉商品总数量限制，因为如果人家不想点任何菜了，就要把这个已点商品的空json字符串传给数据库
-                 * @modifyBy  马鹏昊
-                 */
-                //                if(foodMount <= 0){
-//                    Toast.makeText(OrderedListActivity.this, "食品数量不符合要求", Toast.LENGTH_SHORT).show();
-//                }else {
-                    if(!TextUtils.isEmpty(mType) && "xiadan".equals(mType)){
+                Log.d(TAG, "" + productStr);
+                if (foodMount <= 0) {
+                    Toast.makeText(OrderedListActivity.this, "食品数量不符合要求", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (!TextUtils.isEmpty(mType) && "xiadan".equals(mType)) {
                         xiaDanBtn();
-                    }else if(!TextUtils.isEmpty(mType) && "tiaodan".equals(mType)){
+                    } else if (!TextUtils.isEmpty(mType) && "tiaodan".equals(mType)) {
                         tiaoDanBtn();
                     }
-//                }
+                }
                 break;
         }
     }
@@ -140,18 +138,18 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1 && data != null){
-            GoodBean goodBean = (GoodBean)data.getSerializableExtra("food");
-            Log.d(TAG,"goodId == >>>>"+goodBean.getId());
+        if (requestCode == 1 && data != null) {
+            GoodBean goodBean = (GoodBean) data.getSerializableExtra("food");
+            Log.d(TAG, "goodId == >>>>" + goodBean.getId());
             OrderFoodBean orderFoodBean = new OrderFoodBean();
             orderFoodBean.setId(goodBean.getId());
-            orderFoodBean.setImgUrl(goodBean.getImgUrl()+"");
+            orderFoodBean.setImgUrl(goodBean.getImgUrl() + "");
             orderFoodBean.setQuantity(1);
             orderFoodBean.setPrice(goodBean.getPrice());
             orderFoodBean.setCategoryName(goodBean.getCategoryName());
             orderFoodBean.setProductName(goodBean.getProductName());
             orderFoodBean.setCategoryId(goodBean.getCategoryId());
-            if(mBean != null && mBean.getOrderProductList() != null){
+            if (mBean != null && mBean.getOrderProductList() != null) {
                 mBean.getOrderProductList().add(orderFoodBean);
                 calulateMoneyAndAmount();
             }
@@ -159,20 +157,20 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
         }
     }
 
-    private void xiaDanBtn(){
+    private void xiaDanBtn() {
         HttpHelper.getInstance().commitOrderBtn(OrderedListActivity.this, orderNumber, productStr, new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
                 int state = ToolUtils.getNetBackCode(responseString);
-                if(state == 100){
+                if (state == 100) {
                     Toast.makeText(OrderedListActivity.this, "下单成功", Toast.LENGTH_SHORT).show();
-                    Intent mIntent1 = new Intent(OrderedListActivity.this,ComfirmOrderActivity.class);
-                    mIntent1.putExtra("type","xiadan");
+                    Intent mIntent1 = new Intent(OrderedListActivity.this, ComfirmOrderActivity.class);
+                    mIntent1.putExtra("type", "xiadan");
                     startActivity(mIntent1);
                     OrderedListActivity.this.finish();
                 } else {
-                    Toast.makeText(OrderedListActivity.this, "下单失败"+responseString, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderedListActivity.this, "下单失败" + responseString, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -188,26 +186,27 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
         });
     }
 
-    private void tiaoDanBtn(){
+    private void tiaoDanBtn() {
         HttpHelper.getInstance().tiaoDan(this, orderNumber, productStr, new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
                 int state = ToolUtils.getNetBackCode(responseString);
-                if(state == 100){
-                    Toast.makeText(OrderedListActivity.this, "调单成功", Toast.LENGTH_SHORT).show();
-                    Intent mIntent1 = new Intent(OrderedListActivity.this,ComfirmOrderActivity.class);
-                    mIntent1.putExtra("type","tiaodan");
+                if (state == 100) {
+                    Toast.makeText(OrderedListActivity.this, "修改订单信息成功", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(OrderedListActivity.this, "调单成功", Toast.LENGTH_SHORT).show();
+                    Intent mIntent1 = new Intent(OrderedListActivity.this, ComfirmOrderActivity.class);
+                    mIntent1.putExtra("type", "tiaodan");
                     startActivity(mIntent1);
                     OrderedListActivity.this.finish();
                 } else {
-                    Toast.makeText(OrderedListActivity.this, "调单失败"+responseString, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderedListActivity.this, "修改订单信息失败" + responseString, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
-                Toast.makeText(OrderedListActivity.this, "调单失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderedListActivity.this, "接口请求失败", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -218,18 +217,19 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
     }
 
     private int foodMount = 0;
-    public void showModify(final int x,int y){
-        new Handler().postDelayed(new Runnable(){
+
+    public void showModify(final int x, int y) {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG,"quantity=>"+mBean.getOrderProductList().get(x).getQuantity()+"<<==productName==>>"+
+                Log.d(TAG, "quantity=>" + mBean.getOrderProductList().get(x).getQuantity() + "<<==productName==>>" +
                         mBean.getOrderProductList().get(x).getProductName());
-                Log.d(TAG,"getOrderProductList.SIZE()"+mBean.getOrderProductList().size());
+                Log.d(TAG, "getOrderProductList.SIZE()" + mBean.getOrderProductList().size());
                 foodMount = 0;
-                for(int i=0;i<mBean.getOrderProductList().size();i++){
-                    Log.d(TAG,"getOrderProductList.QUANTITY"+mBean.getOrderProductList().get(i).getQuantity());
+                for (int i = 0; i < mBean.getOrderProductList().size(); i++) {
+                    Log.d(TAG, "getOrderProductList.QUANTITY" + mBean.getOrderProductList().get(i).getQuantity());
                     foodMount += mBean.getOrderProductList().get(i).getQuantity();
-                    Log.d(TAG,"foodMount==>>>"+foodMount);
+                    Log.d(TAG, "foodMount==>>>" + foodMount);
                     if (mBean.getOrderProductList().get(i).getQuantity() == 0) {
                         mBean.getOrderProductList().remove(i);
                     }
@@ -238,31 +238,32 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
                 calulateMoneyAndAmount();
 
             }
-        },100);
+        }, 100);
     }
 
     YiDianFoodParentBean mBean = new YiDianFoodParentBean();
-    private void getOrderedGoodsList(){
+
+    private void getOrderedGoodsList() {
         HttpHelper.getInstance().getOrderedGoodsPage(this, orderNumber, new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
-                Log.d(TAG,"getOrderedGoodsList() ==onSuccess"+responseString);
+                Log.d(TAG, "getOrderedGoodsList() ==onSuccess" + responseString);
                 int result = ToolUtils.getNetBackCode(responseString);
                 String result1 = ToolUtils.getJsonParseResult(responseString);
-                Log.d(TAG,"getOrderedGoodsList() ==data==>>"+result1);
-                if(result == 100){
-                    if(!TextUtils.isEmpty(result1)){
-//                        JSONArray obj;
+                Log.d(TAG, "getOrderedGoodsList() ==data==>>" + result1);
+                if (result == 100) {
+                    if (!TextUtils.isEmpty(result1)) {
+                        //                        JSONArray obj;
                         JSONArray mArray;
                         try {
-//                            obj = new JSONArray(result1);
-//                            mBean.setCategoryId(obj.getInt("categoryId")+"");
-//                            mBean.setCategoryName(obj.getString("categoryName"));
-//                            String productList = obj.getString("orderProductList");
+                            //                            obj = new JSONArray(result1);
+                            //                            mBean.setCategoryId(obj.getInt("categoryId")+"");
+                            //                            mBean.setCategoryName(obj.getString("categoryName"));
+                            //                            String productList = obj.getString("orderProductList");
                             mArray = new JSONArray(result1);
-                            if(mArray != null && mArray.length() > 0){
-                                for(int i=0;i<mArray.length();i++){
+                            if (mArray != null && mArray.length() > 0) {
+                                for (int i = 0; i < mArray.length(); i++) {
                                     OrderFoodBean mBean1 = new OrderFoodBean();
                                     mBean1.setCategoryId(mArray.getJSONObject(i).getInt("categoryId"));
                                     mBean1.setId(mArray.getJSONObject(i).getInt("id"));
@@ -277,24 +278,24 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
                                     mBean.getOrderProductList().add(mBean1);
                                 }
                                 calulateMoneyAndAmount();
-                                recyclerView.setLayoutManager(new LinearLayoutManager(OrderedListActivity.this, LinearLayoutManager.VERTICAL,false));
-                                mAdapter = new DivideGroupAdapter(OrderedListActivity.this,mBean.getOrderProductList());
+                                recyclerView.setLayoutManager(new LinearLayoutManager(OrderedListActivity.this, LinearLayoutManager.VERTICAL, false));
+                                mAdapter = new DivideGroupAdapter(OrderedListActivity.this, mBean.getOrderProductList());
                                 recyclerView.setAdapter(mAdapter);
-                            }else{
-                                Toast.makeText(OrderedListActivity.this,"您尚未点餐",Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(OrderedListActivity.this, "您尚未点餐", Toast.LENGTH_SHORT).show();
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                }else{
+                } else {
                     Toast.makeText(OrderedListActivity.this, "获取已点列表失败", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
-                Log.d(TAG,"getOrderedGoodsList()==onFailure() ==onSuccess"+responseString);
+                Log.d(TAG, "getOrderedGoodsList()==onFailure() ==onSuccess" + responseString);
                 Toast.makeText(OrderedListActivity.this, "获取已点列表失败", Toast.LENGTH_SHORT).show();
             }
 
@@ -311,38 +312,39 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
     double orderAmount = 0;
     String orderNumber;
     int discountCouponId = 0;
+
     /**
      * 八、确认下单接口
      * String remark(备注)，double discountAmount(优惠金额)，
      * String seatName(座位号名字)，double orderAmount(订单金额)，
      * String orderNumber(订单号)，int discountCouponId(优惠券id)
      */
-    private void commitOrderBtn(){
+    private void commitOrderBtn() {
         HttpHelper.getInstance().commitOrderBtn(OrderedListActivity.this, remark, discountAmount,
                 seatName, orderAmount, orderNumber, discountCouponId, new JsonHandler<String>() {
 
-            @Override
-            public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
-                Log.d(TAG,"commitOrderBtn()==onSuccess()==>>>"+responseString);
-                int state = ToolUtils.getNetBackCode(responseString);
-                if(state == 100){
-                    Toast.makeText(OrderedListActivity.this, "下单成功",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(OrderedListActivity.this, "下单失败",Toast.LENGTH_SHORT).show();
-                }
-            }
+                    @Override
+                    public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+                        Log.d(TAG, "commitOrderBtn()==onSuccess()==>>>" + responseString);
+                        int state = ToolUtils.getNetBackCode(responseString);
+                        if (state == 100) {
+                            Toast.makeText(OrderedListActivity.this, "下单成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(OrderedListActivity.this, "下单失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-            @Override
-            public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
-                Log.d(TAG,"commitOrderBtn()==onFailure()==>>>"+responseString);
-                Toast.makeText(OrderedListActivity.this, "下单失败",Toast.LENGTH_SHORT).show();
-            }
+                    @Override
+                    public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
+                        Log.d(TAG, "commitOrderBtn()==onFailure()==>>>" + responseString);
+                        Toast.makeText(OrderedListActivity.this, "下单失败", Toast.LENGTH_SHORT).show();
+                    }
 
-            @Override
-            protected Object parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
-                return null;
-            }
-        });
+                    @Override
+                    protected Object parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
+                        return null;
+                    }
+                });
     }
 
 }

@@ -97,16 +97,19 @@ public class WXPayWaiMai implements PayStyle {
 
             @Override
             protected Object parseResponse(String rawJsonData) throws Throwable {
+                submit.setClickable(true);
                 return null;
             }
 
             @Override
             public void onFailure(int statusCode, String rawJsonData, Object errorResponse) {
                 UiFormat.tryRequest(rawJsonData);
+                submit.setClickable(true);
             }
 
             @Override
             public void onSuccess(int statusCode, String rawJsonResponse, Object response) {
+                submit.setClickable(true);
                 Log.i(MyHttpConfing.tag, rawJsonResponse);
 
                 AlPayEntity alPayEntity = gson.fromJson(rawJsonResponse, AlPayEntity.class);

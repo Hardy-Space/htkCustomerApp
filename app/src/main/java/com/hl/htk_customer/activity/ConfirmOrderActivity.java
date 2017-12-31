@@ -17,6 +17,7 @@ import com.hl.htk_customer.dialog.OneLineDialog;
 import com.hl.htk_customer.model.DefaultAddress;
 import com.hl.htk_customer.model.ShopInfoModel;
 import com.hl.htk_customer.model.ShopProduct;
+import com.hl.htk_customer.utils.Arith;
 import com.hl.htk_customer.utils.MyApplication;
 import com.hl.htk_customer.utils.pay.AliPayWaiMai;
 import com.hl.htk_customer.utils.pay.PayStyle;
@@ -172,7 +173,8 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
      * @return 总价
      */
     public double getTotalPrice(){
-        return goodsPrice + mDeliveryFee - mVouchers;
+        double r = Arith.add(goodsPrice,mDeliveryFee);
+        return Arith.sub(r,mVouchers) ;
     }
 
 
@@ -232,7 +234,9 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
 
                 if (payWayTag == 0) {
                     DefaultAddress defaultAddress = app.getDefaultAddress();
-                    PayStyle pay = new AliPayWaiMai(ConfirmOrderActivity.this , String.valueOf(getTotalPrice()) , String.valueOf(shopId) , products ,
+                    double p = getTotalPrice();
+                    String price = String.valueOf(p);
+                    PayStyle pay = new AliPayWaiMai(ConfirmOrderActivity.this , price , String.valueOf(shopId) , products ,
                             defaultAddress.getLocation() + defaultAddress.getAddress(),
                             String.valueOf(defaultAddress.getPhoneNumber()),
                             defaultAddress.getUserName(),
