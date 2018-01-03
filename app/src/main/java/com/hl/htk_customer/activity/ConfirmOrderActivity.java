@@ -264,7 +264,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                 payWayDialog.show();
                 break;
             case R.id.confirm_order_Vouchers_num:
-                CouponActivity.launch(this , 1 , shopId,Arith.add(goodsPrice,mDeliveryFee));
+                CouponActivity.launch(this , 1 , shopId,goodsPrice);
                 break;
             default:
                 break;

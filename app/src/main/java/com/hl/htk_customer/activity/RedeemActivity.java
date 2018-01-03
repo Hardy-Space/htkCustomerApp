@@ -2,7 +2,6 @@ package com.hl.htk_customer.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -31,7 +30,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -84,6 +82,7 @@ public class RedeemActivity extends BaseActivity implements View.OnClickListener
         showLoadingDialog();
         getData();
 
+        refreshRedeem.setEnableLoadmoreWhenContentNotFull(true);
         refreshRedeem.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {

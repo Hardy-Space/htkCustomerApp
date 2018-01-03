@@ -3,6 +3,8 @@ package com.hl.htk_customer.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -121,6 +123,10 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         });
 
         rvCoupon.setLayoutManager(new LinearLayoutManager(this));
+
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(this,R.drawable.divider));
+        rvCoupon.addItemDecoration(divider);
         couponAdapter = new CouponAdapter(R.layout.item_coupon, null, tag, mGetProductPrice);
         couponAdapter.bindToRecyclerView(rvCoupon);
         rvCoupon.setAdapter(couponAdapter);
