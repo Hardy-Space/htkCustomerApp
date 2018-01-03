@@ -85,6 +85,7 @@ public class OrderItemDetailAdapter extends BaseAdapter {
             tvItemName.setText(list.get(position).getGoods());
             tvPrice.setText("￥" + list.get(position).getPrice());
             tvNum.setText("x" + list.get(position).getNumber());
+
         }
 
 

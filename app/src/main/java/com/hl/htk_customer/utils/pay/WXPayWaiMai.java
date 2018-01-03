@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.hl.htk_customer.activity.ConfirmOrderActivity;
 import com.hl.htk_customer.activity.OrderDetailActivity;
 import com.hl.htk_customer.entity.AlPayEntity;
 import com.hl.htk_customer.entity.WxEntity;
@@ -54,10 +55,17 @@ public class WXPayWaiMai implements PayStyle {
 
     private TextView submit;
 
+    /**
+     * @modified by 马鹏昊
+     * @date 2018.1.3
+     * @desc 向后台传入优惠券id
+     */
+    private String mCouponId;
+
 
     private Gson gson ;
 
-    public WXPayWaiMai(Activity context , String orderAmount , String shopId , List<AliPayWaiMai.ProductList> list ,
+    public WXPayWaiMai(Activity context , String couponId,String orderAmount , String shopId , List<AliPayWaiMai.ProductList> list ,
                        String shippingAddress , String receivingCall , String receiptName , Double longitude , Double latitude , Integer sex , TextView submit) {
         this.mContext = context;
         this.orderAmount = orderAmount;
@@ -69,6 +77,13 @@ public class WXPayWaiMai implements PayStyle {
         this.latitude = latitude;
         this.sex = sex;
         this.submit = submit;
+
+        /**
+         * @modified by 马鹏昊
+         * @date 2018.1.3
+         * @desc 向后台传入优惠券id
+         */
+        this.mCouponId = couponId;
 
         gson = new Gson();
         mJsonProductList = gson.toJson(list);
@@ -84,6 +99,16 @@ public class WXPayWaiMai implements PayStyle {
         params.put("mark" , mark);
         params.put("flag" , flag);
         params.put("appIp" , IPUtils.getIp());
+
+        /**
+         * @modified by 马鹏昊
+         * @date 2018.1.3
+         * @desc 如果选择了优惠券就向后台传入优惠券id，否则不传该值
+         */
+        String noCoupon = String.valueOf(ConfirmOrderActivity.NON_COUPON);
+        if (!noCoupon.equals(mCouponId))
+            params.put("couponId", mCouponId);
+
         params.put("jsonProductList" , mJsonProductList);
         params.put("shopId" , shopId);
         params.put("orderAmount" , orderAmount);

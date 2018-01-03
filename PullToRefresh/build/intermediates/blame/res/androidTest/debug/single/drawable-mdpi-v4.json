@@ -1,23 +1,7 @@
 [
     {
-        "merged": "F:\\QdHuaLing_Project\\htkCustomerApp\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
-        "source": "F:\\QdHuaLing_Project\\htkCustomerApp\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_flip.png"
-    },
-    {
         "merged": "D:\\AndroidProjs_MPH\\htk_customer\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
         "source": "D:\\AndroidProjs_MPH\\htk_customer\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
-    },
-    {
-        "merged": "C:\\Users\\asus\\Desktop\\HuaLing_Develop\\shenyali\\htk_customer\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
-        "source": "C:\\Users\\asus\\Desktop\\HuaLing_Develop\\shenyali\\htk_customer\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_flip.png"
-    },
-    {
-        "merged": "C:\\Users\\asus\\Desktop\\HuaLing_Develop\\shenyali\\htk_customer\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
-        "source": "C:\\Users\\asus\\Desktop\\HuaLing_Develop\\shenyali\\htk_customer\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\indicator_arrow.png"
-    },
-    {
-        "merged": "F:\\QdHuaLing_Project\\htkCustomerApp\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
-        "source": "F:\\QdHuaLing_Project\\htkCustomerApp\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\indicator_arrow.png"
     },
     {
         "merged": "D:\\AndroidProjs_MPH\\htk_customer\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
@@ -26,13 +10,5 @@
     {
         "merged": "D:\\AndroidProjs_MPH\\htk_customer\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
         "source": "D:\\AndroidProjs_MPH\\htk_customer\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\indicator_arrow.png"
-    },
-    {
-        "merged": "F:\\QdHuaLing_Project\\htkCustomerApp\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
-        "source": "F:\\QdHuaLing_Project\\htkCustomerApp\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
-    },
-    {
-        "merged": "C:\\Users\\asus\\Desktop\\HuaLing_Develop\\shenyali\\htk_customer\\PullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
-        "source": "C:\\Users\\asus\\Desktop\\HuaLing_Develop\\shenyali\\htk_customer\\PullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
     }
 ]

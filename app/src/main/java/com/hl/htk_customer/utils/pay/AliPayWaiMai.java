@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.google.gson.Gson;
+import com.hl.htk_customer.activity.ConfirmOrderActivity;
 import com.hl.htk_customer.activity.OrderDetailActivity;
 import com.hl.htk_customer.entity.AlPayEntity;
 import com.hl.htk_customer.model.CommonMsg;
@@ -26,9 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * 支付宝支付 ， 外卖
- *
+ * <p>
  * Created by Administrator on 2017/9/25.
  * Int  flag  1 支付宝    2微信
  * String token 用户token
@@ -43,7 +43,6 @@ import java.util.Map;
  * private Double longitude;   //地址经度
  * private Double latitude;   //地址纬度
  * private Integer sex;   //收货人性别
- *
  */
 
 public class AliPayWaiMai implements PayStyle {
@@ -59,6 +58,14 @@ public class AliPayWaiMai implements PayStyle {
     private Activity mContext;
     private String orderAmount;
     private String shopId;
+
+    /**
+     * @modified by 马鹏昊
+     * @date 2018.1.3
+     * @desc 向后台传入优惠券id
+     */
+    private String mCouponId;
+
     private String shippingAddress;  //收货地址
     private String receivingCall;  //收货人手机号
     private String receiptName;  //收货人名字
@@ -69,7 +76,7 @@ public class AliPayWaiMai implements PayStyle {
 
     private TextView submit;//提交按钮
 
-    private Gson gson ;
+    private Gson gson;
 
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
@@ -100,7 +107,7 @@ public class AliPayWaiMai implements PayStyle {
 
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                        Toast.makeText(mContext , "支付失败" ,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "支付失败", Toast.LENGTH_SHORT).show();
                         //取消订单
                         deleteOrder();
                     }
@@ -112,8 +119,8 @@ public class AliPayWaiMai implements PayStyle {
         }
     };
 
-    public AliPayWaiMai(Activity context , String orderAmount , String shopId , List<ProductList> list ,
-                        String shippingAddress , String receivingCall , String receiptName , Double longitude , Double latitude , Integer sex , TextView submit) {
+    public AliPayWaiMai(Activity context, String couponId, String orderAmount, String shopId, List<ProductList> list,
+                        String shippingAddress, String receivingCall, String receiptName, Double longitude, Double latitude, Integer sex, TextView submit) {
         this.mContext = context;
         this.orderAmount = orderAmount;
         this.shopId = shopId;
@@ -125,6 +132,13 @@ public class AliPayWaiMai implements PayStyle {
         this.sex = sex;
         this.submit = submit;
 
+        /**
+         * @modified by 马鹏昊
+         * @date 2018.1.3
+         * @desc 向后台传入优惠券id
+         */
+        this.mCouponId = couponId;
+
         gson = new Gson();
         mJsonProductList = gson.toJson(list);
     }
@@ -134,18 +148,28 @@ public class AliPayWaiMai implements PayStyle {
         submit.setClickable(false);
 
         RequestParams params = AsynClient.getRequestParams();
-        params.put("mark" , mark);
-        params.put("flag" , flag);
-        params.put("appIp" , IPUtils.getIp());
-        params.put("jsonProductList" , mJsonProductList);
-        params.put("shopId" , shopId);
-        params.put("orderAmount" , orderAmount);
-        params.put("shippingAddress" , shippingAddress);
-        params.put("receivingCall" , receivingCall);
-        params.put("receiptName" , receiptName);
-        params.put("longitude" , longitude);
-        params.put("latitude" , latitude);
-        params.put("sex" , sex);
+        params.put("mark", mark);
+        params.put("flag", flag);
+
+        /**
+         * @modified by 马鹏昊
+         * @date 2018.1.3
+         * @desc 如果选择了优惠券就向后台传入优惠券id，否则不传该值
+         */
+        String noCoupon = String.valueOf(ConfirmOrderActivity.NON_COUPON);
+        if (!noCoupon.equals(mCouponId))
+            params.put("couponId", mCouponId);
+
+        params.put("appIp", IPUtils.getIp());
+        params.put("jsonProductList", mJsonProductList);
+        params.put("shopId", shopId);
+        params.put("orderAmount", orderAmount);
+        params.put("shippingAddress", shippingAddress);
+        params.put("receivingCall", receivingCall);
+        params.put("receiptName", receiptName);
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
+        params.put("sex", sex);
         AsynClient.post(MyHttpConfing.pay, mContext, params, new GsonHttpResponseHandler() {
 
             @Override
@@ -182,7 +206,7 @@ public class AliPayWaiMai implements PayStyle {
                         }
                     }).start();
                 } else {
-                    Toast.makeText(mContext , alPayEntity.getMessage() , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, alPayEntity.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -215,14 +239,14 @@ public class AliPayWaiMai implements PayStyle {
 
                 CommonMsg commonMsg = gson.fromJson(rawJsonResponse, CommonMsg.class);
 
-                Toast.makeText(mContext , commonMsg.getMessage() , Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, commonMsg.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
 
     }
 
-    public void deleteOrder(){
+    public void deleteOrder() {
         RequestParams params = AsynClient.getRequestParams();
         params.put("orderNumber", orderNumber);
         params.put("mark", mark);
@@ -244,13 +268,13 @@ public class AliPayWaiMai implements PayStyle {
                 Gson gson = new Gson();
                 CommonMsg commonMsg = gson.fromJson(rawJsonResponse, CommonMsg.class);
 
-//                Toast.makeText(mContext , commonMsg.getMessage() , Toast.LENGTH_SHORT).show();
+                //                Toast.makeText(mContext , commonMsg.getMessage() , Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
-    public static class ProductList{
+    public static class ProductList {
         private String productName;
         private int quantity;
         private double price;

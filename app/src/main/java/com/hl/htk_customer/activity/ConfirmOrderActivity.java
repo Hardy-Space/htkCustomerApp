@@ -85,7 +85,9 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
     List<String> list = new ArrayList<>();
     private int payWayTag = 0;  // 0 支付宝  1 微信
     String mark = "";
-
+    //选择的优惠券ID
+    public static final int NON_COUPON = -1;
+    private int mCouponId = NON_COUPON;
 
 
     @Override
@@ -206,7 +208,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CouponActivity.REQUESTCODE && resultCode == CouponActivity.RESULTCODE){
-            int id = data.getIntExtra("id", 0);
+            mCouponId = data.getIntExtra("id", 0);
             mVouchers = data.getDoubleExtra("amount", 0);
             mTvVouchersNum.setText(String.format(getString(R.string.join_amount_cut) , mVouchers));
             setTotalPriceText();
@@ -236,7 +238,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                     DefaultAddress defaultAddress = app.getDefaultAddress();
                     double p = getTotalPrice();
                     String price = String.valueOf(p);
-                    PayStyle pay = new AliPayWaiMai(ConfirmOrderActivity.this , price , String.valueOf(shopId) , products ,
+                    PayStyle pay = new AliPayWaiMai(ConfirmOrderActivity.this ,String.valueOf(mCouponId), price , String.valueOf(shopId) , products ,
                             defaultAddress.getLocation() + defaultAddress.getAddress(),
                             String.valueOf(defaultAddress.getPhoneNumber()),
                             defaultAddress.getUserName(),
@@ -246,7 +248,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                     pay.pay();
                 } else {
                     DefaultAddress defaultAddress = app.getDefaultAddress();
-                    PayStyle pay = new WXPayWaiMai(ConfirmOrderActivity.this , String.valueOf(getTotalPrice()) , String.valueOf(shopId) , products ,
+                    PayStyle pay = new WXPayWaiMai(ConfirmOrderActivity.this , String.valueOf(mCouponId),String.valueOf(getTotalPrice()) , String.valueOf(shopId) , products ,
                             defaultAddress.getLocation() + defaultAddress.getAddress(),
                             String.valueOf(defaultAddress.getPhoneNumber()),
                             defaultAddress.getUserName(),
@@ -262,7 +264,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                 payWayDialog.show();
                 break;
             case R.id.confirm_order_Vouchers_num:
-                CouponActivity.launch(this , 1 , shopId);
+                CouponActivity.launch(this , 1 , shopId,Arith.add(goodsPrice,mDeliveryFee));
                 break;
             default:
                 break;

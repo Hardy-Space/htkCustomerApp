@@ -19,7 +19,6 @@ import com.hl.htk_customer.R;
 import com.hl.htk_customer.adapter.CouponAdapter;
 import com.hl.htk_customer.base.BaseActivity;
 import com.hl.htk_customer.entity.CouponEntity;
-import com.hl.htk_customer.model.CheckChangeEvent;
 import com.hl.htk_customer.utils.AsynClient;
 import com.hl.htk_customer.utils.GsonHttpResponseHandler;
 import com.hl.htk_customer.utils.MyHttpConfing;
@@ -27,18 +26,18 @@ import com.loopj.android.http.RequestParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2017/10/30.
+ * 优惠券选择
  */
 
 public class CouponActivity extends BaseActivity implements View.OnClickListener {
@@ -58,6 +57,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
 
     private static final String EXTRA_TAG = "EXTRA_TAG";
     private static final String SHOPID = "shopId";
+    private static final String PRODUCT_PRICE = "productPrice";
     public static final int REQUESTCODE = 233;
     public static final int RESULTCODE = 233 + 233;
 
@@ -72,6 +72,9 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
     private int shopId;
 
 
+    private double mGetProductPrice = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,15 +85,16 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         init();
     }
 
-    public static void launch(Activity context , int shopId){
-        launch(context , 0 , shopId);
+    public static void launch(Activity context, int shopId) {
+        launch(context, 0, shopId, 0);
     }
 
-    public static void launch(Activity context , int tag , int shopId){
+    public static void launch(Activity context, int tag, int shopId, double productPrice) {
         Intent intent = new Intent(context, CouponActivity.class);
-        intent.putExtra(EXTRA_TAG , tag);
-        intent.putExtra(SHOPID , shopId);
-        context.startActivityForResult(intent , REQUESTCODE);
+        intent.putExtra(EXTRA_TAG, tag);
+        intent.putExtra(SHOPID, shopId);
+        intent.putExtra(PRODUCT_PRICE, productPrice);
+        context.startActivityForResult(intent, REQUESTCODE);
     }
 
     private void initBar() {
@@ -102,8 +106,9 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
 
     private void init() {
 
-        tag = getIntent().getIntExtra(EXTRA_TAG , 0);
-        shopId = getIntent().getIntExtra(SHOPID , 0);
+        tag = getIntent().getIntExtra(EXTRA_TAG, 0);
+        shopId = getIntent().getIntExtra(SHOPID, 0);
+        mGetProductPrice = getIntent().getIntExtra(PRODUCT_PRICE, 0);
 
         showLoadingDialog();
         getData();
@@ -116,34 +121,39 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         });
 
         rvCoupon.setLayoutManager(new LinearLayoutManager(this));
-        couponAdapter = new CouponAdapter(R.layout.item_coupon , null , tag);
+        couponAdapter = new CouponAdapter(R.layout.item_coupon, null, tag, mGetProductPrice);
         couponAdapter.bindToRecyclerView(rvCoupon);
         rvCoupon.setAdapter(couponAdapter);
 
         couponAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (tag != 0){
+                if (tag != 0) {
+
+                    if (!checkIfCanClick(position)) {
+                        return;
+                    }
+
                     BaseViewHolder holder = (BaseViewHolder) rvCoupon.findViewHolderForLayoutPosition(couponAdapter.getmSelectPos());
-                    if (holder != null){
+                    if (holder != null) {
                         CheckBox checkBox = holder.getView(R.id.tv_item_coupon_check);
                         checkBox.setChecked(false);
-                    }else {
+                    } else {
                         couponAdapter.notifyItemChanged(couponAdapter.getmSelectPos());
                     }
                     couponAdapter.getData().get(position).setSelect(true);
-                    if (couponAdapter.getmSelectPos() != -1){
+                    if (couponAdapter.getmSelectPos() != -1) {
                         couponAdapter.getData().get(couponAdapter.getmSelectPos()).setSelect(false);
                     }
                     couponAdapter.setmSelectPos(position);
 
-                    CheckBox checkBox = (CheckBox) couponAdapter.getViewByPosition(position ,R.id.tv_item_coupon_check );
+                    CheckBox checkBox = (CheckBox) couponAdapter.getViewByPosition(position, R.id.tv_item_coupon_check);
                     checkBox.setChecked(true);
 
                     Intent intent = new Intent();
-                    intent.putExtra("id" , couponAdapter.getData().get(position).getId());
-                    intent.putExtra("amount" , couponAdapter.getData().get(position).getTMoney());
-                    setResult(RESULTCODE , intent);
+                    intent.putExtra("id", couponAdapter.getData().get(position).getId());
+                    intent.putExtra("amount", couponAdapter.getData().get(position).getTMoney());
+                    setResult(RESULTCODE, intent);
                     finish();
                 }
             }
@@ -151,11 +161,39 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
     }
 
     /**
+     * @modified by 马鹏昊
+     * @date 2018.1.3
+     * @desc 根据满减限制和有效期限制设置是否可点击
+     */
+    private boolean checkIfCanClick(int position) {
+
+        CouponEntity.DataBean dataBean = couponAdapter.getData().get(position);
+        double tUseMoney = dataBean.getTUseMoney();
+        String expirationStr = dataBean.getTExpiration();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date expirationDate = null;
+        try {
+            expirationDate = dateFormat.parse(expirationStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date currentDate = new Date();
+        int i = expirationDate.compareTo(currentDate);//i<0表示前者在后者前边
+        boolean ifIllegalPrice = mGetProductPrice < tUseMoney;//是否符合满减条件
+        boolean ifIllegalDate = (i <= 0);//是否符合满减条件
+        if (ifIllegalPrice || ifIllegalDate) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * 获取优惠券数据
      */
     private void getData() {
         RequestParams params = new RequestParams();
-        params.put("shopId" , shopId);
+        params.put("shopId", shopId);
         AsynClient.post(MyHttpConfing.getAccountCouponList, mContext, params, new GsonHttpResponseHandler() {
             @Override
             protected Object parseResponse(String rawJsonData) throws Throwable {
@@ -175,9 +213,9 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
                 hideLoadingDialog();
                 refreshCoupon.finishRefresh();
                 CouponEntity couponEntity = new Gson().fromJson(rawJsonResponse, CouponEntity.class);
-                if (couponEntity.getCode() == 100){
+                if (couponEntity.getCode() == 100) {
                     couponAdapter.setNewData(couponEntity.getData());
-                }else {
+                } else {
                     showMessage(couponEntity.getMessage());
                 }
             }
@@ -186,7 +224,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_back:
                 finish();
                 break;
