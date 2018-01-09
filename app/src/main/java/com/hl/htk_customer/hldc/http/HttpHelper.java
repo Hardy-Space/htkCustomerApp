@@ -82,9 +82,10 @@ public class HttpHelper {
     /**
      * 一、获取分类 --
      */
-    public void getCategoryList(Context context,JsonHandler<String> jsonHandler){
+    public void getCategoryList(Context context,int shopId,JsonHandler<String> jsonHandler){
         RequestParams params = new RequestParams();
-        params.put("qrKey", "udgCpUD3O1EpSQwfOweBHA==");
+//        params.put("qrKey", "udgCpUD3O1EpSQwfOweBHA==");
+        params.put("shopId", shopId);
         requestForPostNoToken(context,ContactValues.GETCATEGORYLIST,params,jsonHandler);
     }
 

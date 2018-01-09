@@ -21,14 +21,13 @@ import com.hl.htk_customer.hldc.bean.CategoryBean;
 import com.hl.htk_customer.hldc.http.HttpHelper;
 import com.hl.htk_customer.hldc.http.JsonHandler;
 import com.hl.htk_customer.hldc.pager.Tuijianpager;
+import com.hl.htk_customer.hldc.utils.PreferencesUtils;
 import com.hl.htk_customer.hldc.utils.ToolUtils;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
 
 
 /**
@@ -44,6 +43,7 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
     private View mView;
     private ArrayList<BaseViewpager> pagerList = new ArrayList<>();
     private List<String> groupList = new ArrayList<>();
+    private List<CategoryBean> myList = new ArrayList<>();
 
     private static final int GET_PAGER_LIST = 1;
 
@@ -66,13 +66,31 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView=View.inflate(getActivity(), R.layout.layout_diancai,null);
         initView();
-        getCategoryList();
+//        getCategoryList();
         return mView;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            //            Toast.makeText(mActivity, "show", Toast.LENGTH_SHORT).show();
+            getCategoryList();
+        }else {
+            //            Toast.makeText(mActivity, "hide", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getCategoryList();
     }
 
     private void initsetAdapter() {
         myPagerAdapter myPagerAdapter = new myPagerAdapter();
         pager.setAdapter(myPagerAdapter);
+        myPagerAdapter.notifyDataSetChanged();
         tab.setupWithViewPager(pager);
         tab.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
@@ -132,7 +150,8 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
     }
 
     private void getCategoryList(){
-        HttpHelper.getInstance().getCategoryList(getActivity(), new JsonHandler<String>(){
+
+        HttpHelper.getInstance().getCategoryList(getActivity(), PreferencesUtils.getInt(getActivity(),"shopId"), new JsonHandler<String>(){
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
@@ -152,8 +171,10 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
         });
     }
 
-    List<CategoryBean> myList = new ArrayList<>();
     private void convertStringToList(String result){
+        myList.clear();
+        groupList.clear();
+        pagerList.clear();
         JSONArray obj =  null;
         try{
             obj = new JSONArray(result);

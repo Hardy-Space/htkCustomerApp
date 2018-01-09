@@ -58,6 +58,23 @@ public class MyFragment extends BaseFragment implements OnClickListener{
         return mView;
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            //            Toast.makeText(mActivity, "show", Toast.LENGTH_SHORT).show();
+            getMineInfo();
+        }else {
+            //            Toast.makeText(mActivity, "hide", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getMineInfo();
+    }
+
     private void initView(View mView){
         viewHead = mView.findViewById(R.id.headview);
         tvTitle = viewHead.findViewById(R.id.tv_common_title);
@@ -77,7 +94,7 @@ public class MyFragment extends BaseFragment implements OnClickListener{
         imgGoToAbout = mView.findViewById(R.id.img_gotoabout);
         imgGoToAdvise = mView.findViewById(R.id.img_gotojianyi);
         initClickListener();
-        getMineInfo();
+//        getMineInfo();
     }
 
     private void refreshUI(){

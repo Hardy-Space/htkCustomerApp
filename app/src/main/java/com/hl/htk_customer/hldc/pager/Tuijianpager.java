@@ -42,7 +42,7 @@ public class Tuijianpager extends BaseViewpager implements XListView.IXListViewL
     public View initView() {
         view=View.inflate(mactivity, R.layout.pager_layout,null);
         init(); //初始化
-        initData();
+//        initData();
         return view;
     }
 
@@ -78,8 +78,8 @@ public class Tuijianpager extends BaseViewpager implements XListView.IXListViewL
     @Override
     public void onRefresh(XListView lxist) {
         //下拉刷新
-        page -= 1;
-        myList.clear();
+        page = 1;
+//        myList.clear();
         if (adapter!=null){
             adapter.notifyDataSetChanged();
         }
@@ -90,7 +90,30 @@ public class Tuijianpager extends BaseViewpager implements XListView.IXListViewL
     public void onLoadMore(XListView list) {
         //上拉加载
         page+=1;
-        initData();
+        getMoreGoodsList();
+    }
+
+    private void getMoreGoodsList() {
+        HttpHelper.getInstance().getGoodsListById(context,
+                categoryId, page, new JsonHandler<String>() {
+                    @Override
+                    public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+                        Log.d(TAG, "onSuccess() responseString==>>>" + responseString);
+                        convertStringToListByLoadMore(ToolUtils.getJsonParseResult(responseString));
+                        onLoad(listView); //
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
+                        Log.d(TAG, "onFailure() ==>>>");
+                        onLoad(listView); //
+                    }
+
+                    @Override
+                    protected Object parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
+                        return null;
+                    }
+                });
     }
 
     private void getGoodsList(){
@@ -118,6 +141,38 @@ public class Tuijianpager extends BaseViewpager implements XListView.IXListViewL
 
     List<GoodBean> myList = new ArrayList<>();
     private void convertStringToList(String result){
+        myList.clear();
+        JSONArray obj =  null;
+        try{
+            obj = new JSONArray(result);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(obj.length() > 0){
+            for(int i=0;i<obj.length();i++){
+                GoodBean bean = new GoodBean();
+                try{
+                    bean.setShopId( obj.getJSONObject(i).getInt("shopId"));
+                    bean.setId( obj.getJSONObject(i).getInt("id"));
+                    bean.setPrice( obj.getJSONObject(i).getDouble("price"));
+                    bean.setImgUrl( obj.getJSONObject(i).getString("imgUrl"));
+                    bean.setProductName( obj.getJSONObject(i).getString("productName"));
+                    bean.setGrade( obj.getJSONObject(i).getInt("grade"));
+                    bean.setMonthlySalesVolume( obj.getJSONObject(i).getInt("monthlySalesVolume"));
+                    bean.setCollectState( obj.getJSONObject(i).getInt("collectState"));
+                    bean.setProductDetail( obj.getJSONObject(i).getString("productDetail"));
+                    bean.setDescription( obj.getJSONObject(i).getString("description"));
+                    bean.setCategoryName(obj.getJSONObject(i).getString("categoryname"));
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                myList.add(bean);
+            }
+            initAdapter();
+        }
+    }
+
+    private void convertStringToListByLoadMore(String result){
         JSONArray obj =  null;
         try{
             obj = new JSONArray(result);

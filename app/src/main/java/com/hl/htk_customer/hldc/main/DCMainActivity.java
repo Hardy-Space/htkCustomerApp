@@ -129,7 +129,7 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
     }
 
     private void quickPostOrder(GoodBean mGoodBean){
-        HttpHelper.getInstance().quickOrdered(this, mGoodBean.getPrice(), mGoodBean.getShopId(),
+        HttpHelper.getInstance().quickOrdered(this, mGoodBean.getPrice(), PreferencesUtils.getInt(DCMainActivity.this,"shopId"),
                 "["+mGoodBean.toString()+"]", //待修改jsonProductList
                 new JsonHandler<String>() {
 
