@@ -110,6 +110,7 @@ public class GoodDetailActivity extends AppCompatActivity implements View.OnClic
         }
         tv_yx.setText(getResources().getString(R.string.monthsale)+""+mGoodBean.getMonthlySalesVolume()
                 +getResources().getString(R.string.danwei));
+        tv_title.setText(mGoodBean.getProductName());
         updateTotalPriceAndNumber(1);
     }
 
