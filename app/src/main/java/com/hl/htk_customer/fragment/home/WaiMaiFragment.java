@@ -345,7 +345,6 @@ public class WaiMaiFragment extends BaseFragment implements View.OnClickListener
                             }
                             break;
                         case 1://进入自助点餐
-
                             analysis(scanResultEntity.getShopKey() , 1);
                             break;
                     }

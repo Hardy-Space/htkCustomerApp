@@ -226,10 +226,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             public void onSuccess(int statusCode, String rawJsonResponse, Object response) {
                 CommonMsg commonMsg = UiFormat.getCommonMsg(rawJsonResponse);
                 Log.i(TAG, "onSuccess: " + rawJsonResponse);
-
                 if (commonMsg.getCode() == 100) {
                     initLoginData(commonMsg);
                     finishLogin();
+                    showMessage("注册成功");
+//                    goToActivity(LoginActivity.class);
+                    RegisterActivity.this.finish();
                 } else {
                     showMessage(commonMsg.getMessage());
                 }

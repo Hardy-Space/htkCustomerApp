@@ -1,6 +1,7 @@
 package com.hl.htk_customer.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -143,4 +144,8 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void goToActivity(Class cls){
+        Intent mIntent = new Intent(this,cls);
+        startActivity(mIntent);
+    }
 }

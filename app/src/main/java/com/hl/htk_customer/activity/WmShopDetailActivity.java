@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -77,7 +78,7 @@ public class WmShopDetailActivity extends BaseActivity implements View.OnClickLi
 
     private List<String> titles;
     private List<BaseFragment> fragmentList;
-    private int shopId = -1;
+    public static int shopId = -1;
     private ShopInfoEntity shopInfoEntity;
     private ShopStateDialog shopStateDialog;
 
@@ -97,12 +98,13 @@ public class WmShopDetailActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mImageThread.getLooper().quit();
-        mImageThread = null;
+        if(mImageThread != null){
+            mImageThread.getLooper().quit();
+            mImageThread = null;
+        }
     }
 
     private void initWidget() {
-
         shopId = getIntent().getIntExtra("shopId", -1);
         llReturn.setOnClickListener(this);
         rlTitle.setOnClickListener(this);
@@ -123,9 +125,12 @@ public class WmShopDetailActivity extends BaseActivity implements View.OnClickLi
         for (int i = 0; i < titles.size(); i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(i)));
         }
-
+        Bundle mBundler = new Bundle();
+        mBundler.putInt("shopId", shopId);
+        ItemFragment mItemFragment = new ItemFragment();
+        mItemFragment.setArguments(mBundler);
         fragmentList = new ArrayList<>();
-        fragmentList.add(new ItemFragment());
+        fragmentList.add(mItemFragment);
         fragmentList.add(new EvaluateFragment());
 
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), titles, fragmentList);

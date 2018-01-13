@@ -262,9 +262,6 @@ public class CollectionListActivity extends BaseActivity implements View.OnClick
             params.put("userLo", location.getLongitude());
             params.put("userLa", location.getLatitude());
         }
-
-
-
         AsynClient.post(MyHttpConfing.shopListById, this, params, new GsonHttpResponseHandler() {
             @Override
             protected Object parseResponse(String rawJsonData) throws Throwable {
@@ -282,14 +279,14 @@ public class CollectionListActivity extends BaseActivity implements View.OnClick
                 Log.i(TAG , rawJsonResponse);
                 Gson gson = new Gson();
                 ShopAndRecommendEntity shopData = gson.fromJson(rawJsonResponse, ShopAndRecommendEntity.class);
-
                 if (shopData.getCode() == 100) {
-
                     if (shopData.getData() == null){
-                        mCollectionTvRecommend.setVisibility(View.GONE);
-                        mCollectionListViewRecommend.setVisibility(View.GONE);
-                        mCollectionListAdapter.setNewData(null);
-                        mCollectionListAdapter.setEmptyView(emptyView);
+                        if(mCollectionListAdapter.getData() == null || mCollectionListAdapter.getData().size() == 0){
+                            mCollectionTvRecommend.setVisibility(View.GONE);
+                            mCollectionListViewRecommend.setVisibility(View.GONE);
+                            mCollectionListAdapter.setNewData(null);
+                            mCollectionListAdapter.setEmptyView(emptyView);
+                        }
                     }else {
                         //如果收藏商家为空，收藏列表隐藏，否则显示
                         if (shopData.getData().getShopList() == null || shopData.getData().getShopList().size() == 0){

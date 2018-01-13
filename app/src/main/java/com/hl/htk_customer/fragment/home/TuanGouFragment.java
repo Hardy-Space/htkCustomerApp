@@ -326,14 +326,16 @@ public class TuanGouFragment extends BaseFragment implements View.OnClickListene
             @Override
             public void onSuccess(int statusCode, String rawJsonResponse, Object response) {
                 Log.i(TAG + "团购", rawJsonResponse);
-                mErrorView.setVisibility(View.GONE);
-                mNestedScrollView.setVisibility(View.VISIBLE);
-
+                if(mErrorView != null){
+                    mErrorView.setVisibility(View.GONE);
+                }
+                if(mNestedScrollView != null){
+                    mNestedScrollView.setVisibility(View.VISIBLE);
+                }
                 Gson gson = new Gson();
                 bestShopEntity = gson.fromJson(rawJsonResponse, BestShopEntity.class);
                 if (bestShopEntity.getCode() == 100) {
                     if (bestShopEntity.getData() != null){
-
                         if (mPageNumber == 1)
                             mRecommendShopListAdapter.setNewData(bestShopEntity.getData());
                         else
@@ -342,14 +344,12 @@ public class TuanGouFragment extends BaseFragment implements View.OnClickListene
                         if (mPageNumber == 1)
                             mRecommendShopListAdapter.setNewData(bestShopEntity.getData());
                     }
-
                     if (bestShopEntity.getData() == null || bestShopEntity.getData().size() < 8){
                         mRefresh.setEnableLoadmore(false);
                     }else {
                         mRefresh.setEnableLoadmore(true);
                     }
                 }
-
                 mRefresh.finishRefresh();
                 mRefresh.finishLoadmore();
                 hideLoading();

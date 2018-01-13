@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.maps2d.model.LatLng;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -124,6 +125,7 @@ public class WmShopInfoActivity extends BaseActivity implements View.OnClickList
         disableAutoScrollToBottom();
 
         shopId = getIntent().getIntExtra("shopId", -1);
+        Toast.makeText(WmShopInfoActivity.this,"WmShopInfoActivity.shopId=>"+shopId,Toast.LENGTH_SHORT).show();
         dataBean = (ShopInfoEntity.DataBean) getIntent().getSerializableExtra("info");
         if (dataBean != null) {
             getEvlaute(shopId);

@@ -31,7 +31,6 @@ public   abstract class BaseFragment  extends android.support.v4.app.Fragment {
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
-
         app = MyApplication.get(BaseFragment.this.getActivity());
         super.onCreate(savedInstanceState);
         mContext = MyApplication.getContext();
@@ -41,7 +40,6 @@ public   abstract class BaseFragment  extends android.support.v4.app.Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
         if (isVisibleToUser) {
             isVisible = true;
             lazyInitData();
@@ -55,7 +53,6 @@ public   abstract class BaseFragment  extends android.support.v4.app.Fragment {
 
     public void showMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-
     }
 
 

@@ -198,11 +198,8 @@ public class WXPayWaiMai implements PayStyle {
             @Override
             public void onSuccess(int statusCode, String rawJsonResponse, Object response) {
                 Log.i(MyHttpConfing.tag, rawJsonResponse);
-
                 CommonMsg commonMsg = gson.fromJson(rawJsonResponse, CommonMsg.class);
-
                 Toast.makeText(mContext , commonMsg.getMessage() , Toast.LENGTH_SHORT).show();
-
             }
         });
 

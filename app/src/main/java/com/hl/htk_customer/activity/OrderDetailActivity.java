@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -165,8 +166,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initWidget() {
-
-        shopId = getIntent().getIntExtra("shopId", -1);
+        shopId = Integer.valueOf(getIntent().getStringExtra("shopId"));
         orderId = getIntent().getIntExtra("orderId", -1);
         ivHead.setImageURI(Uri.parse(new UserInfoManager(mContext).getAvaUrl()));
         llReturn.setOnClickListener(this);
@@ -176,7 +176,6 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         tvEvaluate.setOnClickListener(this);
         tvCallShop.setOnClickListener(this);
         tvShopName.setOnClickListener(this);
-
         orderItemDetailAdapter = new OrderItemDetailAdapter(this);
         listViewItem.setAdapter(orderItemDetailAdapter);
         getDetail();

@@ -31,10 +31,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.activity.ConfirmOrderActivity;
+import com.hl.htk_customer.activity.WmShopDetailActivity;
 import com.hl.htk_customer.adapter.wm.ShopAdapter;
 import com.hl.htk_customer.adapter.wm.TestSectionedAdapter;
 import com.hl.htk_customer.assistant.ShopToDetailListener;
@@ -159,10 +161,10 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
         }
     };
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        shopId = getArguments().getInt("shopId");
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_item, null);
             isPrepared = true;
@@ -235,9 +237,6 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     private void initView() {
-
-        shopId = getActivity().getIntent().getIntExtra("shopId", -1);
-
         animation_viewGroup = createAnimLayout();
         noData = (TextView) getView().findViewById(R.id.noData);
         parentLayout = (RelativeLayout) getView().findViewById(R.id.parentLayout);

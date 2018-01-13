@@ -94,20 +94,24 @@ public class DingDanFragment extends BaseFragment {
 
     @Subscribe
     public void onEventMainThread(OrderStateChangeEvent event){
-        mRefresh.autoRefresh();
+        if(mRefresh != null){
+            mRefresh.autoRefresh();
+        }
     }
 
     @Subscribe
     public void onEventMainThread(RefreshInfoEntity event) {
         Log.i(TAG, "onEventMainThread: " + event.isRefresh());
-        if (event.isRefresh() && mRefresh != null)
+        if (event.isRefresh() && mRefresh != null){
             mRefresh.autoRefresh();
+        }
     }
 
     @Subscribe
     public void onEventMainThread(ScrollTopEntity event) {
-        if (event.getPage() == 2)
+        if (event.getPage() == 2 && mOrderListView != null){
             mOrderListView.scrollToPosition(0);
+        }
     }
 
     @Nullable
@@ -261,14 +265,11 @@ public class DingDanFragment extends BaseFragment {
      * @param orderAmount 价格
      */
     private void again(List<OrderListEntity.DataBean.ProductListBean> productList , int shopId , double orderAmount) {
-
         List<ShopProduct> productList1 = new ArrayList<ShopProduct>();
-
         for (int i = 0; i < productList.size(); i++) {
             OrderListEntity.DataBean.ProductListBean shopProduct = productList.get(i);
             productList1.add(new ShopProduct(shopProduct.getProductName(), shopProduct.getQuantity(), String.valueOf(shopProduct.getPrice()), shopProduct.getProductId()));
         }
-
         Intent intent = new Intent(mContext, WmShopDetailActivity.class);
         intent.putExtra("shopId", shopId);
         intent.putParcelableArrayListExtra("productList", (ArrayList<? extends Parcelable>) productList1);
@@ -301,14 +302,12 @@ public class DingDanFragment extends BaseFragment {
             public void onSuccess(int statusCode, String rawJsonResponse, Object response) {
                 Log.i(TAG, rawJsonResponse);
                 hideChangeDialog();
-
                 Gson gson = new Gson();
                 CommonMsg commonMsg = gson.fromJson(rawJsonResponse, CommonMsg.class);
                 if (commonMsg.getCode() == 100){
                     mRefresh.autoRefresh();
                 }
                 Toast.makeText(mContext , commonMsg.getMessage() , Toast.LENGTH_SHORT).show();
-
             }
         });
     }
