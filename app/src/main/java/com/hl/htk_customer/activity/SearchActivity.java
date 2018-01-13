@@ -205,6 +205,9 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
                         if (page == 1) {
                             List<ShopListEntity.DataBean> list = new ArrayList<ShopListEntity.DataBean>();
+                            for(ShopListEntity.DataBean mBean: list){
+                                Log.e(TAG,"shopId=>"+mBean.getShopId());
+                            }
                             searchShopAdapter.setData(list);
                         } else {
 
