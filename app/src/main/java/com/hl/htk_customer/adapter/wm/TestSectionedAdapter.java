@@ -89,7 +89,7 @@ public class TestSectionedAdapter extends SectionedBaseAdapter {
             public void onClick(View v) {
                 int num = product.getNumber();
                 int inventory = product.getInventory();
-                if(inventory <= 0){ // 根据库存来判断是否可以增加订单商品数量
+                if(inventory <= 0){   // 根据库存来判断是否可以增加订单商品数量
                     Toast.makeText(context,"该商品缺货状态，目前不可购买",Toast.LENGTH_SHORT).show();
                     return;
                 }
