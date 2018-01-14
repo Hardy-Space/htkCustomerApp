@@ -193,7 +193,7 @@ public class DingDanFragment extends BaseFragment {
                     case 0://外卖详情
                         intent = new Intent(getActivity(), OrderDetailActivity.class);
                         intent.putExtra("orderId", data.getOrderId());
-                        intent.putExtra("shopId", data.getShopId());
+                        intent.putExtra("shopId", data.getShopId()+"");
                         startActivity(intent);
                         break;
                     case 1://团购详情
