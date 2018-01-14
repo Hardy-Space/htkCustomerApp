@@ -103,6 +103,13 @@ public class AliPayWaiMai implements PayStyle {
                         Intent intent = new Intent(mContext, OrderDetailActivity.class);
                         intent.putExtra("orderId", orderId);
                         intent.putExtra("shopId", shopId);
+
+                        /**
+                         * @author 马鹏昊
+                         * @desc 必须传入购买的商品集合，计算返还积分需要遍历这个集合
+                         */
+
+                        intent.putExtra("jsonProductList", mJsonProductList);
                         mContext.startActivity(intent);
 
                     } else {

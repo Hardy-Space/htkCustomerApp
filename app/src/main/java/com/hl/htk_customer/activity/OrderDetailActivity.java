@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -117,6 +116,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
     private WmOrderDetailEntity wmOrderDetailEntity;
     private int mark = -1;// 0 支付宝  1微信
+    //购买的商品清单
+    private String jsonProductList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +169,9 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     private void initWidget() {
         shopId = Integer.valueOf(getIntent().getStringExtra("shopId"));
         orderId = getIntent().getIntExtra("orderId", -1);
+
+        jsonProductList = getIntent().getStringExtra("jsonProductList");
+
         ivHead.setImageURI(Uri.parse(new UserInfoManager(mContext).getAvaUrl()));
         llReturn.setOnClickListener(this);
         ivCallShop.setOnClickListener(this);
@@ -529,6 +533,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
         RequestParams params = AsynClient.getRequestParams();
         params.put("orderNumber", orderNumber);
+
+        //传入商品清单数据（计算返还积分）
+        params.put("jsonProductList", jsonProductList);
+
         AsynClient.post(MyHttpConfing.shouhuo, this, params, new GsonHttpResponseHandler() {
             @Override
             protected Object parseResponse(String rawJsonData) throws Throwable {

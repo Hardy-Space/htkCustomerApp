@@ -33,7 +33,6 @@ import com.hl.htk_customer.entity.RefreshInfoEntity;
 import com.hl.htk_customer.model.CommonMsg;
 import com.hl.htk_customer.model.OrderStateChangeEvent;
 import com.hl.htk_customer.model.ScrollTopEntity;
-import com.hl.htk_customer.model.SeatOrderDetailModel;
 import com.hl.htk_customer.model.ShopProduct;
 import com.hl.htk_customer.model.UserInfoManager;
 import com.hl.htk_customer.utils.AsynClient;
@@ -194,6 +193,12 @@ public class DingDanFragment extends BaseFragment {
                         intent = new Intent(getActivity(), OrderDetailActivity.class);
                         intent.putExtra("orderId", data.getOrderId());
                         intent.putExtra("shopId", data.getShopId()+"");
+
+
+                        //为了计算返还积分
+                        intent.putExtra("jsonProductList", new Gson().toJson(data.getProductList()));
+
+
                         startActivity(intent);
                         break;
                     case 1://团购详情
