@@ -174,17 +174,20 @@ public class AliPayWaiMai implements PayStyle {
 
             @Override
             protected Object parseResponse(String rawJsonData) throws Throwable {
+                submit.setClickable(true);
                 return null;
             }
 
             @Override
             public void onFailure(int statusCode, String rawJsonData, Object errorResponse) {
+                submit.setClickable(true);
                 UiFormat.tryRequest(rawJsonData);
             }
 
             @Override
             public void onSuccess(int statusCode, String rawJsonResponse, Object response) {
                 Log.i(MyHttpConfing.tag, rawJsonResponse);
+                submit.setClickable(true);
                 Gson gson = new Gson();
                 AlPayEntity alPayEntity = gson.fromJson(rawJsonResponse, AlPayEntity.class);
 

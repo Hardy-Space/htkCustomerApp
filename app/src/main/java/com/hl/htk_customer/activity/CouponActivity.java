@@ -110,7 +110,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
 
         tag = getIntent().getIntExtra(EXTRA_TAG, 0);
         shopId = getIntent().getIntExtra(SHOPID, 0);
-        mGetProductPrice = getIntent().getIntExtra(PRODUCT_PRICE, 0);
+        mGetProductPrice = getIntent().getDoubleExtra(PRODUCT_PRICE, 0);
 
         showLoadingDialog();
         getData();
