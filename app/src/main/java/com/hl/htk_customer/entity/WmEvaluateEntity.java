@@ -89,6 +89,17 @@ public class WmEvaluateEntity {
             private String accountToken;
             private Object commentId;
 
+            public String getMerchantReply() {
+                return merchantReply;
+            }
+
+            public void setMerchantReply(String merchantReply) {
+                this.merchantReply = merchantReply;
+            }
+
+            private String merchantReply;
+
+
             public int getAccountId() {
                 return accountId;
             }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,17 +39,19 @@ public class EvluateAdapter extends BaseQuickAdapter<WmEvaluateEntity.DataBean.L
 
     @Override
     protected void convert(BaseViewHolder helper, WmEvaluateEntity.DataBean.ListBean item) {
-
         helper.setText(R.id.tv_nickName , item.getNickName())
                 .setText(R.id.tv_time , item.getCommentTime())
                 .setText(R.id.tv_content , item.getContent());
-
+        if(item.getMerchantReply() == null || TextUtils.isEmpty(item.getMerchantReply())){
+            helper.getView(R.id.tv_replycontent).setVisibility(View.GONE);
+        }else{
+            helper.getView(R.id.tv_replycontent).setVisibility(View.VISIBLE);
+            helper.setText(R.id.tv_replycontent , item.getMerchantReply());
+        }
         SimpleDraweeView head = helper.getView(R.id.head);
         head.setImageURI(Uri.parse(item.getAvaUrl()));
-
         MyRatingBar ratingBar = helper.getView(R.id.ratingBar);
         ratingBar.setCountSelected((int)item.getCommentsStars());
-
     }
 
 }

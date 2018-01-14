@@ -60,6 +60,13 @@
         android:maxLines="2"
         fresco:layout_constraintTop_toBottomOf="@+id/ratingBar"
         fresco:layout_constraintLeft_toRightOf="@+id/head"/>
+    <TextView
+        android:id="@+id/tv_replycontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        fresco:layout_constraintTop_toBottomOf="@+id/tv_content"
+        fresco:layout_constraintLeft_toRightOf="@+id/head"/>
 
 
 </android.support.constraint.ConstraintLayout>
