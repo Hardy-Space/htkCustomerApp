@@ -60,6 +60,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.comfirm_order_layout);
+        zhuoNo = PreferencesUtils.getString(this,"zhuoNo");
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         mType = this.getIntent().getStringExtra("type");
         initViews();
@@ -100,6 +101,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         tvMoney1 = viewBtm.findViewById(R.id.tv_moneytip);
         tvPay = viewBtm.findViewById(R.id.tv_bottompay);
         tvPay.setText(getResources().getString(R.string.comfirmorder_state));
+        tvZhuoNo.setText(""+zhuoNo);
     }
 
     private void setOnClickListener(){
@@ -439,5 +441,6 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         typeSelectPopup.showPopupWindow(linearLocation);
         zhuoNo = chairData.get(position).getSeatName();
         tvZhuoNo.setText(zhuoNo+"");
+        PreferencesUtils.putString(this,"zhuoNo",zhuoNo);
     }
 }

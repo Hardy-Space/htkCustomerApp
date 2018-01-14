@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,13 +19,16 @@ import android.widget.Toast;
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.hldc.base.BaseViewpager;
 import com.hl.htk_customer.hldc.bean.CategoryBean;
+import com.hl.htk_customer.hldc.bean.SeatBean;
 import com.hl.htk_customer.hldc.http.HttpHelper;
 import com.hl.htk_customer.hldc.http.JsonHandler;
 import com.hl.htk_customer.hldc.pager.Tuijianpager;
 import com.hl.htk_customer.hldc.utils.PreferencesUtils;
 import com.hl.htk_customer.hldc.utils.ToolUtils;
+import com.hl.htk_customer.hldc.view.SeatPopupWindow;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +45,7 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
     private ViewPager pager;
     private TabLayout tab;
     private View mView;
+
     private ArrayList<BaseViewpager> pagerList = new ArrayList<>();
     private List<String> groupList = new ArrayList<>();
     private List<CategoryBean> myList = new ArrayList<>();
@@ -103,11 +108,85 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
         img_lefticon = mView.findViewById(R.id.img_lefticon);
         img_righticon =  mView.findViewById(R.id.img_righticon);
         tv_title.setText("点菜");
-        tv_leftstate.setText("A区26桌");
+        tv_leftstate.setText("默认");
         img_lefticon.setImageResource(R.drawable.icon_location);
         img_righticon.setImageResource(R.mipmap.search);
+        tv_leftstate.setOnClickListener(this);
+        getPositionList();
     }
 
+    private String zhuoNo;
+    /** popup窗口 */
+    private SeatPopupWindow typeSelectPopup;
+    /** 数据 */
+    private List<SeatBean> chairData = new ArrayList<>();
+    private void initPopupWindow(){
+        if(chairData == null || chairData.size() <= 0){
+            Toast.makeText(getContext(),"获取座位列表失败",Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+//            Toast.makeText(ComfirmOrderActivity.this,"chairData.size()==>>>"+chairData.size(),Toast.LENGTH_SHORT).show();
+        }
+        typeSelectPopup = new SeatPopupWindow(mActivity,new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                typeSelectPopup.showPopupWindow(tv_leftstate);
+                zhuoNo = chairData.get(position).getSeatName();
+                tv_leftstate.setText(zhuoNo+"");
+                PreferencesUtils.putString(getActivity(),"zhuoNo",""+zhuoNo);
+            }
+        },chairData);
+        typeSelectPopup.showPopupWindow(tv_leftstate);
+    }
+    private List<SeatBean> seatList = new ArrayList<>();
+    private int shopId = 0;
+    private void getPositionList(){
+        shopId = PreferencesUtils.getInt(getContext(),"shopId");
+        HttpHelper.getInstance().getSeatPosition(getContext(), shopId, new JsonHandler<String>() {
+
+            @Override
+            public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+                Log.d(TAG,"getPositionList=>"+responseString);
+                int state = ToolUtils.getNetBackCode(responseString);
+                String result = ToolUtils.getJsonParseResult(responseString);
+                if(state == 100){
+                    JSONArray mArr;
+                    try{
+                        mArr = new JSONArray(result);
+                        for(int i=0;i<mArr.length();i++){
+                            JSONObject obj =  mArr.getJSONObject(i);
+                            SeatBean seatBean = new SeatBean();
+                            seatBean.setNumberSeat(obj.getInt("numberSeat"));
+                            seatBean.setSeatName(obj.getString("seatName"));
+                            seatBean.setShopId(obj.getInt("shopId"));
+                            seatList.add(seatBean);
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(chairData != null && chairData.size() > 0){
+                        chairData.clear();
+                    }
+                    chairData.addAll(seatList);
+                    tv_leftstate.setText(chairData.get(0).getSeatName());
+                    PreferencesUtils.putString(getActivity(),"zhuoNo",""+zhuoNo);
+                }else{
+                    Toast.makeText(getContext(), "Loading Failed...", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
+                Toast.makeText(getContext(),"获取座位列表失败",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected Object parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
+                return null;
+            }
+
+        });
+    }
 
     class myPagerAdapter  extends PagerAdapter {
         @Override
@@ -145,6 +224,9 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
         switch (view.getId()){
             case R.id.img_righticon:
                 Toast.makeText(getActivity(),"点击进入查询界面",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_leftstate:
+                initPopupWindow();
                 break;
         }
     }
