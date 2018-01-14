@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.assistant.ShopToDetailListener;
@@ -26,9 +27,11 @@ public class ShopAdapter extends BaseAdapter {
     }
     private List<ShopProduct> shopProducts;
     private LayoutInflater mInflater;
+    private Context mContext;
     public ShopAdapter(Context context, List<ShopProduct> shopProducts) {
+        mContext = context;
         this.shopProducts = shopProducts;
-        mInflater = LayoutInflater.from(context);
+        mInflater = LayoutInflater.from(mContext);
     }
 
     @Override
@@ -71,6 +74,11 @@ public class ShopAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 int num = shopProducts.get(position).getNumber();
+                int inventory = shopProducts.get(position).getInventory();
+                if(inventory <= 0){ // 根据库存来判断是否可以增加订单商品数量
+                    Toast.makeText(mContext,"该商品缺货状态，目前不可购买",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 num++;
                 shopProducts.get(position).setNumber(num);
                 viewHolder.shoppingNum.setText(shopProducts.get(position).getNumber()+"");

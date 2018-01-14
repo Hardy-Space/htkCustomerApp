@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -87,6 +88,11 @@ public class TestSectionedAdapter extends SectionedBaseAdapter {
             @Override
             public void onClick(View v) {
                 int num = product.getNumber();
+                int inventory = product.getInventory();
+                if(inventory <= 0){ // 根据库存来判断是否可以增加订单商品数量
+                    Toast.makeText(context,"该商品缺货状态，目前不可购买",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 num++;
                 product.setNumber(num);
                 viewHolder.shoppingNum.setText(product.getNumber() + "");
