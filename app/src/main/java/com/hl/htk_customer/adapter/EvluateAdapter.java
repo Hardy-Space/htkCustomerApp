@@ -46,7 +46,7 @@ public class EvluateAdapter extends BaseQuickAdapter<WmEvaluateEntity.DataBean.L
             helper.getView(R.id.tv_replycontent).setVisibility(View.GONE);
         }else{
             helper.getView(R.id.tv_replycontent).setVisibility(View.VISIBLE);
-            helper.setText(R.id.tv_replycontent , item.getMerchantReply());
+            helper.setText(R.id.tv_replycontent , "商家回复:"+item.getMerchantReply());
         }
         SimpleDraweeView head = helper.getView(R.id.head);
         head.setImageURI(Uri.parse(item.getAvaUrl()));
