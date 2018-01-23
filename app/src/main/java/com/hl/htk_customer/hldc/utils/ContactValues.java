@@ -29,9 +29,9 @@ public class ContactValues {
     public static final String KEY_TOKEN = "preferences_token";
 
     //远程服务器地址
-//    public static final String ROOT_IP = "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/";
+    public static final String ROOT_IP = "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/";
     //本地服务器地址(青岛办)
-    public static final String ROOT_IP = "http://192.168.0.3:8080/htkApp/API/buffetFoodAPI/";
+//    public static final String ROOT_IP = "http://192.168.0.6:8080/htkApp/API/buffetFoodAPI/";
 
 
 

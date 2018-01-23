@@ -38,10 +38,10 @@ import java.util.List;
  * Created by asus on 2017/10/25.author lu
  */
 
-public class DianCaiFragment extends BaseFragment implements OnClickListener{
+public class DianCaiFragment extends BaseFragment implements OnClickListener {
     public static final String TAG = DianCaiFragment.class.getSimpleName();
-    private TextView tv_leftstate,tv_title;
-    private ImageView img_lefticon,img_righticon;
+    private TextView tv_leftstate, tv_title;
+    private ImageView img_lefticon, img_righticon;
     private ViewPager pager;
     private TabLayout tab;
     private View mView;
@@ -52,14 +52,14 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
 
     private static final int GET_PAGER_LIST = 1;
 
-    private Handler myHandler = new Handler(){
+    private Handler myHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch(msg.what){
+            switch (msg.what) {
                 case 1:
-                    Log.d(TAG,"groupList.size() == >>>"+groupList.size());
-                    for(int i=0;i<groupList.size();i++){
-                        pagerList.add(new Tuijianpager(getActivity(),Integer.valueOf(myList.get(i).getId())));
+                    Log.d(TAG, "groupList.size() == >>>" + groupList.size());
+                    for (int i = 0; i < groupList.size(); i++) {
+                        pagerList.add(new Tuijianpager(getActivity(), Integer.valueOf(myList.get(i).getId())));
                     }
                     initsetAdapter();
                     break;
@@ -69,19 +69,19 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView=View.inflate(getActivity(), R.layout.layout_diancai,null);
+        mView = View.inflate(getActivity(), R.layout.layout_diancai, null);
         initView();
-//        getCategoryList();
+        //        getCategoryList();
         return mView;
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(!hidden){
+        if (!hidden) {
             //            Toast.makeText(mActivity, "show", Toast.LENGTH_SHORT).show();
             getCategoryList();
-        }else {
+        } else {
             //            Toast.makeText(mActivity, "hide", Toast.LENGTH_SHORT).show();
         }
     }
@@ -104,9 +104,9 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
         pager = mView.findViewById(R.id.viewPager);
         tab = mView.findViewById(R.id.tabLayout);
         tv_leftstate = mView.findViewById(R.id.tv_leftstate);
-        tv_title =  mView.findViewById(R.id.tv_common_title);
+        tv_title = mView.findViewById(R.id.tv_common_title);
         img_lefticon = mView.findViewById(R.id.img_lefticon);
-        img_righticon =  mView.findViewById(R.id.img_righticon);
+        img_righticon = mView.findViewById(R.id.img_righticon);
         tv_title.setText("点菜");
         tv_leftstate.setText("默认");
         img_lefticon.setImageResource(R.drawable.icon_location);
@@ -116,68 +116,76 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
     }
 
     private String zhuoNo;
-    /** popup窗口 */
+    /**
+     * popup窗口
+     */
     private SeatPopupWindow typeSelectPopup;
-    /** 数据 */
+    /**
+     * 数据
+     */
     private List<SeatBean> chairData = new ArrayList<>();
-    private void initPopupWindow(){
-        if(chairData == null || chairData.size() <= 0){
-            Toast.makeText(getContext(),"获取座位列表失败",Toast.LENGTH_SHORT).show();
+
+    private void initPopupWindow() {
+        if (chairData == null || chairData.size() <= 0) {
+            Toast.makeText(getContext(), "获取座位列表失败", Toast.LENGTH_SHORT).show();
             return;
-        }else{
-//            Toast.makeText(ComfirmOrderActivity.this,"chairData.size()==>>>"+chairData.size(),Toast.LENGTH_SHORT).show();
+        } else {
+            //            Toast.makeText(ComfirmOrderActivity.this,"chairData.size()==>>>"+chairData.size(),Toast.LENGTH_SHORT).show();
         }
-        typeSelectPopup = new SeatPopupWindow(mActivity,new AdapterView.OnItemClickListener(){
+        typeSelectPopup = new SeatPopupWindow(mActivity, new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 typeSelectPopup.showPopupWindow(tv_leftstate);
                 zhuoNo = chairData.get(position).getSeatName();
-                tv_leftstate.setText(zhuoNo+"");
-                PreferencesUtils.putString(getActivity(),"zhuoNo",""+zhuoNo);
+                tv_leftstate.setText(zhuoNo + "");
+                PreferencesUtils.putString(getActivity(), "zhuoNo", "" + zhuoNo);
             }
-        },chairData);
+        }, chairData);
         typeSelectPopup.showPopupWindow(tv_leftstate);
     }
+
     private List<SeatBean> seatList = new ArrayList<>();
     private int shopId = 0;
-    private void getPositionList(){
-        shopId = PreferencesUtils.getInt(getContext(),"shopId");
+
+    private void getPositionList() {
+        shopId = PreferencesUtils.getInt(getContext(), "shopId");
         HttpHelper.getInstance().getSeatPosition(getContext(), shopId, new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
-                Log.d(TAG,"getPositionList=>"+responseString);
+                Log.d(TAG, "getPositionList=>" + responseString);
                 int state = ToolUtils.getNetBackCode(responseString);
                 String result = ToolUtils.getJsonParseResult(responseString);
-                if(state == 100){
+                if (state == 100) {
                     JSONArray mArr;
-                    try{
+                    try {
                         mArr = new JSONArray(result);
-                        for(int i=0;i<mArr.length();i++){
-                            JSONObject obj =  mArr.getJSONObject(i);
+                        for (int i = 0; i < mArr.length(); i++) {
+                            JSONObject obj = mArr.getJSONObject(i);
                             SeatBean seatBean = new SeatBean();
                             seatBean.setNumberSeat(obj.getInt("numberSeat"));
                             seatBean.setSeatName(obj.getString("seatName"));
                             seatBean.setShopId(obj.getInt("shopId"));
                             seatList.add(seatBean);
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    if(chairData != null && chairData.size() > 0){
+                    if (chairData != null && chairData.size() > 0) {
                         chairData.clear();
                     }
                     chairData.addAll(seatList);
-                    tv_leftstate.setText(chairData.get(0).getSeatName());
-                    PreferencesUtils.putString(getActivity(),"zhuoNo",""+zhuoNo);
-                }else{
+                    if (chairData != null && chairData.size() > 0)
+                        tv_leftstate.setText(chairData.get(0).getSeatName());
+                    PreferencesUtils.putString(getActivity(), "zhuoNo", "" + zhuoNo);
+                } else {
                     Toast.makeText(getContext(), "Loading Failed...", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
-                Toast.makeText(getContext(),"获取座位列表失败",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "获取座位列表失败", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -188,7 +196,7 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
         });
     }
 
-    class myPagerAdapter  extends PagerAdapter {
+    class myPagerAdapter extends PagerAdapter {
         @Override
         public int getCount() {
             return groupList.size();
@@ -221,9 +229,9 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.img_righticon:
-                Toast.makeText(getActivity(),"点击进入查询界面",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "点击进入查询界面", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_leftstate:
                 initPopupWindow();
@@ -231,19 +239,19 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
         }
     }
 
-    private void getCategoryList(){
+    private void getCategoryList() {
 
-        HttpHelper.getInstance().getCategoryList(getActivity(), PreferencesUtils.getInt(getActivity(),"shopId"), new JsonHandler<String>(){
+        HttpHelper.getInstance().getCategoryList(getActivity(), PreferencesUtils.getInt(getActivity(), "shopId"), new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
-                Log.d(TAG,"onSuccess=statusCode>"+statusCode+"<<==responseString==>>"+responseString);
+                Log.d(TAG, "onSuccess=statusCode>" + statusCode + "<<==responseString==>>" + responseString);
                 convertStringToList(ToolUtils.getJsonParseResult(responseString));
             }
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
-                Log.d(TAG,"onFailure=statusCode>"+statusCode);
+                Log.d(TAG, "onFailure=statusCode>" + statusCode);
             }
 
             @Override
@@ -253,34 +261,34 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener{
         });
     }
 
-    private void convertStringToList(String result){
+    private void convertStringToList(String result) {
         myList.clear();
         groupList.clear();
         pagerList.clear();
-        JSONArray obj =  null;
-        try{
+        JSONArray obj = null;
+        try {
             obj = new JSONArray(result);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        if(obj.length() > 0){
-            for(int i=0;i<obj.length();i++){
+        if (obj.length() > 0) {
+            for (int i = 0; i < obj.length(); i++) {
                 CategoryBean bean = new CategoryBean();
-                try{
+                try {
                     bean.setId(obj.getJSONObject(i).getString("id"));
                     bean.setCategoryName(obj.getJSONObject(i).getString("categoryName"));
                     bean.setShopId(obj.getJSONObject(i).getInt("shopId"));
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 myList.add(bean);
             }
-            for(int i=0;i<myList.size();i++){
+            for (int i = 0; i < myList.size(); i++) {
                 groupList.add(myList.get(i).getCategoryName());
             }
-            Log.d(TAG,"groupList.size()==>>>"+groupList.size());
-            Log.d(TAG,"myList.size()==>>>"+myList.size());
-            if(myList.size() > 0){
+            Log.d(TAG, "groupList.size()==>>>" + groupList.size());
+            Log.d(TAG, "myList.size()==>>>" + myList.size());
+            if (myList.size() > 0) {
                 myHandler.sendEmptyMessage(GET_PAGER_LIST);
             }
         }
