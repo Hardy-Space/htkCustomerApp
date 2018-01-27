@@ -179,6 +179,9 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                         e.printStackTrace();
                     }
                     chairData.addAll(seatList);
+                    if (chairData != null && chairData.size() > 0)
+                        tvZhuoNo.setText(chairData.get(0).getSeatName());
+                    PreferencesUtils.putString(ComfirmOrderActivity.this, "zhuoNo", "" + zhuoNo);
                 }else{
                     Toast.makeText(ComfirmOrderActivity.this, "Loading Failed...", Toast.LENGTH_SHORT).show();
                 }
@@ -381,6 +384,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
      * String orderNumber(订单号)，int discountCouponId(优惠券id)
      */
     private void commitOrderBtn(){
+        seatName = PreferencesUtils.getString(ComfirmOrderActivity.this,"zhuoNo",null);
         HttpHelper.getInstance().commitOrderBtn(ComfirmOrderActivity.this, remark, discountAmount,
                 seatName, orderAmount, orderNumber, discountCouponId, new JsonHandler<String>() {
 

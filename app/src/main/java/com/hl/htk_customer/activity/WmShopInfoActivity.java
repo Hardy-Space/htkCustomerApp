@@ -10,12 +10,10 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.maps2d.model.LatLng;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -28,7 +26,6 @@ import com.hl.htk_customer.entity.ShopInfoEntity;
 import com.hl.htk_customer.entity.WmEvaluateEntity;
 import com.hl.htk_customer.model.ActionModel;
 import com.hl.htk_customer.utils.AsynClient;
-import com.hl.htk_customer.utils.DividerGridItemDecoration;
 import com.hl.htk_customer.utils.DividerItemDecoration;
 import com.hl.htk_customer.utils.GsonHttpResponseHandler;
 import com.hl.htk_customer.utils.MyApplication;
@@ -125,7 +122,7 @@ public class WmShopInfoActivity extends BaseActivity implements View.OnClickList
         disableAutoScrollToBottom();
 
         shopId = getIntent().getIntExtra("shopId", -1);
-        Toast.makeText(WmShopInfoActivity.this,"WmShopInfoActivity.shopId=>"+shopId,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(WmShopInfoActivity.this,"WmShopInfoActivity.shopId=>"+shopId,Toast.LENGTH_SHORT).show();
         dataBean = (ShopInfoEntity.DataBean) getIntent().getSerializableExtra("info");
         if (dataBean != null) {
             getEvlaute(shopId);

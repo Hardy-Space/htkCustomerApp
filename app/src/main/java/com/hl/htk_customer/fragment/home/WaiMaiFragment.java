@@ -22,6 +22,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
@@ -30,7 +31,6 @@ import com.hl.htk_customer.activity.ChooseAddressActivity;
 import com.hl.htk_customer.activity.LoginActivity;
 import com.hl.htk_customer.activity.MemberPlatformActivity;
 import com.hl.htk_customer.activity.SearchActivity;
-import com.hl.htk_customer.activity.diancan.DianCanActivity;
 import com.hl.htk_customer.adapter.MyPageAdapter;
 import com.hl.htk_customer.adapter.RecommendShopListAdapter;
 import com.hl.htk_customer.base.BaseFragment;
@@ -211,7 +211,16 @@ public class WaiMaiFragment extends BaseFragment implements View.OnClickListener
         mLocationSingle = new LocationSingle(tvLocation, getContext());
 
         getBestShop();
-        getGuanggao();
+//        getGuanggao();
+
+
+        String testUrl = "http://img5.imgtn.bdimg.com/it/u=2264841171,3908720706&fm=27&gp=0.jpg";
+        ImageLoadManager.getInstance().setImage(testUrl, mIvGGOne);
+        ImageLoadManager.getInstance().setImage(testUrl, mIvGGTwo);
+        ImageLoadManager.getInstance().setImage(testUrl, mIvGGThree);
+        ImageLoadManager.getInstance().setImage(testUrl, mIvGGFour);
+        ImageLoadManager.getInstance().setImage(testUrl, mIvGGFive);
+
     }
 
     /**
@@ -302,19 +311,26 @@ public class WaiMaiFragment extends BaseFragment implements View.OnClickListener
                 myPageAdapter.notifyDataSetChanged();
                 break;
             case R.id.iv_guanggao1:
-                goWebActivity(wmGGEntity.getData().get(0).getShopId());
+//                goWebActivity(wmGGEntity.getData().get(0).getShopId());
+
+                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.iv_guanggao2:
-                goWebActivity(wmGGEntity.getData().get(1).getShopId());
+//                goWebActivity(wmGGEntity.getData().get(1).getShopId());
+                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_guanggao3:
-                goWebActivity(wmGGEntity.getData().get(2).getShopId());
+//                goWebActivity(wmGGEntity.getData().get(2).getShopId());
+                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_guanggao4:
-                goWebActivity(wmGGEntity.getData().get(3).getShopId());
+//                goWebActivity(wmGGEntity.getData().get(3).getShopId());
+                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_guanggao5:
-                goWebActivity(wmGGEntity.getData().get(4).getShopId());
+//                goWebActivity(wmGGEntity.getData().get(4).getShopId());
+                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -534,6 +550,7 @@ public class WaiMaiFragment extends BaseFragment implements View.OnClickListener
         ImageLoadManager.getInstance().setImage(data.get(2).getImgUrl() , mIvGGThree);
         ImageLoadManager.getInstance().setImage(data.get(3).getImgUrl() , mIvGGFour);
         ImageLoadManager.getInstance().setImage(data.get(4).getImgUrl() , mIvGGFive);
+
     }
 
     /**
