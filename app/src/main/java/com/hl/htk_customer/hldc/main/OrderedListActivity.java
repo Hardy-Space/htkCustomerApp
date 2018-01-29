@@ -106,6 +106,7 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
         }
         productStr = "[" + productStr + "]";
         refreshUI(mount, price);
+        foodMount = mount;
     }
 
     @Override

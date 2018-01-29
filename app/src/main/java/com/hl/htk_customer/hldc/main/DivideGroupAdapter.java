@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.hldc.bean.OrderFoodBean;
 
@@ -53,6 +54,8 @@ public class DivideGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         vhImage.tvFoodName.setText(mList.get(position).getProductName());
         vhImage.tvFoodPrice.setText(mList.get(position).getPrice()+"");
         vhImage.tvNumber.setText(mList.get(position).getQuantity()+"");
+        Glide.with(mContext).load(mList.get(position).getImgUrl()).into(vhImage.imgIcon);
+//        vhImage.imgIcon.setBackgroundResource();
         if(position == 0){
             vhImage.linearContent.setVisibility(View.VISIBLE);
             vhImage.tvHeadView.setText(mList.get(position).getCategoryName()+"");

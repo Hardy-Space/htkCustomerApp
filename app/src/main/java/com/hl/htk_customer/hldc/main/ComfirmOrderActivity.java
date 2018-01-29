@@ -87,7 +87,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         tvZhuoNo = findViewById(R.id.tv_zhuohao);
         tvMount = findViewById(R.id.tv_foodamount);
         tvMoney = findViewById(R.id.tv_moneyamount);
-        tvMoney2 = findViewById(R.id.tv_money);
+//        tvMoney2 = findViewById(R.id.tv_money);
         tvTotalAmount = findViewById(R.id.tv_totalamount);
         tvShiFu = findViewById(R.id.tv_shifu);
         linearConsume = findViewById(R.id.linear_consume);
@@ -179,8 +179,10 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                         e.printStackTrace();
                     }
                     chairData.addAll(seatList);
-                    if (chairData != null && chairData.size() > 0)
-                        tvZhuoNo.setText(chairData.get(0).getSeatName());
+                    if (chairData != null && chairData.size() > 0){
+                        zhuoNo = chairData.get(0).getSeatName();
+                        tvZhuoNo.setText(""+zhuoNo);
+                    }
                     PreferencesUtils.putString(ComfirmOrderActivity.this, "zhuoNo", "" + zhuoNo);
                 }else{
                     Toast.makeText(ComfirmOrderActivity.this, "Loading Failed...", Toast.LENGTH_SHORT).show();
@@ -225,7 +227,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         tvMount1.setText(mount+"");
         tvMoney.setText("共"+ money+"元");
         tvMoney1.setText(money+"元");
-        tvMoney2.setText("共"+ money+"元");
+//        tvMoney2.setText("共"+ money+"元");
         tvTotalAmount.setText("总价:"+money+"元");
         tvShiFu.setText("实付:"+money+"元");
     }
@@ -343,7 +345,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
             switch (msg.what){
                 case REFRESH_COMMONUI:
                     nickName = mineBean.getNickName();
-                    zhuoNo = "moren";
+//                    zhuoNo = "moren";
                     refreshUserUI();
                     refreshHeadIcon(mineBean.getImgUrl());
                     break;
