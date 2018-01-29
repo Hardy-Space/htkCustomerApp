@@ -49,11 +49,12 @@ public class HttpHelper {
 
     public void addDefaultParams(Context context, RequestParams params) {
         String token = null;
-        if (TextUtils.isEmpty(ToolUtils.getToken()) || ToolUtils.getToken().equals("null")) {
+//        if (TextUtils.isEmpty(ToolUtils.getToken()) || ToolUtils.getToken().equals("null")) {
             token = PreferencesUtils.getString(context, ContactValues.KEY_TOKEN);
-        } else {
-            token = ToolUtils.getToken();
-        }
+            Log.e("addDefaultParams",""+token);
+//        } else {
+//            token = ToolUtils.getToken();
+//        }
         params.put("token", token);
     }
 
@@ -113,7 +114,7 @@ public class HttpHelper {
         params.put("orderAmount", orderAmount+"");
         params.put("jsonProductList", jsonProductList+"");
         params.put("shopId", shopId+"");
-        requestForPostNoToken(context,ContactValues.COMFIRM_BTN,params,jsonHandler);
+        requestForPost(context,ContactValues.COMFIRM_BTN,params,jsonHandler);
     }
 
     /**
@@ -312,6 +313,6 @@ public class HttpHelper {
         params.put("orderAmount", orderAmount+"");
         params.put("jsonProductList", jsonProductList+"");
         params.put("shopId", shopId+"");
-        requestForPostNoToken(context,ContactValues.QUICK_ORDERED,params,jsonHandler);
+        requestForPost(context,ContactValues.QUICK_ORDERED,params,jsonHandler);
     }
 }

@@ -204,7 +204,6 @@ public class ChooseLoginStyleActivity extends BaseActivity implements View.OnCli
                         String token = commonMsg.getData().toString();
                         app.getLoginState().setToken(token);
                         PreferencesUtils.putString(mContext,ContactValues.KEY_TOKEN, token);
-                        Toast.makeText(mContext,"token=>>>"+token, Toast.LENGTH_LONG).show();
                         finishHome();
                         startActivity(new Intent(ChooseLoginStyleActivity.this, HomeActivity.class));
                         finish();
@@ -281,7 +280,6 @@ public class ChooseLoginStyleActivity extends BaseActivity implements View.OnCli
                         String token = commonMsg.getData().toString();
                         app.getLoginState().setToken(token);
                         PreferencesUtils.putString(mContext,ContactValues.KEY_TOKEN, token);
-                        Toast.makeText(mContext,"token=>>>"+token, Toast.LENGTH_LONG).show();
                         finishHome();
                         startActivity(new Intent(ChooseLoginStyleActivity.this, HomeActivity.class));
                         finish();

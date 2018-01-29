@@ -162,7 +162,7 @@ public class Tuijianpager extends BaseViewpager implements XListView.IXListViewL
                     bean.setCollectState( obj.getJSONObject(i).getInt("collectState"));
                     bean.setProductDetail( obj.getJSONObject(i).getString("productDetail"));
                     bean.setDescription( obj.getJSONObject(i).getString("description"));
-                    bean.setCategoryName(obj.getJSONObject(i).getString("categoryname"));
+                    bean.setCategoryName(obj.getJSONObject(i).getString("categoryName"));
                 }catch(Exception e){
                     e.printStackTrace();
                 }

@@ -7,11 +7,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.base.BaseActivity;
 import com.hl.htk_customer.entity.RefreshInfoEntity;
+import com.hl.htk_customer.hldc.utils.ContactValues;
+import com.hl.htk_customer.hldc.utils.PreferencesUtils;
 import com.hl.htk_customer.model.CommonMsg;
 import com.hl.htk_customer.model.UserInfoManager;
 import com.hl.htk_customer.utils.AsynClient;
@@ -293,7 +296,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void initLoginData(CommonMsg commonMsg) {
         mUserInfoManager.setISLOGIN(true);
         mUserInfoManager.setToken(commonMsg.getData().toString());//.replaceAll("-", "")
-
+        PreferencesUtils.putString(mContext, ContactValues.KEY_TOKEN, commonMsg.getData().toString());
         //发送信息，刷新我的界面数据
         EventBus.getDefault().post(new RefreshInfoEntity(true));
 
