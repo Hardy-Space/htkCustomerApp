@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.base.BaseActivity;
+import com.hl.htk_customer.hldc.utils.ContactValues;
+import com.hl.htk_customer.hldc.utils.PreferencesUtils;
 import com.hl.htk_customer.model.CommonMsg;
 import com.hl.htk_customer.utils.AsynClient;
 import com.hl.htk_customer.utils.GsonHttpResponseHandler;
@@ -201,6 +203,7 @@ public class ChooseLoginStyleActivity extends BaseActivity implements View.OnCli
 
                         String token = commonMsg.getData().toString();
                         app.getLoginState().setToken(token);
+                        PreferencesUtils.putString(mContext,ContactValues.KEY_TOKEN, token);
 
                         finishHome();
                         startActivity(new Intent(ChooseLoginStyleActivity.this, HomeActivity.class));
@@ -277,7 +280,7 @@ public class ChooseLoginStyleActivity extends BaseActivity implements View.OnCli
 
                         String token = commonMsg.getData().toString();
                         app.getLoginState().setToken(token);
-
+                        PreferencesUtils.putString(mContext,ContactValues.KEY_TOKEN, token);
                         finishHome();
                         startActivity(new Intent(ChooseLoginStyleActivity.this, HomeActivity.class));
                         finish();

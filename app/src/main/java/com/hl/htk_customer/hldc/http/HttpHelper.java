@@ -96,8 +96,8 @@ public class HttpHelper {
         RequestParams params = new RequestParams();
         params.put("categoryId", categoryId+"");
         params.put("pageNum", pageNum+"");
-        params.put("token", "db5af7ca-e946-483a-8acd-d3b0678a4c8f");
-        requestForPostNoToken(context,ContactValues.GOODSLIST,params,jsonHandler);
+//        params.put("token", "db5af7ca-e946-483a-8acd-d3b0678a4c8f");
+        requestForPost(context,ContactValues.GOODSLIST,params,jsonHandler);
     }
 
     /**
@@ -222,8 +222,8 @@ public class HttpHelper {
      */
     public void getMineInfo(Context context,JsonHandler<String> jsonHandler){
         RequestParams params = new RequestParams();
-        params.put("token","db5af7ca-e946-483a-8acd-d3b0678a4c8f");
-        requestForPostNoToken(context,ContactValues.MINE,params,jsonHandler);
+//        params.put("token","db5af7ca-e946-483a-8acd-d3b0678a4c8f");
+        requestForPost(context,ContactValues.MINE,params,jsonHandler);
     }
 
     /**
@@ -284,9 +284,9 @@ public class HttpHelper {
     public void setIsCollect(Context context, int productId, int state, JsonHandler<String> jsonHandler){
         RequestParams params = new RequestParams();
         params.put("productId", productId+"");
-        params.put("token", "db5af7ca-e946-483a-8acd-d3b0678a4c8f");
+//        params.put("token", "db5af7ca-e946-483a-8acd-d3b0678a4c8f");
         params.put("state", state+"");
-        requestForPostNoToken(context,ContactValues.SET_ISCOLLECT,params,jsonHandler);
+        requestForPost(context,ContactValues.SET_ISCOLLECT,params,jsonHandler);
     }
 
     /**
