@@ -116,6 +116,7 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
         Log.d(TAG,"strJiaCai == >>>>"+strJiaCai);
         if(!TextUtils.isEmpty(strJiaCai)){
             if(!strJiaCai.equals("diancan")){
+                Log.e("addFoodToList","addFoodToList()=="+goodBean1.toString());
                 Intent mIntent = new Intent();
                 mIntent.putExtra("food",goodBean1);
                 this.setResult(1,mIntent);

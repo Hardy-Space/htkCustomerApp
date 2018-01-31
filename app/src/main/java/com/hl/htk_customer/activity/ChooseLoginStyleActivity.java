@@ -204,7 +204,6 @@ public class ChooseLoginStyleActivity extends BaseActivity implements View.OnCli
                         String token = commonMsg.getData().toString();
                         app.getLoginState().setToken(token);
                         PreferencesUtils.putString(mContext,ContactValues.KEY_TOKEN, token);
-
                         finishHome();
                         startActivity(new Intent(ChooseLoginStyleActivity.this, HomeActivity.class));
                         finish();
