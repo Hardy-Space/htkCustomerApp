@@ -167,17 +167,18 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
      * 显示总价
      */
     private void setTotalPriceText() {
-        tvDaizhifu.setText(String.format("待支付￥ %1$.2f" , getTotalPrice())  );
-        tvPrice.setText(String.format("待支付￥ %1$.2f" , getTotalPrice()));
+        tvDaizhifu.setText(String.format("待支付￥ %1$.2f", getTotalPrice()));
+        tvPrice.setText(String.format("待支付￥ %1$.2f", getTotalPrice()));
     }
 
     /**
      * 计算商品总价
+     *
      * @return 总价
      */
-    public double getTotalPrice(){
-        double r = Arith.add(goodsPrice,mDeliveryFee);
-        return Arith.sub(r,mVouchers) ;
+    public double getTotalPrice() {
+        double r = Arith.add(goodsPrice, mDeliveryFee);
+        return Arith.sub(r, mVouchers);
     }
 
 
@@ -208,10 +209,10 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CouponActivity.REQUESTCODE && resultCode == CouponActivity.RESULTCODE){
+        if (requestCode == CouponActivity.REQUESTCODE && resultCode == CouponActivity.RESULTCODE) {
             mCouponId = data.getIntExtra("id", 0);
             mVouchers = data.getDoubleExtra("amount", 0);
-            mTvVouchersNum.setText(String.format(getString(R.string.join_amount_cut) , mVouchers));
+            mTvVouchersNum.setText(String.format(getString(R.string.join_amount_cut), mVouchers));
             setTotalPriceText();
         }
     }
@@ -238,24 +239,44 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                 if (payWayTag == 0) {
                     DefaultAddress defaultAddress = app.getDefaultAddress();
                     double p = getTotalPrice();
+                    /**
+                     *  @author 马鹏昊
+                     *  @desc 这个判断是要防止价格为0的时候接口会成功生成订单，这意味着优惠券已经减去了，但是回调之后支付框架吊起支付页的时候会提示无法获取订单信息（支付价格不能为0）,
+                     *  所以在这里加上限制
+                     */
+                    if (p <= 0) {
+                        Toast.makeText(mContext, "支付价格不能为0", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     String price = String.valueOf(p);
-                    PayStyle pay = new AliPayWaiMai(ConfirmOrderActivity.this ,String.valueOf(mCouponId), price , String.valueOf(shopId) , products ,
+                    PayStyle pay = new AliPayWaiMai(ConfirmOrderActivity.this, String.valueOf(mCouponId), price, String.valueOf(shopId), products,
                             defaultAddress.getLocation() + defaultAddress.getAddress(),
                             String.valueOf(defaultAddress.getPhoneNumber()),
                             defaultAddress.getUserName(),
                             MyApplication.getmAMapLocation().getLongitude(),
                             MyApplication.getmAMapLocation().getLatitude(),
-                            defaultAddress.getSex() , tvSubmit);
+                            defaultAddress.getSex(), tvSubmit);
                     pay.pay();
                 } else {
                     DefaultAddress defaultAddress = app.getDefaultAddress();
-                    PayStyle pay = new WXPayWaiMai(ConfirmOrderActivity.this , String.valueOf(mCouponId),String.valueOf(getTotalPrice()) , String.valueOf(shopId) , products ,
+                    double p = getTotalPrice();
+                    /**
+                     *  @author 马鹏昊
+                     *  @desc 这个判断是要防止价格为0的时候接口会成功生成订单，这意味着优惠券已经减去了，但是回调之后支付框架吊起支付页的时候会提示无法获取订单信息（支付价格不能为0）,
+                     *  所以在这里加上限制
+                     */
+                    if (p <= 0) {
+                        Toast.makeText(mContext, "支付价格不能为0", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    String price = String.valueOf(p);
+                    PayStyle pay = new WXPayWaiMai(ConfirmOrderActivity.this, String.valueOf(mCouponId), price, String.valueOf(shopId), products,
                             defaultAddress.getLocation() + defaultAddress.getAddress(),
                             String.valueOf(defaultAddress.getPhoneNumber()),
                             defaultAddress.getUserName(),
                             MyApplication.getmAMapLocation().getLongitude(),
                             MyApplication.getmAMapLocation().getLatitude(),
-                            defaultAddress.getSex() , tvSubmit);
+                            defaultAddress.getSex(), tvSubmit);
                     pay.pay();
                 }
                 break;
@@ -265,7 +286,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                 payWayDialog.show();
                 break;
             case R.id.confirm_order_Vouchers_num:
-                CouponActivity.launch(this , 1 , shopId,goodsPrice);
+                CouponActivity.launch(this, 1, shopId, goodsPrice);
                 break;
             default:
                 break;
