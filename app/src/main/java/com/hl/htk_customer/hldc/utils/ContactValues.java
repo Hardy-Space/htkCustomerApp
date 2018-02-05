@@ -31,9 +31,9 @@ public class ContactValues {
     //远程服务器地址
 //    public static final String ROOT_IP = "http://120.27.5.36:8080/htkApp/API/buffetFoodAPI/";
     //本地服务器地址(青岛办)
-    public static final String ROOT_IP = "http://192.168.0.6:8080/htkApp/API/buffetFoodAPI/";
+//    public static final String ROOT_IP = "http://192.168.0.6:8080/htkApp/API/buffetFoodAPI/";
     //田晋奇电脑服务器
-//    public static final String ROOT_IP = "http://192.168.0.7:8080/htkApp/API/buffetFoodAPI/";
+    public static final String ROOT_IP = "http://192.168.0.7:8080/htkApp/API/buffetFoodAPI/";
 
 
 
@@ -59,6 +59,8 @@ public class ContactValues {
     public static final String SET_ISCOLLECT = ROOT_IP + "addToWishListById" ; //收藏和取消收藏
     public static final String GET_TCLIST = ROOT_IP + "getPackageDetailById"; //二十一、根据产品id拿套餐内产品详情
     public static final String QUICK_ORDERED = ROOT_IP + "quickOrder"; //二十一、根据产品id拿套餐内产品详情
+
+    public static final String CHECK_IF_ALREADY_EXIST_ORDER = ROOT_IP + "checkIfAlreadyExistOrder"; //自主点餐是否有未完成订单
 
 
 

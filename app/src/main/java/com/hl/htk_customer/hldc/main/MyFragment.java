@@ -1,5 +1,7 @@
 package com.hl.htk_customer.hldc.main;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -117,9 +119,15 @@ public class MyFragment extends BaseFragment implements OnClickListener{
 
     MineBean mineBean = new MineBean();
     private void getMineInfo(){
+
+
+        final Dialog loading = new ProgressDialog(getActivity(),0);
+        loading.show();
+
         HttpHelper.getInstance().getMineInfo(getActivity(), new JsonHandler<String>() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString, Object response) {
+                loading.dismiss();
                 Log.d(TAG,"onSuccess() === >>>"+responseString);
                 int state = ToolUtils.getNetBackCode(responseString);
                 String result = ToolUtils.getJsonParseResult(responseString);
@@ -147,6 +155,7 @@ public class MyFragment extends BaseFragment implements OnClickListener{
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
+                loading.dismiss();
                 Log.d(TAG,"getMineInfo()==onFailure==>>"+responseString);
                 Toast.makeText(getActivity(), "Loading Failed...", Toast.LENGTH_SHORT).show();
             }

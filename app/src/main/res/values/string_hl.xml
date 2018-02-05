@@ -21,6 +21,7 @@
     <!-- common button -->
     <string name="jiacai_state">加菜</string>
     <string name="comfirmorder_state">确认下单</string>
+    <string name="comfirm_modify_order">确认调单</string>
     <string name="pay_state">付款</string>
     <string name="cancelorder_state">取消订单</string>
     <string name="heji_state">合计:</string>

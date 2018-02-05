@@ -1,5 +1,7 @@
 package com.hl.htk_customer.hldc.main;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ import com.hl.htk_customer.hldc.utils.PreferencesUtils;
 import com.hl.htk_customer.hldc.utils.ToolUtils;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -32,8 +35,8 @@ import org.json.JSONObject;
 public class OrderDetailFragment extends BaseFragment implements View.OnClickListener {
     private static final String TAG = OrderDetailFragment.class.getSimpleName();
     private View mView, viewsp1, viewsp2;
-    private TextView tvTitle,tvLeftState,tvPaid, tvCook, tvFinished,tvDingDanNumber,tvData,tvStateTip,
-            tvGoodMountTip,tvCommittedTime,tvTotalAmount,tvTotalPrice;
+    private TextView tvTitle, tvLeftState, tvPaid, tvCook, tvFinished, tvDingDanNumber, tvData, tvStateTip,
+            tvGoodMountTip, tvCommittedTime, tvTotalAmount, tvTotalPrice;
     private ImageView imgBack;
     private TextView tvXiaDan, tvTiaoDan, tvCuiDan;
     private ImageView imgXiaDan, imgTiaoDan, imgCuiDan;
@@ -42,7 +45,7 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mView = inflater.inflate(R.layout.orderdetail_layout,container,false);
+        View mView = inflater.inflate(R.layout.orderdetail_layout, container, false);
         initViews(mView);
         refreshCurrentUI();
         return mView;
@@ -51,19 +54,19 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.d(TAG,"onHiddenChanged === >>>>"+hidden);
-        if(mOrderedFoodBean != null){
+        Log.d(TAG, "onHiddenChanged === >>>>" + hidden);
+        if (mOrderedFoodBean != null) {
             mOrderedFoodBean.setCommitTime(null);
             mOrderedFoodBean.setIsCollect(0);
             mOrderedFoodBean.setOrderState(0);
             mOrderedFoodBean.setOrderNumber(null);
             mOrderedFoodBean.getProductList().clear();
         }
-        if(!hidden){
-//            Toast.makeText(mActivity, "show", Toast.LENGTH_SHORT).show();
+        if (!hidden) {
+            //            Toast.makeText(mActivity, "show", Toast.LENGTH_SHORT).show();
             refreshCurrentUI();
-        }else {
-//            Toast.makeText(mActivity, "hide", Toast.LENGTH_SHORT).show();
+        } else {
+            //            Toast.makeText(mActivity, "hide", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -73,17 +76,17 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
         refreshCurrentUI();
     }
 
-    public void refreshCurrentUI(){
-        Log.d(TAG,"refreshCurrentUI() == >>>>");
-        orderNumber = PreferencesUtils.getString(getActivity(),"orderNumber");
-        if(!TextUtils.isEmpty(orderNumber)){
+    public void refreshCurrentUI() {
+        Log.d(TAG, "refreshCurrentUI() == >>>>");
+        orderNumber = PreferencesUtils.getString(getActivity(), "orderNumber");
+        if (!TextUtils.isEmpty(orderNumber)) {
             getOrderDetail();
-        }else{
-            Toast.makeText(getActivity(),"暂无订单记录", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "暂无订单记录", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void initViews(View view){
+    private void initViews(View view) {
         mView = view.findViewById(R.id.headview);
         imgBack = mView.findViewById(R.id.img_lefticon);
         tvLeftState = mView.findViewById(R.id.tv_leftstate);
@@ -112,7 +115,7 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
 
     }
 
-    private void setOnClickListener(){
+    private void setOnClickListener() {
         imgBack.setOnClickListener(this);
         tvXiaDan.setOnClickListener(this);
         imgXiaDan.setOnClickListener(this);
@@ -125,54 +128,54 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.img_lefticon:
                 break;
             case R.id.img_xiadan:
             case R.id.tv_xiadan:
-                if(!TextUtils.isEmpty(orderNumber)){
+                if (!TextUtils.isEmpty(orderNumber)) {
                     Intent mIntent = new Intent(getActivity(), OrderedListActivity.class);
-                    mIntent.putExtra("type","xiadan");
+                    mIntent.putExtra("type", "xiadan");
                     getActivity().startActivity(mIntent);
-                }else{
-                    Toast.makeText(getActivity(),"尚未初始化下单信息",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "尚未初始化下单信息", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.img_cuidan:
             case R.id.tv_cuidan:
-                if(!TextUtils.isEmpty(orderNumber)){
-                    if(mOrderedFoodBean.getOrderState() == 1){
+                if (!TextUtils.isEmpty(orderNumber)) {
+                    if (mOrderedFoodBean.getOrderState() == 1) {
                         cuiDanBtn();
-                    }else{
+                    } else {
                         Toast.makeText(getActivity(), "无法催单", Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(getActivity(), "尚未初始化下单信息", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.img_tiaodan:
             case R.id.tv_tiaodan:
-                if(!TextUtils.isEmpty(orderNumber)){
+                if (!TextUtils.isEmpty(orderNumber)) {
                     Intent mIntent1 = new Intent(getActivity(), OrderedListActivity.class);
-                    mIntent1.putExtra("type","tiaodan");
+                    mIntent1.putExtra("type", "tiaodan");
                     getActivity().startActivity(mIntent1);
-                }else{
-                    Toast.makeText(getActivity(),"尚未初始化下单信息",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "尚未初始化下单信息", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
     }
 
-    private void tiaoDanBtn(){
+    private void tiaoDanBtn() {
         HttpHelper.getInstance().tiaoDan(getActivity(), orderNumber, "", new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
                 int state = ToolUtils.getNetBackCode(responseString);
-                if(state == 100){
+                if (state == 100) {
                     Toast.makeText(getActivity(), "调单成功", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "调单失败"+responseString, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "调单失败" + responseString, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -189,23 +192,23 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
         });
     }
 
-    private void cuiDanBtn(){
+    private void cuiDanBtn() {
         HttpHelper.getInstance().cuiDan(getActivity(), orderNumber, new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String rawJsonResponse, Object response) {
                 int state = ToolUtils.getNetBackCode(rawJsonResponse);
-                if(state == 100){
+                if (state == 100) {
                     Toast.makeText(getActivity(), "催单成功", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "催单失败"+rawJsonResponse, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "催单失败" + rawJsonResponse, Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
-                Toast.makeText(getActivity(), "催单失败"+responseString, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "催单失败" + responseString, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -216,16 +219,16 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
         });
     }
 
-    private void xiaDanBtn(){
+    private void xiaDanBtn() {
         HttpHelper.getInstance().commitOrderBtn(getActivity(), orderNumber, "", new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String rawJsonResponse, Object response) {
                 int state = ToolUtils.getNetBackCode(rawJsonResponse);
-                if(state == 100){
+                if (state == 100) {
                     Toast.makeText(getActivity(), "下单成功", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "下单失败"+rawJsonResponse, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "下单失败" + rawJsonResponse, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -244,69 +247,102 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
 
     OrderedFoodBean mOrderedFoodBean = new OrderedFoodBean();
     String orderNumber;
-    private void getOrderDetail(){
+
+    private void getOrderDetail() {
+
+        final Dialog loading = new ProgressDialog(getActivity(), 0);
+        loading.show();
+
         HttpHelper.getInstance().getOrderDetail(getActivity(), orderNumber, new JsonHandler<String>() {
 
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
-                Log.d(TAG,"onSuccess=>"+responseString);
-                String result = ToolUtils.getJsonParseResult(responseString);
-                if(!TextUtils.isEmpty(result)){
-                    JSONObject obj;
+                loading.dismiss();
+                Log.d(TAG, "onSuccess=>" + responseString);
+                JSONObject jb = null;
+                try {
+                    jb = new JSONObject(responseString);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                int code = -1;
+                if (jb == null) {
+                    Toast.makeText(getActivity(), "Json解析失败", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
                     try {
-                        obj = new JSONObject(result);
-                        mOrderedFoodBean.setCommitTime(null);
-                        mOrderedFoodBean.setIsCollect(0);
-                        mOrderedFoodBean.setOrderState(0);
-                        mOrderedFoodBean.setOrderNumber(null);
-                        mOrderedFoodBean.getProductList().clear();
-                        mOrderedFoodBean.setOrderState(obj.getInt("orderState"));
-                        mOrderedFoodBean.setOrderTime(obj.getString("orderTime"));
-                        mOrderedFoodBean.setCommitTime(obj.getString("commitTime"));
-                        mOrderedFoodBean.setOrderNumber(obj.getString("orderNumber"));
-                        String productList = obj.getString("productList");
-                        JSONArray mArray = new JSONArray(productList);
-                        for(int i=0;i<mArray.length();i++){
-                            OrderFoodBean mBean = new OrderFoodBean();
-                            mBean.setCategoryId(mArray.getJSONObject(i).getInt("categoryId"));
-                            mBean.setId(mArray.getJSONObject(i).getInt("id"));
-                            mBean.setOrderId(mArray.getJSONObject(i).getInt("orderId"));
-                            mBean.setPrice(mArray.getJSONObject(i).getDouble("price"));
-                            mBean.setProductId(mArray.getJSONObject(i).getInt("productId"));
-                            mBean.setProductName(mArray.getJSONObject(i).getString("productName"));
-                            mBean.setQuantity(mArray.getJSONObject(i).getInt("quantity"));
-                            mBean.setState(mArray.getJSONObject(i).getInt("state"));
-                            mOrderedFoodBean.getProductList().add(mBean);
-                        }
-                        if(mOrderedFoodBean.getOrderState() == 2){
-                            Toast.makeText(getActivity(),"订单已完成",Toast.LENGTH_SHORT).show();
-                            PreferencesUtils.putString(getActivity(),"orderNumber","");
-                            orderNumber="";
-                        }
-                        refreshCookingUI();
-                        tvDingDanNumber.setText(getResources().getString(R.string.dingdanbianhao)+orderNumber);
-                        if(orderedAdapter == null){
-                            orderedAdapter = new OrderedAdapter(getActivity(),mOrderedFoodBean.getProductList());
-                            orderedAdapter.notifyDataSetChanged();
-                        }else{
-                            orderedAdapter.notifyDataSetChanged();
-                        }
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
-                        recyclerView.setAdapter(orderedAdapter);
-                        if(mOrderedFoodBean != null && mOrderedFoodBean.getProductList() != null && mOrderedFoodBean.getProductList().size() > 0){
-                            recyclerView.scrollToPosition(0);
-                        }
-                    }catch (Exception e){
+                        code = jb.getInt("code");
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }
+                mOrderedFoodBean.getProductList().clear();
+                if (code == 100) {
+                    String result = ToolUtils.getJsonParseResult(responseString);
+                    if (!TextUtils.isEmpty(result)) {
+                        JSONObject obj;
+                        try {
+                            obj = new JSONObject(result);
+                            mOrderedFoodBean.setCommitTime(null);
+                            mOrderedFoodBean.setIsCollect(0);
+                            mOrderedFoodBean.setOrderState(0);
+                            mOrderedFoodBean.setOrderNumber(null);
+                            mOrderedFoodBean.getProductList().clear();
+                            mOrderedFoodBean.setOrderState(obj.getInt("orderState"));
+                            mOrderedFoodBean.setOrderTime(obj.getString("orderTime"));
+                            mOrderedFoodBean.setCommitTime(obj.getString("commitTime"));
+                            mOrderedFoodBean.setOrderNumber(obj.getString("orderNumber"));
+                            String productList = obj.getString("productList");
+                            JSONArray mArray = new JSONArray(productList);
+                            for (int i = 0; i < mArray.length(); i++) {
+                                OrderFoodBean mBean = new OrderFoodBean();
+                                mBean.setCategoryId(mArray.getJSONObject(i).getInt("categoryId"));
+                                mBean.setId(mArray.getJSONObject(i).getInt("id"));
+                                mBean.setOrderId(mArray.getJSONObject(i).getInt("orderId"));
+                                mBean.setPrice(mArray.getJSONObject(i).getDouble("price"));
+                                mBean.setProductId(mArray.getJSONObject(i).getInt("productId"));
+                                mBean.setProductName(mArray.getJSONObject(i).getString("productName"));
+                                mBean.setQuantity(mArray.getJSONObject(i).getInt("quantity"));
+                                mBean.setState(mArray.getJSONObject(i).getInt("state"));
+                                mOrderedFoodBean.getProductList().add(mBean);
+                            }
+                            if (mOrderedFoodBean.getOrderState() == 2) {
+                                Toast.makeText(getActivity(), "订单已完成", Toast.LENGTH_SHORT).show();
+                                PreferencesUtils.putString(getActivity(), "orderNumber", "");
+                                orderNumber = "";
+                            }
+                            refreshCookingUI();
+                            tvDingDanNumber.setText(getResources().getString(R.string.dingdanbianhao) + orderNumber);
+                            if (orderedAdapter == null) {
+                                orderedAdapter = new OrderedAdapter(getActivity(), mOrderedFoodBean.getProductList());
+                                orderedAdapter.notifyDataSetChanged();
+                            } else {
+                                orderedAdapter.notifyDataSetChanged();
+                            }
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                            recyclerView.setAdapter(orderedAdapter);
+                            if (mOrderedFoodBean != null && mOrderedFoodBean.getProductList() != null && mOrderedFoodBean.getProductList().size() > 0) {
+                                recyclerView.scrollToPosition(0);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                if (orderedAdapter == null) {
+                    orderedAdapter = new OrderedAdapter(getActivity(), mOrderedFoodBean.getProductList());
+                    orderedAdapter.notifyDataSetChanged();
+                } else {
+                    orderedAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
-                Log.d(TAG,""+responseString);
-                Toast.makeText(getActivity(), "获取订单详情失败",Toast.LENGTH_SHORT).show();
+                loading.dismiss();
+                Log.d(TAG, "" + responseString);
+                Toast.makeText(getActivity(), "获取订单详情失败", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -318,42 +354,43 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
 
     int totalMount = 0;
     double totalConsume = 0;
-    private void caculateTotalConsume(){
+
+    private void caculateTotalConsume() {
         totalMount = 0;
         totalConsume = 0;
-        for(int i=0;i<mOrderedFoodBean.getProductList().size();i++){
+        for (int i = 0; i < mOrderedFoodBean.getProductList().size(); i++) {
             totalMount += mOrderedFoodBean.getProductList().get(i).getQuantity();
-            totalConsume += mOrderedFoodBean.getProductList().get(i).getQuantity()*mOrderedFoodBean.getProductList().get(i).getPrice();
+            totalConsume += mOrderedFoodBean.getProductList().get(i).getQuantity() * mOrderedFoodBean.getProductList().get(i).getPrice();
         }
     }
 
     /**
      * 0 - 初始化订单，1，下单成功，2，烹制完成
      */
-    private void refreshCookingUI(){
-        tvData.setText(""+mOrderedFoodBean.getOrderTime());
-        tvCommittedTime.setText(getResources().getString(R.string.orderedtimetip)+mOrderedFoodBean.getCommitTime());
-        if(mOrderedFoodBean.getProductList() != null && mOrderedFoodBean.getProductList().size() > 0){
-            tvGoodMountTip.setText(getResources().getString(R.string.orderedgoods)+"("+mOrderedFoodBean.getProductList().size()+")");
+    private void refreshCookingUI() {
+        tvData.setText("" + mOrderedFoodBean.getOrderTime());
+        tvCommittedTime.setText(getResources().getString(R.string.orderedtimetip) + mOrderedFoodBean.getCommitTime());
+        if (mOrderedFoodBean.getProductList() != null && mOrderedFoodBean.getProductList().size() > 0) {
+            tvGoodMountTip.setText(getResources().getString(R.string.orderedgoods) + "(" + mOrderedFoodBean.getProductList().size() + ")");
             caculateTotalConsume();
         }
-        tvTotalAmount.setText("共"+totalMount+"件");
-        tvTotalPrice.setText(""+totalConsume+getResources().getString(R.string.yuan1));
-        if(mOrderedFoodBean.getOrderState() == 0){
+        tvTotalAmount.setText("共" + totalMount + "件");
+        tvTotalPrice.setText("" + totalConsume + getResources().getString(R.string.yuan1));
+        if (mOrderedFoodBean.getOrderState() == 0) {
             tvPaid.setText("未付款");
             tvCook.setText("未开始");
             tvFinished.setText("未开始");
             viewsp1.setBackgroundColor(getResources().getColor(R.color.color_cccccc));
             viewsp2.setBackgroundColor(getResources().getColor(R.color.color_cccccc));
             tvStateTip.setText("未付款");
-        }else if(mOrderedFoodBean.getOrderState() == 1){
+        } else if (mOrderedFoodBean.getOrderState() == 1) {
             tvPaid.setText(getResources().getString(R.string.paid_state));
             tvCook.setText(getResources().getString(R.string.cooking_state));
             tvFinished.setText("未完成");
             viewsp1.setBackgroundColor(getResources().getColor(R.color.color_common_bg));
             viewsp2.setBackgroundColor(getResources().getColor(R.color.color_cccccc));
             tvStateTip.setText("烹饪中");
-        }else if(mOrderedFoodBean.getOrderState() == 2){
+        } else if (mOrderedFoodBean.getOrderState() == 2) {
             tvPaid.setText(getResources().getString(R.string.paid_state));
             tvCook.setText(getResources().getString(R.string.finished_state));
             tvFinished.setText(getResources().getString(R.string.finished_state));

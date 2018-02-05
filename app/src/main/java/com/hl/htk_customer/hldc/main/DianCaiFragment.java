@@ -71,26 +71,26 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = View.inflate(getActivity(), R.layout.layout_diancai, null);
         initView();
-        //        getCategoryList();
+                getCategoryList();
         return mView;
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden) {
-            //            Toast.makeText(mActivity, "show", Toast.LENGTH_SHORT).show();
-            getCategoryList();
-        } else {
-            //            Toast.makeText(mActivity, "hide", Toast.LENGTH_SHORT).show();
-        }
+//        if (!hidden) {
+//            //            Toast.makeText(mActivity, "show", Toast.LENGTH_SHORT).show();
+//            getCategoryList();
+//        } else {
+//            //            Toast.makeText(mActivity, "hide", Toast.LENGTH_SHORT).show();
+//        }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getCategoryList();
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        getCategoryList();
+//    }
 
     private void initsetAdapter() {
         myPagerAdapter myPagerAdapter = new myPagerAdapter();

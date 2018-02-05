@@ -1,14 +1,11 @@
 package com.hl.htk_customer.hldc.http;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.hl.htk_customer.hldc.utils.ContactValues;
 import com.hl.htk_customer.hldc.utils.Logger;
-import com.hl.htk_customer.hldc.utils.PreferencesUtils;
-import com.hl.htk_customer.hldc.utils.ToolUtils;
+import com.hl.htk_customer.model.UserInfoManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -50,7 +47,8 @@ public class HttpHelper {
     public void addDefaultParams(Context context, RequestParams params) {
         String token = null;
 //        if (TextUtils.isEmpty(ToolUtils.getToken()) || ToolUtils.getToken().equals("null")) {
-            token = PreferencesUtils.getString(context, ContactValues.KEY_TOKEN);
+//            token = PreferencesUtils.getString(context, ContactValues.KEY_TOKEN);
+            token = new UserInfoManager(context).getToken();
             Log.e("addDefaultParams",""+token);
 //        } else {
 //            token = ToolUtils.getToken();
@@ -136,7 +134,7 @@ public class HttpHelper {
     public void getOrderDetail(Context context,String orderNumber,JsonHandler<String> jsonHandler){
         RequestParams params = new RequestParams();
         params.put("orderNumber", orderNumber+"");
-        requestForPostNoToken(context,ContactValues.ORDERPAGE_DETAIL,params,jsonHandler);
+        requestForPost(context,ContactValues.ORDERPAGE_DETAIL,params,jsonHandler);
     }
 
     /**
@@ -166,16 +164,34 @@ public class HttpHelper {
      * String seatName(座位号名字)，double orderAmount(订单金额)，
      * String orderNumber(订单号)，int discountCouponId(优惠券id)
      */
-    public void commitOrderBtn(Context context,String remark,double discountAmount,String seatName,
-                               double orderAmount,String orderNumber,int discountCouponId,JsonHandler<String> jsonHandler){
+//    public void commitOrderBtn(Context context,String remark,double discountAmount,String seatName,
+//                               double orderAmount,String orderNumber,int discountCouponId,JsonHandler<String> jsonHandler){
+//        RequestParams params = new RequestParams();
+//        params.put("remark", remark+"");
+//        params.put("discountAmount", discountAmount+"");
+//        params.put("seatName", seatName+"");
+//        params.put("orderAmount", orderAmount+"");
+//        params.put("orderNumber", orderNumber+"");
+//        params.put("discountCouponId", discountCouponId+"");
+//        requestForPostNoToken(context,ContactValues.COMFIRM_ORDER,params,jsonHandler);
+//    }
+    /**
+     * 八、确认下单接口
+     * String remark(备注)，double discountAmount(优惠金额)，
+     * String seatName(座位号名字)，double orderAmount(订单金额)，
+     * String orderNumber(订单号)，int discountCouponId(优惠券id)
+     */
+    public void commitOrderBtn(Context context,String shopId,String remark,double discountAmount,String seatName,
+                               double orderAmount,String jsonProductList,int discountCouponId,JsonHandler<String> jsonHandler){
         RequestParams params = new RequestParams();
+        params.put("shopId", shopId);
         params.put("remark", remark+"");
+        params.put("jsonProductList", jsonProductList);
         params.put("discountAmount", discountAmount+"");
         params.put("seatName", seatName+"");
         params.put("orderAmount", orderAmount+"");
-        params.put("orderNumber", orderNumber+"");
         params.put("discountCouponId", discountCouponId+"");
-        requestForPostNoToken(context,ContactValues.COMFIRM_ORDER,params,jsonHandler);
+        requestForPost(context,ContactValues.COMFIRM_ORDER,params,jsonHandler);
     }
 
     /**
@@ -215,7 +231,7 @@ public class HttpHelper {
         RequestParams params = new RequestParams();
         params.put("orderNumber", orderNumber+"");
         params.put("jsonProductList", jsonProductList+"");
-        requestForPostNoToken(context,ContactValues.TIAO_DAN,params,jsonHandler);
+        requestForPost(context,ContactValues.TIAO_DAN,params,jsonHandler);
     }
 
     /**
@@ -242,11 +258,23 @@ public class HttpHelper {
      * 十五、确认调单接口
      * String orderNumber，String jsonProductList
      */
-    public void comfirmTiaoDan(Context context,String orderNumber,String jsonProductList,JsonHandler<String> jsonHandler){
+//    public void comfirmTiaoDan(Context context,String orderNumber,String jsonProductList,JsonHandler<String> jsonHandler){
+//        RequestParams params = new RequestParams();
+//        params.put("orderNumber", orderNumber+"");
+//        params.put("jsonProductList", jsonProductList+"");
+//        requestForPostNoToken(context,ContactValues.COMFIRM_TIAODAN,params,jsonHandler);
+//    }
+
+    /**
+     * 十五、确认调单接口
+     * String orderNumber，String jsonProductList
+     */
+    public void comfirmTiaoDan(Context context,String orderNumber,String shopId,String jsonProductList,JsonHandler<String> jsonHandler){
         RequestParams params = new RequestParams();
-        params.put("orderNumber", orderNumber+"");
-        params.put("jsonProductList", jsonProductList+"");
-        requestForPostNoToken(context,ContactValues.COMFIRM_TIAODAN,params,jsonHandler);
+        params.put("orderNumber", orderNumber);
+        params.put("shopId", shopId);
+        params.put("jsonProductList", jsonProductList);
+        requestForPost(context,ContactValues.COMFIRM_TIAODAN,params,jsonHandler);
     }
 
     /**
@@ -314,5 +342,14 @@ public class HttpHelper {
         params.put("jsonProductList", jsonProductList+"");
         params.put("shopId", shopId+"");
         requestForPost(context,ContactValues.QUICK_ORDERED,params,jsonHandler);
+    }
+    /**
+     * @author 马鹏昊
+     * @desc 查询自助点餐是否有未完成订单接口--
+     */
+    public void checkIfAlreadyExistOrder(Context context,int shopId,JsonHandler<String> jsonHandler){
+        RequestParams params = new RequestParams();
+        params.put("shopId", shopId+"");
+        requestForPost(context,ContactValues.CHECK_IF_ALREADY_EXIST_ORDER,params,jsonHandler);
     }
 }

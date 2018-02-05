@@ -62,13 +62,13 @@
         tools:replace="android:icon, android:theme"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".hldc.main.DCMainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" android:launchMode="singleTask">
 
         </activity>
         <activity android:name=".hldc.main.ComfirmOrderActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".hldc.main.OrderedListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" android:launchMode="singleTask"/>
 
         <!--商品详情-->
         <activity android:name=".hldc.main.GoodDetailActivity"></activity>

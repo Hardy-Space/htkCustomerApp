@@ -74,5 +74,23 @@
             android:layout_toLeftOf="@id/tv_number1"
             android:layout_width="@dimen/dimen_59"
             android:layout_height="@dimen/dimen_59" />
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_below="@id/tv_reduce"
+            android:layout_alignParentRight="true"
+            android:text="移除"
+            android:textColor="@color/color_white"
+            android:background="@color/allText_red_color"
+            />
+
     </RelativeLayout>
 </LinearLayout>

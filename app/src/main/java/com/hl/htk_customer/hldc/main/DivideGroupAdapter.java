@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.hldc.bean.OrderFoodBean;
+import com.hl.htk_customer.model.AlreadySelectFoodData;
 
 import java.util.List;
 
@@ -62,32 +63,49 @@ public class DivideGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }else{
             if(mList.get(position).getCategoryId() == mList.get(position-1).getCategoryId()){
                 vhImage.linearContent.setVisibility(View.GONE);
-                vhImage.tvHeadView.setText(mList.get(position).getCategoryName()+"");
             } else {
                 vhImage.linearContent.setVisibility(View.VISIBLE);
-                vhImage.tvHeadView.setText(mList.get(position).getCategoryName()+"");
             }
+            vhImage.tvHeadView.setText(mList.get(position).getCategoryName()+"");
         }
         vhImage.tvPlus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                mList.get(position).setQuantity(mList.get(position).getQuantity()+1);
-                notifyItemChanged(position, "aa");
-                OrderedListActivity.mInstance.showModify(position, mList.get(position).getQuantity());
+                int newQuantity = mList.get(position).getQuantity()+1;
+                mList.get(position).setQuantity(newQuantity);
+
+                AlreadySelectFoodData.getAllFoodList().get(position).setQuantity(newQuantity);
+
+//                notifyItemChanged(position, "aa");
+                OrderedListActivity.mInstance.showModify();
             }
         });
         vhImage.tvReduce.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(mList.get(position).getQuantity() > 0){
-                    mList.get(position).setQuantity(mList.get(position).getQuantity()-1);
-                } else {
-                    mList.get(position).setQuantity(0);
+                if (mList.get(position).getQuantity()<=0)
+                    return;
+                else {
+                    int newQuantity =mList.get(position).getQuantity()-1;
+                    mList.get(position).setQuantity(newQuantity);
+                    AlreadySelectFoodData.getAllFoodList().get(position).setQuantity(newQuantity);
                 }
 //                notifyItemChanged(position, "aa");
-                OrderedListActivity.mInstance.showModify(position, mList.get(position).getQuantity());
+                OrderedListActivity.mInstance.showModify();
             }
         });
+
+
+        vhImage.tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //删除菜品
+                mList.remove(position);
+                AlreadySelectFoodData.getAllFoodList().remove(position);
+                OrderedListActivity.mInstance.showModify();
+            }
+        });
+
     }
 
     @Override
@@ -118,6 +136,7 @@ public class DivideGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public TextView tvReduce;
         public TextView tvNumber;
         public TextView tvHeadView;
+        public TextView tvDelete;
         public LinearLayout linearContent;
         public ViewContentView(View mView){
             super(mView);
@@ -130,6 +149,8 @@ public class DivideGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvReduce = rootView.findViewById(R.id.tv_reduce);
             tvNumber = rootView.findViewById(R.id.tv_number1);
             linearContent = rootView.findViewById(R.id.linear_head);
+
+            tvDelete = rootView.findViewById(R.id.tv_delete);
         }
     }
 }

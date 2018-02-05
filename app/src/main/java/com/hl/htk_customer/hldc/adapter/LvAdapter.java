@@ -128,7 +128,7 @@ public class LvAdapter extends BaseAdapter {
         mviewHolder.img_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext,"快捷点菜",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext,"快捷点菜",Toast.LENGTH_SHORT).show();
                 DCMainActivity.mainActivity.addFoodToList(mList.get(i));
             }
         });
