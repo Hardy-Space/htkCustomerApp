@@ -1,5 +1,6 @@
 package com.hl.htk_customer.hldc.main;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +27,7 @@ import com.hl.htk_customer.hldc.pager.Tuijianpager;
 import com.hl.htk_customer.hldc.utils.PreferencesUtils;
 import com.hl.htk_customer.hldc.utils.ToolUtils;
 import com.hl.htk_customer.hldc.view.SeatPopupWindow;
+import com.hl.htk_customer.utils.MPHUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -149,10 +151,17 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener {
 
     private void getPositionList() {
         shopId = PreferencesUtils.getInt(getContext(), "shopId");
+
+        final Dialog loading = MPHUtils.createLoadingDialog(getActivity(), "");
+        loading.show();
+
         HttpHelper.getInstance().getSeatPosition(getContext(), shopId, new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+
+                loading.dismiss();
+
                 Log.d(TAG, "getPositionList=>" + responseString);
                 int state = ToolUtils.getNetBackCode(responseString);
                 String result = ToolUtils.getJsonParseResult(responseString);
@@ -185,6 +194,7 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener {
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
+                loading.dismiss();
                 Toast.makeText(getContext(), "获取座位列表失败", Toast.LENGTH_SHORT).show();
             }
 
@@ -241,16 +251,21 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener {
 
     private void getCategoryList() {
 
+        final Dialog loading = MPHUtils.createLoadingDialog(getActivity(), "");
+        loading.show();
+
         HttpHelper.getInstance().getCategoryList(getActivity(), PreferencesUtils.getInt(getActivity(), "shopId"), new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+                loading.dismiss();
                 Log.d(TAG, "onSuccess=statusCode>" + statusCode + "<<==responseString==>>" + responseString);
                 convertStringToList(ToolUtils.getJsonParseResult(responseString));
             }
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
+                loading.dismiss();
                 Log.d(TAG, "onFailure=statusCode>" + statusCode);
             }
 
