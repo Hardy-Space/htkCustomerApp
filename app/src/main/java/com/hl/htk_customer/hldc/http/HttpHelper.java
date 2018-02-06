@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.hl.htk_customer.hldc.utils.ContactValues;
 import com.hl.htk_customer.hldc.utils.Logger;
+import com.hl.htk_customer.hldc.utils.PreferencesUtils;
 import com.hl.htk_customer.model.UserInfoManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
@@ -134,6 +135,7 @@ public class HttpHelper {
     public void getOrderDetail(Context context,String orderNumber,JsonHandler<String> jsonHandler){
         RequestParams params = new RequestParams();
         params.put("orderNumber", orderNumber+"");
+        params.put("shopId", PreferencesUtils.getInt(context,"shopId")+"");
         requestForPost(context,ContactValues.ORDERPAGE_DETAIL,params,jsonHandler);
     }
 

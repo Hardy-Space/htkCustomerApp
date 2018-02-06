@@ -1,6 +1,7 @@
 package com.hl.htk_customer.hldc.main;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.hl.htk_customer.hldc.utils.PreferencesUtils;
 import com.hl.htk_customer.hldc.utils.ToolUtils;
 import com.hl.htk_customer.hldc.view.SeatPopupWindow;
 import com.hl.htk_customer.model.AlreadySelectFoodData;
+import com.hl.htk_customer.utils.MPHUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -201,10 +203,15 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
 
     private void getPositionList() {
         shopId = PreferencesUtils.getInt(ComfirmOrderActivity.this, "shopId");
+
+        final Dialog loading = MPHUtils.createLoadingDialog(this, "");
+        loading.show();
+
         HttpHelper.getInstance().getSeatPosition(ComfirmOrderActivity.this, shopId, new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+                loading.dismiss();
                 Log.d(TAG, "getPositionList=>" + responseString);
                 int state = ToolUtils.getNetBackCode(responseString);
                 String result = ToolUtils.getJsonParseResult(responseString);
@@ -234,6 +241,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
+                loading.dismiss();
                 Toast.makeText(ComfirmOrderActivity.this, "获取座位列表失败", Toast.LENGTH_SHORT).show();
             }
 
@@ -342,10 +350,15 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
     MineBean mineBean = new MineBean();
 
     private void getMineInfo() {
+
+        final Dialog loading = MPHUtils.createLoadingDialog(this, "");
+        loading.show();
+
         HttpHelper.getInstance().getMineInfo(ComfirmOrderActivity.this, new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+                loading.dismiss();
                 Log.d(TAG, "onSuccess() === >>>" + responseString);
                 int state = ToolUtils.getNetBackCode(responseString);
                 String result = ToolUtils.getJsonParseResult(responseString);
@@ -373,6 +386,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
+                loading.dismiss();
                 Log.d(TAG, "getMineInfo()==onFailure==>>" + responseString);
                 Toast.makeText(ComfirmOrderActivity.this, "Loading Failed...", Toast.LENGTH_SHORT).show();
             }
@@ -447,11 +461,16 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         remark = tvBeiZhu.getText().toString();
         orderAmount =  Double.parseDouble(tvShiFu.getText().toString());
         String jsonStr = createJsonStr();
+
+        final Dialog loading = MPHUtils.createLoadingDialog(this, "");
+        loading.show();
+
         HttpHelper.getInstance().commitOrderBtn(ComfirmOrderActivity.this,PreferencesUtils.getInt(this,"shopId")+"", remark, discountAmount,
                 seatName, orderAmount, jsonStr, discountCouponId, new JsonHandler<String>() {
 
                     @Override
                     public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+                        loading.dismiss();
                         Log.d(TAG, "commitOrderBtn()==onSuccess()==>>>" + responseString);
                         int state = ToolUtils.getNetBackCode(responseString);
                         if (state == 100) {
@@ -467,6 +486,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
 
                     @Override
                     public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
+                        loading.dismiss();
                         Log.d(TAG, "commitOrderBtn()==onFailure()==>>>" + responseString);
                         Toast.makeText(ComfirmOrderActivity.this, "接口出错", Toast.LENGTH_SHORT).show();
                     }
@@ -555,10 +575,16 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
 
     private void comfirmTiaoDan() {
         orderNumber = PreferencesUtils.getString(this, "orderNumber");
+
+
+        final Dialog loading = MPHUtils.createLoadingDialog(this, "");
+        loading.show();
+
         HttpHelper.getInstance().comfirmTiaoDan(ComfirmOrderActivity.this, orderNumber,PreferencesUtils.getInt(this,"shopId")+"", productStr, new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+                loading.dismiss();
                 int state = ToolUtils.getNetBackCode(responseString);
                 if (state == 100) {
                     Toast.makeText(ComfirmOrderActivity.this, "发送调单请求成功，请等待商家确认", Toast.LENGTH_SHORT).show();
@@ -571,6 +597,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
 
             @Override
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
+                loading.dismiss();
                 Log.d(TAG, "commitOrderBtn()==onFailure()==>>>" + responseString);
                 Toast.makeText(ComfirmOrderActivity.this, "接口请求失败", Toast.LENGTH_SHORT).show();
             }

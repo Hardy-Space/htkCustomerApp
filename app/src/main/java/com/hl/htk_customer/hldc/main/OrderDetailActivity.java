@@ -1,10 +1,10 @@
 package com.hl.htk_customer.hldc.main;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,8 +20,6 @@ import com.hl.htk_customer.hldc.utils.ToolUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.text.TextUtils;
-
 /**
  * Created by asus on 2017/10/27.---订单详情页面 -- 已弃用
  */
@@ -31,8 +29,8 @@ public class OrderDetailActivity extends Activity implements View.OnClickListene
     private View mView, viewsp1, viewsp2;
     private TextView tvTitle,tvLeftState,tvPaid, tvCook, tvFinished;
     private ImageView imgBack;
-    private TextView tvXiaDan, tvTiaoDan, tvCuiDan;
-    private ImageView imgXiaDan, imgTiaoDan, imgCuiDan;
+//    private TextView tvXiaDan, tvTiaoDan, tvCuiDan;
+//    private ImageView imgXiaDan, imgTiaoDan, imgCuiDan;
     private RecyclerView recyclerView;
     private OrderedAdapter orderedAdapter;
 
@@ -63,23 +61,23 @@ public class OrderDetailActivity extends Activity implements View.OnClickListene
         tvPaid = findViewById(R.id.tv_paidtip);
         tvCook = findViewById(R.id.tv_cookingtip);
         tvFinished = findViewById(R.id.tv_finishedtip);
-        tvXiaDan = findViewById(R.id.tv_xiadan);
-        tvTiaoDan = findViewById(R.id.tv_tiaodan);
-        tvCuiDan = findViewById(R.id.tv_cuidan);
-        imgXiaDan = findViewById(R.id.img_xiadan);
-        imgCuiDan = findViewById(R.id.img_cuidan);
-        imgTiaoDan = findViewById(R.id.img_tiaodan);
+//        tvXiaDan = findViewById(R.id.tv_xiadan);
+//        tvTiaoDan = findViewById(R.id.tv_tiaodan);
+//        tvCuiDan = findViewById(R.id.tv_cuidan);
+//        imgXiaDan = findViewById(R.id.img_xiadan);
+//        imgCuiDan = findViewById(R.id.img_cuidan);
+//        imgTiaoDan = findViewById(R.id.img_tiaodan);
         setOnClickListener();
     }
 
     private void setOnClickListener(){
         imgBack.setOnClickListener(this);
-        tvXiaDan.setOnClickListener(this);
-        imgXiaDan.setOnClickListener(this);
-        tvCuiDan.setOnClickListener(this);
-        imgCuiDan.setOnClickListener(this);
-        tvTiaoDan.setOnClickListener(this);
-        imgTiaoDan.setOnClickListener(this);
+//        tvXiaDan.setOnClickListener(this);
+//        imgXiaDan.setOnClickListener(this);
+//        tvCuiDan.setOnClickListener(this);
+//        imgCuiDan.setOnClickListener(this);
+//        tvTiaoDan.setOnClickListener(this);
+//        imgTiaoDan.setOnClickListener(this);
     }
 
 
@@ -89,22 +87,22 @@ public class OrderDetailActivity extends Activity implements View.OnClickListene
             case R.id.img_lefticon:
                 OrderDetailActivity.this.finish();
                 break;
-            case R.id.img_xiadan:
-            case R.id.tv_xiadan:
-                Intent mIntent = new Intent(OrderDetailActivity.this, OrderedListActivity.class);
-//                Toast.makeText(OrderDetailActivity.this, "下单按钮", Toast.LENGTH_SHORT).show();
-//                xiaDanBtn();
-                break;
-            case R.id.img_cuidan:
-            case R.id.tv_cuidan:
-                Toast.makeText(OrderDetailActivity.this, "催单按钮", Toast.LENGTH_SHORT).show();
-                cuiDanBtn();
-                break;
-            case R.id.img_tiaodan:
-            case R.id.tv_tiaodan:
-                Toast.makeText(OrderDetailActivity.this, "调单按钮", Toast.LENGTH_SHORT).show();
-                tiaoDanBtn();
-                break;
+//            case R.id.img_xiadan:
+//            case R.id.tv_xiadan:
+//                Intent mIntent = new Intent(OrderDetailActivity.this, OrderedListActivity.class);
+////                Toast.makeText(OrderDetailActivity.this, "下单按钮", Toast.LENGTH_SHORT).show();
+////                xiaDanBtn();
+//                break;
+//            case R.id.img_cuidan:
+//            case R.id.tv_cuidan:
+//                Toast.makeText(OrderDetailActivity.this, "催单按钮", Toast.LENGTH_SHORT).show();
+//                cuiDanBtn();
+//                break;
+//            case R.id.img_tiaodan:
+//            case R.id.tv_tiaodan:
+//                Toast.makeText(OrderDetailActivity.this, "调单按钮", Toast.LENGTH_SHORT).show();
+//                tiaoDanBtn();
+//                break;
         }
     }
 

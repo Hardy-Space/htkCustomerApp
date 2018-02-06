@@ -1,11 +1,13 @@
 package com.hl.htk_customer.hldc.main;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,8 +17,17 @@ import android.widget.Toast;
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.hldc.bean.OrderFoodBean;
 import com.hl.htk_customer.hldc.bean.YiDianFoodParentBean;
+import com.hl.htk_customer.hldc.http.HttpHelper;
+import com.hl.htk_customer.hldc.http.JsonHandler;
 import com.hl.htk_customer.hldc.utils.PreferencesUtils;
+import com.hl.htk_customer.hldc.utils.ToolUtils;
 import com.hl.htk_customer.model.AlreadySelectFoodData;
+import com.hl.htk_customer.utils.MPHUtils;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Iterator;
 
@@ -269,17 +280,115 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
      */
     private void getOrderedGoodsList() {
 
+
         if (mBean!=null&&mBean.getOrderProductList()!=null){
-            mBean.getOrderProductList().clear();
-            Iterator<OrderFoodBean> iter = AlreadySelectFoodData.getAllFoodList().iterator();
-            while (iter.hasNext()) {
-                OrderFoodBean b = iter.next();
-                mBean.getOrderProductList().add(b);
-            }
-            calulateMoneyAndAmount();
-            mAdapter.notifyDataSetChanged();
+
+            //先把远程订单的数据填充进去
+            addWebData();
         }
 
+    }
+
+    /**
+     * @param foodBean 待加入的菜品
+     * @author 马鹏昊
+     * @desc 保存点餐信息
+     */
+    public boolean checkIfExist(OrderFoodBean foodBean) {
+        Iterator<OrderFoodBean> iter = AlreadySelectFoodData.getAllFoodList().iterator();
+        while (iter.hasNext()) {
+            OrderFoodBean b = iter.next();
+            if (foodBean.getCategoryId() == b.getCategoryId() && foodBean.getId() == b.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @author 马鹏昊
+     * @desc 填充远程订单菜品数据到本地集合
+     */
+    private void addWebData() {
+        final Dialog loading = MPHUtils.createLoadingDialog(this, "");
+        loading.show();
+
+        HttpHelper.getInstance().getOrderDetail(this, orderNumber, new JsonHandler<String>() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString, Object response) {
+                loading.dismiss();
+                Log.d(TAG, "onSuccess=>" + responseString);
+                JSONObject jb = null;
+                try {
+                    jb = new JSONObject(responseString);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                int code = -1;
+                if (jb == null) {
+                    Toast.makeText(OrderedListActivity.this, "Json解析失败", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    try {
+                        code = jb.getInt("code");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (code == 100) {
+                    String result = ToolUtils.getJsonParseResult(responseString);
+                    if (!TextUtils.isEmpty(result)) {
+                        JSONObject obj;
+                        try {
+                            obj = new JSONObject(result);
+                            String productList = obj.getString("productList");
+                            JSONArray mArray = new JSONArray(productList);
+                            for (int i = 0; i < mArray.length(); i++) {
+                                OrderFoodBean bean = new OrderFoodBean();
+                                bean.setCategoryId(mArray.getJSONObject(i).getInt("categoryId"));
+                                bean.setCategoryName(mArray.getJSONObject(i).getString("categoryName"));
+                                bean.setId(mArray.getJSONObject(i).getInt("id"));
+                                bean.setOrderId(mArray.getJSONObject(i).getInt("orderId"));
+                                bean.setPrice(mArray.getJSONObject(i).getDouble("price"));
+                                bean.setProductId(mArray.getJSONObject(i).getInt("productId"));
+                                bean.setProductName(mArray.getJSONObject(i).getString("productName"));
+                                bean.setQuantity(mArray.getJSONObject(i).getInt("quantity"));
+                                bean.setPrice(mArray.getJSONObject(i).getDouble("price"));
+                                bean.setImgUrl(mArray.getJSONObject(i).getString("imgUrl"));
+                                bean.setState(mArray.getJSONObject(i).getInt("state"));
+                                if (!checkIfExist(bean)) {
+                                    AlreadySelectFoodData.getAllFoodList().add(bean);
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                mBean.getOrderProductList().clear();
+                Iterator<OrderFoodBean> iter = AlreadySelectFoodData.getAllFoodList().iterator();
+                while (iter.hasNext()) {
+                    OrderFoodBean b = iter.next();
+                    mBean.getOrderProductList().add(b);
+                }
+                calulateMoneyAndAmount();
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
+                loading.dismiss();
+                Log.d(TAG, "" + responseString);
+                Toast.makeText(OrderedListActivity.this, "获取已生成订单的菜品信息接口出错", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected Object parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
+                return null;
+            }
+        });
     }
 
     //    private void getOrderedGoodsList() {

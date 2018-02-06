@@ -23,7 +23,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
@@ -187,6 +186,7 @@ public class MyApplication extends Application {
             }
         });
     }
+
 
 
 }

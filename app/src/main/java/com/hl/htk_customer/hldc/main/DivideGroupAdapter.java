@@ -83,7 +83,7 @@ public class DivideGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         vhImage.tvReduce.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if (mList.get(position).getQuantity()<=0)
+                if (mList.get(position).getQuantity()<=1)
                     return;
                 else {
                     int newQuantity =mList.get(position).getQuantity()-1;

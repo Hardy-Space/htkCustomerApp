@@ -1,7 +1,6 @@
 package com.hl.htk_customer.hldc.main;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,10 +23,16 @@ import com.hl.htk_customer.hldc.http.HttpHelper;
 import com.hl.htk_customer.hldc.http.JsonHandler;
 import com.hl.htk_customer.hldc.utils.PreferencesUtils;
 import com.hl.htk_customer.hldc.utils.ToolUtils;
+import com.hl.htk_customer.utils.MPHUtils;
 
+import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
+
+import butterknife.ButterKnife;
 
 
 /**
@@ -38,8 +45,13 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
     private TextView tvTitle, tvLeftState, tvPaid, tvCook, tvFinished, tvDingDanNumber, tvData, tvStateTip,
             tvGoodMountTip, tvCommittedTime, tvTotalAmount, tvTotalPrice;
     private ImageView imgBack;
-    private TextView tvXiaDan, tvTiaoDan, tvCuiDan;
-    private ImageView imgXiaDan, imgTiaoDan, imgCuiDan;
+    //    private TextView tvXiaDan, tvTiaoDan, tvCuiDan;
+    //    private ImageView imgXiaDan, imgTiaoDan, imgCuiDan;
+
+    private LinearLayout cuidanArea, tiaodanArea;
+    private TextView mNonDataTip;
+    private ScrollView mHasDataArea;
+
     private RecyclerView recyclerView;
     private OrderedAdapter orderedAdapter;
 
@@ -48,6 +60,7 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
         View mView = inflater.inflate(R.layout.orderdetail_layout, container, false);
         initViews(mView);
         refreshCurrentUI();
+        ButterKnife.bind(this, mView);
         return mView;
     }
 
@@ -73,7 +86,8 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
-        refreshCurrentUI();
+        if (isVisible())
+            refreshCurrentUI();
     }
 
     public void refreshCurrentUI() {
@@ -105,24 +119,33 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
         tvCommittedTime = view.findViewById(R.id.tv_committedtime);
         tvTotalAmount = view.findViewById(R.id.tv_totalamount);
         tvTotalPrice = view.findViewById(R.id.tv_zongji);
-        tvXiaDan = view.findViewById(R.id.tv_xiadan);
-        tvTiaoDan = view.findViewById(R.id.tv_tiaodan);
-        tvCuiDan = view.findViewById(R.id.tv_cuidan);
-        imgXiaDan = view.findViewById(R.id.img_xiadan);
-        imgCuiDan = view.findViewById(R.id.img_cuidan);
-        imgTiaoDan = view.findViewById(R.id.img_tiaodan);
+        //        tvXiaDan = view.findViewById(R.id.tv_xiadan);
+        //        tvTiaoDan = view.findViewById(R.id.tv_tiaodan);
+        //        tvCuiDan = view.findViewById(R.id.tv_cuidan);
+        //        imgXiaDan = view.findViewById(R.id.img_xiadan);
+        //        imgCuiDan = view.findViewById(R.id.img_cuidan);
+        //        imgTiaoDan = view.findViewById(R.id.img_tiaodan);
+
+        cuidanArea = view.findViewById(R.id.cuidanArea);
+        tiaodanArea = view.findViewById(R.id.tiaodanArea);
+
+        mNonDataTip = view.findViewById(R.id.nonDataTip);
+        mHasDataArea = view.findViewById(R.id.hasDataArea);
+
         setOnClickListener();
 
     }
 
     private void setOnClickListener() {
         imgBack.setOnClickListener(this);
-        tvXiaDan.setOnClickListener(this);
-        imgXiaDan.setOnClickListener(this);
-        tvCuiDan.setOnClickListener(this);
-        imgCuiDan.setOnClickListener(this);
-        tvTiaoDan.setOnClickListener(this);
-        imgTiaoDan.setOnClickListener(this);
+        cuidanArea.setOnClickListener(this);
+        tiaodanArea.setOnClickListener(this);
+        //        tvXiaDan.setOnClickListener(this);
+        //        imgXiaDan.setOnClickListener(this);
+        //        tvCuiDan.setOnClickListener(this);
+        //        imgCuiDan.setOnClickListener(this);
+        //        tvTiaoDan.setOnClickListener(this);
+        //        imgTiaoDan.setOnClickListener(this);
     }
 
 
@@ -131,30 +154,49 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
         switch (view.getId()) {
             case R.id.img_lefticon:
                 break;
-            case R.id.img_xiadan:
-            case R.id.tv_xiadan:
+            //            case R.id.img_xiadan:
+            //            case R.id.tv_xiadan:
+            //                if (!TextUtils.isEmpty(orderNumber)) {
+            //                    Intent mIntent = new Intent(getActivity(), OrderedListActivity.class);
+            //                    mIntent.putExtra("type", "xiadan");
+            //                    getActivity().startActivity(mIntent);
+            //                } else {
+            //                    Toast.makeText(getActivity(), "尚未初始化下单信息", Toast.LENGTH_SHORT).show();
+            //                }
+            //                break;
+
+            case R.id.cuidanArea:
                 if (!TextUtils.isEmpty(orderNumber)) {
-                    Intent mIntent = new Intent(getActivity(), OrderedListActivity.class);
-                    mIntent.putExtra("type", "xiadan");
-                    getActivity().startActivity(mIntent);
-                } else {
-                    Toast.makeText(getActivity(), "尚未初始化下单信息", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.img_cuidan:
-            case R.id.tv_cuidan:
-                if (!TextUtils.isEmpty(orderNumber)) {
+                    //如果商家已接单
                     if (mOrderedFoodBean.getOrderState() == 1) {
-                        cuiDanBtn();
+                        long time = getReduceTimePeriod();
+                        if (time > 10) {
+                            cuiDanBtn();
+                        } else {
+                            Toast.makeText(getActivity(), "美食正在烹饪，请不要频繁催单哦，" + (10 - time) + "分钟后再尝试吧~", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(getActivity(), "无法催单", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "商家尚未接单，无法催单", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getActivity(), "尚未初始化下单信息", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.img_tiaodan:
-            case R.id.tv_tiaodan:
+
+            //            case R.id.img_cuidan:
+            //            case R.id.tv_cuidan:
+            //                if (!TextUtils.isEmpty(orderNumber)) {
+            //                    if (mOrderedFoodBean.getOrderState() == 1) {
+            //                        cuiDanBtn();
+            //                    } else {
+            //                        Toast.makeText(getActivity(), "无法催单", Toast.LENGTH_SHORT).show();
+            //                    }
+            //                } else {
+            //                    Toast.makeText(getActivity(), "尚未初始化下单信息", Toast.LENGTH_SHORT).show();
+            //                }
+            //                break;
+
+            case R.id.tiaodanArea:
                 if (!TextUtils.isEmpty(orderNumber)) {
                     Intent mIntent1 = new Intent(getActivity(), OrderedListActivity.class);
                     mIntent1.putExtra("type", "tiaodan");
@@ -163,14 +205,34 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
                     Toast.makeText(getActivity(), "尚未初始化下单信息", Toast.LENGTH_SHORT).show();
                 }
                 break;
+
+            //            case R.id.img_tiaodan:
+            //            case R.id.tv_tiaodan:
+            //                if (!TextUtils.isEmpty(orderNumber)) {
+            //                    Intent mIntent1 = new Intent(getActivity(), OrderedListActivity.class);
+            //                    mIntent1.putExtra("type", "tiaodan");
+            //                    getActivity().startActivity(mIntent1);
+            //                } else {
+            //                    Toast.makeText(getActivity(), "尚未初始化下单信息", Toast.LENGTH_SHORT).show();
+            //                }
+            //                break;
         }
+    }
+
+    private long getReduceTimePeriod() {
+        long lastDate = PreferencesUtils.getLong(getActivity(), "cuidanLastDate", 0);
+        Date date = new Date();
+        long nowDate = date.getTime();
+        long periodTime = nowDate - lastDate;
+        long minute = periodTime / 1000 / 60;
+        return minute;
     }
 
     private void tiaoDanBtn() {
         HttpHelper.getInstance().tiaoDan(getActivity(), orderNumber, "", new JsonHandler<String>() {
 
             @Override
-            public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+            public void onSuccess(int statusCode, Header[] headers, String responseString, Object response) {
                 int state = ToolUtils.getNetBackCode(responseString);
                 if (state == 100) {
                     Toast.makeText(getActivity(), "调单成功", Toast.LENGTH_SHORT).show();
@@ -180,7 +242,7 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
             }
 
             @Override
-            public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
                 Toast.makeText(getActivity(), "调单失败", Toast.LENGTH_SHORT).show();
             }
 
@@ -193,22 +255,30 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void cuiDanBtn() {
+
+        final Dialog loading = MPHUtils.createLoadingDialog(getActivity(), "");
+        loading.show();
+
+        PreferencesUtils.putLong(getActivity(), "cuidanLastDate", new Date().getTime());
+
         HttpHelper.getInstance().cuiDan(getActivity(), orderNumber, new JsonHandler<String>() {
 
             @Override
-            public void onSuccess(int statusCode, org.apache.http.Header[] headers, String rawJsonResponse, Object response) {
-                int state = ToolUtils.getNetBackCode(rawJsonResponse);
-                if (state == 100) {
-                    Toast.makeText(getActivity(), "催单成功", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "催单失败" + rawJsonResponse, Toast.LENGTH_SHORT).show();
-                }
+            public void onSuccess(int statusCode, Header[] headers, String rawJsonResponse, Object response) {
+                loading.dismiss();
+                //                int state = ToolUtils.getNetBackCode(rawJsonResponse);
+                //                if (state == 100) {
+                //                    Toast.makeText(getActivity(), "催单成功", Toast.LENGTH_SHORT).show();
+                //                } else {
+                //                    Toast.makeText(getActivity(), "催单失败" + rawJsonResponse, Toast.LENGTH_SHORT).show();
+                //                }
 
             }
 
             @Override
-            public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
-                Toast.makeText(getActivity(), "催单失败" + responseString, Toast.LENGTH_SHORT).show();
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
+                loading.dismiss();
+                //                Toast.makeText(getActivity(), "催单失败" + responseString, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -223,7 +293,7 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
         HttpHelper.getInstance().commitOrderBtn(getActivity(), orderNumber, "", new JsonHandler<String>() {
 
             @Override
-            public void onSuccess(int statusCode, org.apache.http.Header[] headers, String rawJsonResponse, Object response) {
+            public void onSuccess(int statusCode, Header[] headers, String rawJsonResponse, Object response) {
                 int state = ToolUtils.getNetBackCode(rawJsonResponse);
                 if (state == 100) {
                     Toast.makeText(getActivity(), "下单成功", Toast.LENGTH_SHORT).show();
@@ -233,7 +303,7 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
             }
 
             @Override
-            public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
                 Toast.makeText(getActivity(), "下单失败", Toast.LENGTH_SHORT).show();
             }
 
@@ -250,14 +320,13 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
 
     private void getOrderDetail() {
 
-        final Dialog loading = new ProgressDialog(getActivity(), 0);
+        final Dialog loading = MPHUtils.createLoadingDialog(getActivity(), "");
         loading.show();
 
         HttpHelper.getInstance().getOrderDetail(getActivity(), orderNumber, new JsonHandler<String>() {
 
-
             @Override
-            public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+            public void onSuccess(int statusCode, Header[] headers, String responseString, Object response) {
                 loading.dismiss();
                 Log.d(TAG, "onSuccess=>" + responseString);
                 JSONObject jb = null;
@@ -328,21 +397,22 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                        mNonDataTip.setVisibility(View.GONE);
+                        mHasDataArea.setVisibility(View.VISIBLE);
+                    } else {
+                        mNonDataTip.setVisibility(View.VISIBLE);
+                        mHasDataArea.setVisibility(View.GONE);
                     }
-                }
-                if (orderedAdapter == null) {
-                    orderedAdapter = new OrderedAdapter(getActivity(), mOrderedFoodBean.getProductList());
-                    orderedAdapter.notifyDataSetChanged();
-                } else {
-                    orderedAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
                 loading.dismiss();
                 Log.d(TAG, "" + responseString);
                 Toast.makeText(getActivity(), "获取订单详情失败", Toast.LENGTH_SHORT).show();
+                mNonDataTip.setVisibility(View.VISIBLE);
+                mHasDataArea.setVisibility(View.GONE);
             }
 
             @Override
@@ -398,6 +468,12 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
             viewsp2.setBackgroundColor(getResources().getColor(R.color.color_common_bg));
             tvStateTip.setText("已完成");
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
 }

@@ -14,7 +14,7 @@
             android:id="@+id/tv_grouphead"
             android:textColor="@color/color_000000"
             android:textSize="16sp"
-            android:text="热菜(2)"
+            android:text="Null"
             android:gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -25,14 +25,14 @@
         android:layout_width="match_parent" android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/img_foodicon"
-            android:background="@drawable/icon_head"
+            android:scaleType="fitXY"
             android:layout_width="80dp"
             android:layout_height="80dp" />
         <TextView
             android:id="@+id/tv_foodname"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/img_foodicon"
-            android:text="西红柿炒鸡蛋"
+            android:text="Null"
             android:textSize="16sp"
             android:textColor="@color/color_000000"
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
             android:layout_marginTop="10dp"
             android:layout_alignLeft="@id/tv_foodname"
             android:layout_below="@id/tv_foodname"
-            android:text="18元"
+            android:text="-1元"
             android:textSize="14sp"
             android:textColor="@color/red_light"
             android:layout_width="wrap_content"
