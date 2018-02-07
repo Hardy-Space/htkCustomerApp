@@ -16,7 +16,7 @@ import java.util.List;
 
 public class AlreadySelectFoodData {
 
-    private static String shopId ;
+    private static String shopId;
 
     public static String getShopId() {
         return shopId;
@@ -28,8 +28,20 @@ public class AlreadySelectFoodData {
 
     private static final List<OrderFoodBean> allFood = new ArrayList<>();
 
-    public static List<OrderFoodBean> getAllFoodList(){
+    public static List<OrderFoodBean> getAllFoodList() {
         return allFood;
+    }
+
+    public static void addBean(OrderFoodBean bean) {
+        for (int i = 0; i < allFood.size(); i++) {
+            OrderFoodBean existBean = allFood.get(i);
+            if (existBean.getCategoryId() == bean.getCategoryId()) {
+                allFood.add(i, bean);
+                return;
+            }
+        }
+        allFood.add(bean);
+        return;
     }
 
 }

@@ -580,6 +580,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         final Dialog loading = MPHUtils.createLoadingDialog(this, "");
         loading.show();
 
+        //因为后台推送会有时间延迟导致调用超时，所以不管回调成功还是失败都提示成功即可（后台能够成功保存数据）
         HttpHelper.getInstance().comfirmTiaoDan(ComfirmOrderActivity.this, orderNumber,PreferencesUtils.getInt(this,"shopId")+"", productStr, new JsonHandler<String>() {
 
             @Override
@@ -591,7 +592,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                     startActivity(new Intent(ComfirmOrderActivity.this,DCMainActivity.class));
                     finish();
                 } else {
-                    Toast.makeText(ComfirmOrderActivity.this, "发送调单请求失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ComfirmOrderActivity.this, "商家未接单，无法调单", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -599,7 +600,10 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
                 loading.dismiss();
                 Log.d(TAG, "commitOrderBtn()==onFailure()==>>>" + responseString);
-                Toast.makeText(ComfirmOrderActivity.this, "接口请求失败", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ComfirmOrderActivity.this, "接口请求失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ComfirmOrderActivity.this, "发送调单请求成功，请等待商家确认", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ComfirmOrderActivity.this,DCMainActivity.class));
+                finish();
             }
 
             @Override

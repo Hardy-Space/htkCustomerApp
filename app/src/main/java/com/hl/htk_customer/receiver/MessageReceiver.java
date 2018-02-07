@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.hl.htk_customer.activity.OrderDetailActivity;
-import com.hl.htk_customer.activity.TgOrderDetailActivity;
 import com.hl.htk_customer.entity.CustomizeMsgEntity;
 import com.hl.htk_customer.model.OrderStateChangeEvent;
 
@@ -42,25 +40,27 @@ public class MessageReceiver extends BroadcastReceiver {
             Log.i(TAG, "用户点击打开了通知" + bundle.getString(JPushInterface.EXTRA_MESSAGE));
             // 在这里可以自己写代码去定义用户点击后的行为
             CustomizeMsgEntity msgEntity = new Gson().fromJson(bundle.getString(JPushInterface.EXTRA_MESSAGE), CustomizeMsgEntity.class);
-            switch (msgEntity.getFlag()){
-                case 0: //外卖订单
-                    Intent intentWm = new Intent(context, OrderDetailActivity.class);
-                    intentWm.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intentWm.putExtra("orderId", msgEntity.getOrderId());
-                    context.startActivity(intentWm);
-                    break;
-                case 1: // 团购订单
-                    Intent intentTg = new Intent(context, TgOrderDetailActivity.class);
-                    intentTg.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intentTg.putExtra("orderId", msgEntity.getOrderId());
-                    context.startActivity(intentTg);
-                    break;
-                case 2: //自助点餐订单
-                    Intent intentDc = new Intent(context, OrderDetailActivity.class);
-                    intentDc.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intentDc.putExtra("orderId", msgEntity.getOrderId());
-                    context.startActivity(intentDc);
-                    break;
+            if (msgEntity!=null) {
+//                switch (msgEntity.getFlag()) {
+//                    case 0: //外卖订单
+//                        Intent intentWm = new Intent(context, OrderDetailActivity.class);
+//                        intentWm.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        intentWm.putExtra("orderId", msgEntity.getOrderId());
+//                        context.startActivity(intentWm);
+//                        break;
+//                    case 1: // 团购订单
+//                        Intent intentTg = new Intent(context, TgOrderDetailActivity.class);
+//                        intentTg.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        intentTg.putExtra("orderId", msgEntity.getOrderId());
+//                        context.startActivity(intentTg);
+//                        break;
+//                    case 2: //自助点餐订单
+//                        Intent intentDc = new Intent(context, OrderDetailActivity.class);
+//                        intentDc.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        intentDc.putExtra("orderId", msgEntity.getOrderId());
+//                        context.startActivity(intentDc);
+//                        break;
+//                }
             }
 
         } else {

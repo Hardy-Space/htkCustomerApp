@@ -1,5 +1,6 @@
 package com.hl.htk_customer.hldc.main;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -23,6 +24,7 @@ import com.hl.htk_customer.hldc.http.JsonHandler;
 import com.hl.htk_customer.hldc.utils.PreferencesUtils;
 import com.hl.htk_customer.hldc.utils.ToolUtils;
 import com.hl.htk_customer.model.AlreadySelectFoodData;
+import com.hl.htk_customer.utils.MPHUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,11 +38,11 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
     private RadioGroup bottomTab;
     private RadioButton btnDianCai;
     private RadioButton btnOrder;
-    private RadioButton btnMine;
+//    private RadioButton btnMine;
 
     private BaseFragment dcFragment;
     private OrderDetailFragment orderFragment;
-    private BaseFragment mineFragment;
+//    private BaseFragment mineFragment;
 
     private FragmentManager manager;
     private int shopId;
@@ -65,7 +67,7 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
         bottomTab = (RadioGroup) this.findViewById(R.id.bottomTabs);
         btnDianCai = (RadioButton) this.findViewById(R.id.rb_diancai);
         btnOrder = (RadioButton) this.findViewById(R.id.rb_order);
-        btnMine = (RadioButton) this.findViewById(R.id.rb_mine);
+//        btnMine = (RadioButton) this.findViewById(R.id.rb_mine);
         manager = getSupportFragmentManager();
         bottomTab.setOnCheckedChangeListener(this);
         onCheckedChanged(bottomTab, R.id.rb_diancai); //
@@ -78,9 +80,9 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
         if (orderFragment == null) {
             orderFragment = new OrderDetailFragment();
         }
-        if (mineFragment == null) {
-            mineFragment = new MyFragment();
-        }
+//        if (mineFragment == null) {
+//            mineFragment = new MyFragment();
+//        }
     }
 
     //    boolean isFirstIn = false;
@@ -115,9 +117,9 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
                 showFragment(orderFragment, transaction);
                 //                orderFragment.onHiddenChanged(true);
                 break;
-            case R.id.rb_mine:
-                showFragment(mineFragment, transaction);
-                break;
+//            case R.id.rb_mine:
+//                showFragment(mineFragment, transaction);
+//                break;
         }
     }
 
@@ -146,7 +148,7 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
      * @desc 保存点餐信息
      */
     public void addFoodToList(GoodBean goodBean) {
-        Log.d(TAG, "strJiaCai == >>>>" + strJiaCai);
+//        Log.d(TAG, "strJiaCai == >>>>" + strJiaCai);
         if (!TextUtils.isEmpty(strJiaCai)) {
             OrderFoodBean b = new OrderFoodBean();
             b.setCategoryId(goodBean.getCategoryId());
@@ -169,11 +171,16 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
      * @desc 查看是否有未完成订单
      */
     private void checkIfAlreadyExistOrder(final OrderFoodBean b) {
+
+        final Dialog loading = MPHUtils.createLoadingDialog(this, "");
+        loading.show();
+
         HttpHelper.getInstance().checkIfAlreadyExistOrder(this,PreferencesUtils.getInt(this,"shopId"),
                 new JsonHandler<String>() {
 
                     @Override
                     public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+                        loading.dismiss();
                         JSONObject jb = null;
                         try {
                             jb = new JSONObject(responseString);
@@ -201,6 +208,7 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
 
                     @Override
                     public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
+                        loading.dismiss();
                     }
 
                     @Override
@@ -218,7 +226,7 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
      */
     private void nextAction(OrderFoodBean b, String type) {
         if (!checkIfExist(b)) {
-            AlreadySelectFoodData.getAllFoodList().add(b);
+            AlreadySelectFoodData.addBean(b);
         }
         //进入已点列表
         Intent mIntent = new Intent(DCMainActivity.this, OrderedListActivity.class);
@@ -236,10 +244,12 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
         Iterator<OrderFoodBean> iter = AlreadySelectFoodData.getAllFoodList().iterator();
         while (iter.hasNext()) {
             OrderFoodBean b = iter.next();
-            if (foodBean.getCategoryId() == b.getCategoryId() && foodBean.getId() == b.getId()) {
-                //如果已存在则在原来的数量基础上加一
-                b.setQuantity(b.getQuantity()+1);
-                return true;
+            if (foodBean.getCategoryId() == b.getCategoryId()) {
+                if (foodBean.getId() == b.getId()) {
+                    //如果已存在则在原来的数量基础上加一
+                    b.setQuantity(b.getQuantity() + 1);
+                    return true;
+                }
             }
         }
         return false;
@@ -293,9 +303,9 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
         if (null != orderFragment) {
             transaction.hide(orderFragment);
         }
-        if (null != mineFragment) {
-            transaction.hide(mineFragment);
-        }
+//        if (null != mineFragment) {
+//            transaction.hide(mineFragment);
+//        }
     }
 
 

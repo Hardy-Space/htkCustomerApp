@@ -1,5 +1,6 @@
 package com.hl.htk_customer.fragment.home;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,6 +53,7 @@ import com.hl.htk_customer.utils.DividerItemDecoration;
 import com.hl.htk_customer.utils.GsonHttpResponseHandler;
 import com.hl.htk_customer.utils.ImageLoadManager;
 import com.hl.htk_customer.utils.LocationSingle;
+import com.hl.htk_customer.utils.MPHUtils;
 import com.hl.htk_customer.utils.MyApplication;
 import com.hl.htk_customer.utils.MyHttpConfing;
 import com.hl.htk_customer.utils.MyUtils;
@@ -372,6 +374,10 @@ public class WaiMaiFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void analysis(final String result , final int type) {
+
+        final Dialog loading = MPHUtils.createLoadingDialog(getActivity(), "");
+        loading.show();
+
         RequestParams params = AsynClient.getRequestParams();
         params.put("qrKey", result);
         AsynClient.post(MyHttpConfing.getshopId, mContext, params, new GsonHttpResponseHandler() {
@@ -385,10 +391,12 @@ public class WaiMaiFragment extends BaseFragment implements View.OnClickListener
             public void onFailure(int statusCode, String rawJsonData, Object errorResponse) {
                 UiFormat.tryRequest(rawJsonData);
                 Log.i(TAG , "onFailure=>"+rawJsonData);
+                loading.dismiss();
             }
 
             @Override
             public void onSuccess(int statusCode, String rawJsonResponse, Object response) {
+                loading.dismiss();
                 Log.i(TAG , rawJsonResponse);
                 Gson gson = new Gson();
                 ScanEntity scanEntity = gson.fromJson(rawJsonResponse, ScanEntity.class);

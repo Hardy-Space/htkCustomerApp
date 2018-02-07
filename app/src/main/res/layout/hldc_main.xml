@@ -34,11 +34,11 @@
             android:drawableTop="@drawable/radio_main_record"
             android:text="@string/order_str" />
 
-        <RadioButton
-            android:id="@+id/rb_mine"
-            style="@style/HomeRadioButton"
-            android:drawableTop="@drawable/radio_main_mine"
-            android:text="@string/mine_str" />
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_mine"-->
+            <!--style="@style/HomeRadioButton"-->
+            <!--android:drawableTop="@drawable/radio_main_mine"-->
+            <!--android:text="@string/mine_str" />-->
 
     </RadioGroup>
 

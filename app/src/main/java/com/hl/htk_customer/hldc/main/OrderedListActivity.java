@@ -358,7 +358,7 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
                                 bean.setImgUrl(mArray.getJSONObject(i).getString("imgUrl"));
                                 bean.setState(mArray.getJSONObject(i).getInt("state"));
                                 if (!checkIfExist(bean)) {
-                                    AlreadySelectFoodData.getAllFoodList().add(bean);
+                                    AlreadySelectFoodData.addBean(bean);
                                 }
                             }
                         } catch (Exception e) {

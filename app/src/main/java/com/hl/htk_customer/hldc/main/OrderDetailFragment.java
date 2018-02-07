@@ -43,7 +43,7 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
     private static final String TAG = OrderDetailFragment.class.getSimpleName();
     private View mView, viewsp1, viewsp2;
     private TextView tvTitle, tvLeftState, tvPaid, tvCook, tvFinished, tvDingDanNumber, tvData, tvStateTip,
-            tvGoodMountTip, tvCommittedTime, tvTotalAmount, tvTotalPrice;
+            tvGoodMountTip, tvCommittedTime, tvTotalAmount, tvTotalPrice,tvStateTipMsg;
     private ImageView imgBack;
     //    private TextView tvXiaDan, tvTiaoDan, tvCuiDan;
     //    private ImageView imgXiaDan, imgTiaoDan, imgCuiDan;
@@ -93,11 +93,12 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
     public void refreshCurrentUI() {
         Log.d(TAG, "refreshCurrentUI() == >>>>");
         orderNumber = PreferencesUtils.getString(getActivity(), "orderNumber");
-        if (!TextUtils.isEmpty(orderNumber)) {
-            getOrderDetail();
-        } else {
-            Toast.makeText(getActivity(), "暂无订单记录", Toast.LENGTH_SHORT).show();
-        }
+        //        if (!TextUtils.isEmpty(orderNumber)) {
+        //            getOrderDetail();
+        //        } else {
+        //            Toast.makeText(getActivity(), "暂无订单记录", Toast.LENGTH_SHORT).show();
+        //        }
+        getOrderDetail();
     }
 
     private void initViews(View view) {
@@ -115,6 +116,9 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
         tvDingDanNumber = view.findViewById(R.id.tv_orderno);
         tvData = view.findViewById(R.id.tv_date);
         tvStateTip = view.findViewById(R.id.tv_statetip);
+
+        tvStateTipMsg = view.findViewById(R.id.stateTipMsg);
+
         tvGoodMountTip = view.findViewById(R.id.tv_goodsmounttip);
         tvCommittedTime = view.findViewById(R.id.tv_committedtime);
         tvTotalAmount = view.findViewById(R.id.tv_totalamount);
@@ -266,19 +270,19 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
             @Override
             public void onSuccess(int statusCode, Header[] headers, String rawJsonResponse, Object response) {
                 loading.dismiss();
-                //                int state = ToolUtils.getNetBackCode(rawJsonResponse);
-                //                if (state == 100) {
-                //                    Toast.makeText(getActivity(), "催单成功", Toast.LENGTH_SHORT).show();
-                //                } else {
-                //                    Toast.makeText(getActivity(), "催单失败" + rawJsonResponse, Toast.LENGTH_SHORT).show();
-                //                }
+                int state = ToolUtils.getNetBackCode(rawJsonResponse);
+                if (state == 100) {
+                    Toast.makeText(getActivity(), "催单成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "商家未接单" + rawJsonResponse, Toast.LENGTH_SHORT).show();
+                }
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
                 loading.dismiss();
-                //                Toast.makeText(getActivity(), "催单失败" + responseString, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "接口出错" + responseString, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -352,7 +356,20 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
                     if (!TextUtils.isEmpty(result)) {
                         JSONObject obj;
                         try {
+
                             obj = new JSONObject(result);
+
+
+                            //订单号不能是2，2是已经完成的订单，不要显示
+                            if (obj.getInt("orderState") == 2) {
+                                PreferencesUtils.putString(getActivity(), "orderNumber", "");
+                                orderNumber = "";
+                                mNonDataTip.setVisibility(View.VISIBLE);
+                                mHasDataArea.setVisibility(View.GONE);
+                                return;
+                            }
+
+
                             mOrderedFoodBean.setCommitTime(null);
                             mOrderedFoodBean.setIsCollect(0);
                             mOrderedFoodBean.setOrderState(0);
@@ -362,6 +379,8 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
                             mOrderedFoodBean.setOrderTime(obj.getString("orderTime"));
                             mOrderedFoodBean.setCommitTime(obj.getString("commitTime"));
                             mOrderedFoodBean.setOrderNumber(obj.getString("orderNumber"));
+
+
                             String productList = obj.getString("productList");
                             JSONArray mArray = new JSONArray(productList);
                             for (int i = 0; i < mArray.length(); i++) {
@@ -376,11 +395,11 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
                                 mBean.setState(mArray.getJSONObject(i).getInt("state"));
                                 mOrderedFoodBean.getProductList().add(mBean);
                             }
-                            if (mOrderedFoodBean.getOrderState() == 2) {
-                                Toast.makeText(getActivity(), "订单已完成", Toast.LENGTH_SHORT).show();
-                                PreferencesUtils.putString(getActivity(), "orderNumber", "");
-                                orderNumber = "";
-                            }
+//                            if (obj.getInt("orderState") == 2) {
+                            //                                                                Toast.makeText(getActivity(), "订单已完成", Toast.LENGTH_SHORT).show();
+                            //                                PreferencesUtils.putString(getActivity(), "orderNumber", "");
+                            //                                orderNumber = "";
+                            //                            }
                             refreshCookingUI();
                             tvDingDanNumber.setText(getResources().getString(R.string.dingdanbianhao) + orderNumber);
                             if (orderedAdapter == null) {
@@ -399,11 +418,12 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
                         }
                         mNonDataTip.setVisibility(View.GONE);
                         mHasDataArea.setVisibility(View.VISIBLE);
-                    } else {
-                        mNonDataTip.setVisibility(View.VISIBLE);
-                        mHasDataArea.setVisibility(View.GONE);
+                        return;
                     }
                 }
+                mNonDataTip.setVisibility(View.VISIBLE);
+                mHasDataArea.setVisibility(View.GONE);
+
             }
 
             @Override
@@ -453,6 +473,7 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
             viewsp1.setBackgroundColor(getResources().getColor(R.color.color_cccccc));
             viewsp2.setBackgroundColor(getResources().getColor(R.color.color_cccccc));
             tvStateTip.setText("未付款");
+//            tvStateTipMsg.setText("");
         } else if (mOrderedFoodBean.getOrderState() == 1) {
             tvPaid.setText(getResources().getString(R.string.paid_state));
             tvCook.setText(getResources().getString(R.string.cooking_state));

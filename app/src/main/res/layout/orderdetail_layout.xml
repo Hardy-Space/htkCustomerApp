@@ -23,12 +23,13 @@
         android:layout_height="match_parent"
         android:background="@color/color_white"
         android:text="您还没有订单，快去点菜吧"
+        android:visibility="gone"
+
         android:gravity="center"
         android:textColor="@color/gray_text"/>
 
     <ScrollView
         android:id="@+id/hasDataArea"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -139,6 +140,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/stateTipMsg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
