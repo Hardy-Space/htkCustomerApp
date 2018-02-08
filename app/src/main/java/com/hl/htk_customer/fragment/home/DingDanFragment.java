@@ -24,6 +24,7 @@ import com.hl.htk_customer.activity.OrderDetailActivity;
 import com.hl.htk_customer.activity.SeatOrderDetailActivity;
 import com.hl.htk_customer.activity.TgOrderDetailActivity;
 import com.hl.htk_customer.activity.WmShopDetailActivity;
+import com.hl.htk_customer.activity.diancan.BuffetOrderDetailActivity;
 import com.hl.htk_customer.adapter.OrderListAdapter;
 import com.hl.htk_customer.base.BaseFragment;
 import com.hl.htk_customer.dialog.DialogOnClickListener;
@@ -92,8 +93,8 @@ public class DingDanFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onEventMainThread(OrderStateChangeEvent event){
-        if(mRefresh != null){
+    public void onEventMainThread(OrderStateChangeEvent event) {
+        if (mRefresh != null) {
             mRefresh.autoRefresh();
         }
     }
@@ -101,14 +102,14 @@ public class DingDanFragment extends BaseFragment {
     @Subscribe
     public void onEventMainThread(RefreshInfoEntity event) {
         Log.i(TAG, "onEventMainThread: " + event.isRefresh());
-        if (event.isRefresh() && mRefresh != null){
+        if (event.isRefresh() && mRefresh != null) {
             mRefresh.autoRefresh();
         }
     }
 
     @Subscribe
     public void onEventMainThread(ScrollTopEntity event) {
-        if (event.getPage() == 2 && mOrderListView != null){
+        if (event.getPage() == 2 && mOrderListView != null) {
             mOrderListView.scrollToPosition(0);
         }
     }
@@ -162,8 +163,8 @@ public class DingDanFragment extends BaseFragment {
         mOrderListAdapter = new OrderListAdapter(R.layout.item_order_list, mOrderList);
         mOrderListView.setAdapter(mOrderListAdapter);
 
-        mNoDataView = mInflater.inflate(R.layout.empty_view , null);
-        mErrorView = mInflater.inflate(R.layout.error_view , null);
+        mNoDataView = mInflater.inflate(R.layout.empty_view, null);
+        mErrorView = mInflater.inflate(R.layout.error_view, null);
 
         showLoading();
         getOrderList();
@@ -178,7 +179,7 @@ public class DingDanFragment extends BaseFragment {
         mRefresh.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                pageNumber ++ ;
+                pageNumber++;
                 getOrderList();
             }
         });
@@ -192,7 +193,7 @@ public class DingDanFragment extends BaseFragment {
                     case 0://外卖详情
                         intent = new Intent(getActivity(), OrderDetailActivity.class);
                         intent.putExtra("orderId", data.getOrderId());
-                        intent.putExtra("shopId", data.getShopId()+"");
+                        intent.putExtra("shopId", data.getShopId() + "");
 
 
                         //为了计算返还积分
@@ -214,6 +215,16 @@ public class DingDanFragment extends BaseFragment {
                         startActivity(intent);
                         break;
                     case 3://自助点餐详情
+
+                        /**
+                         * @author 马鹏昊
+                         * @desc 打开自助点餐订单详情页
+                         */
+                        intent = new Intent(getActivity(), BuffetOrderDetailActivity.class);
+                        intent.putExtra("orderNumber", data.getOrderNumber());
+                        intent.putExtra("shopId", data.getShopId());
+                        startActivity(intent);
+
                         break;
                 }
             }
@@ -225,9 +236,9 @@ public class DingDanFragment extends BaseFragment {
 
                 final int tag = setClickPrompt(position);
                 String clickPrompt = "";
-                if (tag == 1){
+                if (tag == 1) {
                     clickPrompt = "取消订单";
-                }else if (tag == 2){
+                } else if (tag == 2) {
                     clickPrompt = "删除订单";
                 }
 
@@ -237,10 +248,10 @@ public class DingDanFragment extends BaseFragment {
                             @Override
                             public void onPositive() {
                                 OrderListEntity.DataBean data = mOrderListAdapter.getData().get(position);
-                                if (tag == 1){
-                                    cancelOrder(data.getOrderNumber() , data.getMark());
-                                }else if (tag == 2){
-                                    deleteOrder(data.getOrderNumber() , data.getMark());
+                                if (tag == 1) {
+                                    cancelOrder(data.getOrderNumber(), data.getMark());
+                                } else if (tag == 2) {
+                                    deleteOrder(data.getOrderNumber(), data.getMark());
                                 }
                             }
 
@@ -258,18 +269,19 @@ public class DingDanFragment extends BaseFragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 OrderListEntity.DataBean data = mOrderListAdapter.getData().get(position);
-                again(data.getProductList() , data.getShopId() , data.getOrderAmount());
+                again(data.getProductList(), data.getShopId(), data.getOrderAmount());
             }
         });
     }
 
     /**
      * 再来一单
+     *
      * @param productList 订单产品
-     * @param shopId 商铺id
+     * @param shopId      商铺id
      * @param orderAmount 价格
      */
-    private void again(List<OrderListEntity.DataBean.ProductListBean> productList , int shopId , double orderAmount) {
+    private void again(List<OrderListEntity.DataBean.ProductListBean> productList, int shopId, double orderAmount) {
         List<ShopProduct> productList1 = new ArrayList<ShopProduct>();
         for (int i = 0; i < productList.size(); i++) {
             OrderListEntity.DataBean.ProductListBean shopProduct = productList.get(i);
@@ -285,7 +297,7 @@ public class DingDanFragment extends BaseFragment {
     /**
      * 取消订单
      */
-    private void cancelOrder(String orderNumber , int mark) {
+    private void cancelOrder(String orderNumber, int mark) {
         showChangeDialog("取消订单");
         RequestParams params = AsynClient.getRequestParams();
         params.put("orderNumber", orderNumber);
@@ -309,10 +321,10 @@ public class DingDanFragment extends BaseFragment {
                 hideChangeDialog();
                 Gson gson = new Gson();
                 CommonMsg commonMsg = gson.fromJson(rawJsonResponse, CommonMsg.class);
-                if (commonMsg.getCode() == 100){
+                if (commonMsg.getCode() == 100) {
                     mRefresh.autoRefresh();
                 }
-                Toast.makeText(mContext , commonMsg.getMessage() , Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, commonMsg.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -320,7 +332,7 @@ public class DingDanFragment extends BaseFragment {
     /**
      * 删除订单
      */
-    private void deleteOrder(String orderNumber , int mark) {
+    private void deleteOrder(String orderNumber, int mark) {
         showChangeDialog("删除订单");
         RequestParams params = AsynClient.getRequestParams();
         params.put("orderNumber", orderNumber);
@@ -344,10 +356,10 @@ public class DingDanFragment extends BaseFragment {
 
                 Gson gson = new Gson();
                 CommonMsg commonMsg = gson.fromJson(rawJsonResponse, CommonMsg.class);
-                if (commonMsg.getCode() == 100){
+                if (commonMsg.getCode() == 100) {
                     mRefresh.autoRefresh();
                 }
-                Toast.makeText(mContext , commonMsg.getMessage() , Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, commonMsg.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -356,9 +368,9 @@ public class DingDanFragment extends BaseFragment {
     private int setClickPrompt(int position) {
         int tag = -1;//1可取消订单  2可删除订单
         OrderListEntity.DataBean data = mOrderListAdapter.getData().get(position);
-        switch (data.getMark()){
+        switch (data.getMark()) {
             case 0:
-                switch (data.getOrderState()){
+                switch (data.getOrderState()) {
                     case 1: //下单成功
                     case 2://接单，未配送
                     case 6://催单
@@ -375,7 +387,7 @@ public class DingDanFragment extends BaseFragment {
                 }
                 break;
             case 1:
-                switch (data.getOrderState()){
+                switch (data.getOrderState()) {
                     case 10://下单成功
                         tag = 1;
                         break;
@@ -387,7 +399,7 @@ public class DingDanFragment extends BaseFragment {
                 }
                 break;
             case 2:
-                switch (data.getOrderState()){
+                switch (data.getOrderState()) {
                     case 0://未上齐菜
                         tag = 1;
                         break;
@@ -406,8 +418,8 @@ public class DingDanFragment extends BaseFragment {
     public void getOrderList() {
         UserInfoManager infoEntity = new UserInfoManager(getContext());
         RequestParams params = new RequestParams();
-        params.put("token" , infoEntity.getToken());
-        params.put("pageNumber" , pageNumber);
+        params.put("token", infoEntity.getToken());
+        params.put("pageNumber", pageNumber);
         AsynClient.post(MyHttpConfing.getOrderList, getContext(), params, new GsonHttpResponseHandler() {
             @Override
             protected Object parseResponse(String rawJsonData) throws Throwable {
@@ -417,8 +429,10 @@ public class DingDanFragment extends BaseFragment {
             @Override
             public void onFailure(int statusCode, String rawJsonData, Object errorResponse) {
                 mOrderListAdapter.setEmptyView(mErrorView);
-                if (mRefresh.isRefreshing()) mRefresh.finishRefresh();
-                if (mRefresh.isLoading()) mRefresh.finishLoadmore();
+                if (mRefresh.isRefreshing())
+                    mRefresh.finishRefresh();
+                if (mRefresh.isLoading())
+                    mRefresh.finishLoadmore();
                 hideLoading();
             }
 
@@ -426,30 +440,32 @@ public class DingDanFragment extends BaseFragment {
             public void onSuccess(int statusCode, String rawJsonResponse, Object response) {
                 Log.i(TAG, "onSuccess: " + rawJsonResponse);
                 OrderListEntity orderListEntity = new Gson().fromJson(rawJsonResponse, OrderListEntity.class);
-                if (orderListEntity.getCode() == 100){
-                    if (orderListEntity.getData() != null && orderListEntity.getData().size() > 0){
-                        if (orderListEntity.getData().size() < 8){
+                if (orderListEntity.getCode() == 100) {
+                    if (orderListEntity.getData() != null && orderListEntity.getData().size() > 0) {
+                        if (orderListEntity.getData().size() < 8) {
                             mRefresh.setEnableLoadmore(false);
-                        }else {
+                        } else {
                             mRefresh.setEnableLoadmore(true);
                         }
 
                         //pageNumber是1代表初次加载，不是1代表加载更多
-                        if (pageNumber == 1){
+                        if (pageNumber == 1) {
                             mOrderListAdapter.setNewData(orderListEntity.getData());
-                        }else {
+                        } else {
                             mOrderListAdapter.addData(orderListEntity.getData());
                         }
-                    }else {
+                    } else {
                         mOrderListAdapter.setEmptyView(mNoDataView);
                     }
-                }else {
+                } else {
                     mOrderListAdapter.setNewData(null);
                     mOrderListAdapter.setEmptyView(mErrorView);
                 }
 
-                if (mRefresh.isRefreshing()) mRefresh.finishRefresh();
-                if (mRefresh.isLoading()) mRefresh.finishLoadmore();
+                if (mRefresh.isRefreshing())
+                    mRefresh.finishRefresh();
+                if (mRefresh.isLoading())
+                    mRefresh.finishLoadmore();
                 hideLoading();
             }
         });

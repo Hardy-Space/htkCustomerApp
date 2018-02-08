@@ -23,9 +23,9 @@ android {
         }
 
         manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
+                JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "34402e29f287d20e6cd8ab21", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
 
         signingConfigs {
@@ -68,7 +68,7 @@ android {
 
 }
 
-greendao   {
+greendao {
     schemaVersion 1//数据库版本号
     daoPackage 'greendao'//设置DaoMaster、DaoSession、Dao包名
     targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录

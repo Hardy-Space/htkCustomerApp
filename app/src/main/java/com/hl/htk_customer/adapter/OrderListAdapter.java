@@ -3,7 +3,6 @@ package com.hl.htk_customer.adapter;
 import android.net.Uri;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -134,6 +133,23 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListEntity.DataBean 
     }
 
     private void setZZDC(BaseViewHolder helper, OrderListEntity.DataBean item) {
+        String orderState = "";
+        switch (item.getOrderState()){
+            case 2:
+                orderState = "已结单";
+                break;
+            default:
+                orderState = "未结单";
+                break;
+        }
+        helper.setText(R.id.item_order_state , orderState );
+
+        if (item.getProductList() != null && item.getProductList().size() > 0){
+            helper.setText(R.id.item_order_details ,
+                    String.format("%1$s等%2$d件商品" , item.getProductList().get(0).getProductName() , item.getProductList().size()));
+        }else {
+            helper.setText(R.id.item_order_details , "");
+        }
 
     }
 }

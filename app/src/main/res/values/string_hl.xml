@@ -40,7 +40,7 @@
     <string name="beizhu_state">备注</string>
     <string name="onlinepay_state">在线支付</string>
     <string name="coupon_state">优惠券</string>
-    <string name="orderedgoods_state">已点商品(%s)</string>
+    <string name="orderedgoods_state">已点商品</string>
 
     <string name="xlistview_header_hint_normal">下拉刷新</string>
     <string name="xlistview_header_hint_ready">松开刷新数据</string>
