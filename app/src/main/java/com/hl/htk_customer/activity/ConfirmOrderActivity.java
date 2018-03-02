@@ -281,9 +281,14 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                 }
                 break;
             case R.id.rl_payWay:
-                payWayDialog.setData(list);
-                payWayDialog.setShowOne("支付宝");
-                payWayDialog.show();
+
+                /**
+                 * @author 马鹏昊
+                 * @desc 微信支付转账暂时不能自动转到银行卡，所以先屏蔽
+                 */
+                //                payWayDialog.setData(list);
+//                payWayDialog.setShowOne("支付宝");
+//                payWayDialog.show();
                 break;
             case R.id.confirm_order_Vouchers_num:
                 CouponActivity.launch(this, 1, shopId, goodsPrice);

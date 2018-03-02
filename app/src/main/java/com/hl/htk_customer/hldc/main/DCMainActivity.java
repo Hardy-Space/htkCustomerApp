@@ -61,6 +61,30 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
         initView();
     }
 
+
+    /**
+     * @desc singleTask模式启动就要重新setIntent，不然还是之前的intent
+     * @param intent
+     */
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        Intent intent = getIntent();
+        if (intent!=null) {
+            String fromWhere = intent.getStringExtra("jiacai");
+            if (!TextUtils.isEmpty(fromWhere)&&"jiacai".equals(fromWhere)) {
+                onCheckedChanged(bottomTab, R.id.rb_diancai);
+            }
+
+        }
+        super.onResume();
+    }
+
     private void initView() {
         createFragment();
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
@@ -112,9 +136,11 @@ public class DCMainActivity extends AppCompatActivity implements RadioGroup.OnCh
         switch (i) {
             case R.id.rb_diancai:
                 showFragment(dcFragment, transaction);
+                btnDianCai.toggle();
                 break;
             case R.id.rb_order:
                 showFragment(orderFragment, transaction);
+                btnOrder.toggle();
                 //                orderFragment.onHiddenChanged(true);
                 break;
 //            case R.id.rb_mine:

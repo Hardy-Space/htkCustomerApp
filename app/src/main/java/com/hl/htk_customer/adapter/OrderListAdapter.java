@@ -28,8 +28,15 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListEntity.DataBean 
 
     @Override
     protected void convert(BaseViewHolder helper, OrderListEntity.DataBean item) {
+
+        //如果时间格式多出毫秒数则去掉
+        String orderTime = "";
+        if (item.getOrderTime().length()>19) {
+           orderTime = item.getOrderTime().substring(0,19);
+        }
+
         helper.setText(R.id.item_order_title , item.getShopName())
-                .setText(R.id.item_order_time , item.getOrderTime())
+                .setText(R.id.item_order_time , orderTime)
                 .setText(R.id.item_order_money , String.format("￥%.2f" , item.getOrderAmount()))
                 .addOnClickListener(R.id.item_order_come_again);
 

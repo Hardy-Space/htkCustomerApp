@@ -360,9 +360,9 @@ public class OrderDetailFragment extends BaseFragment implements View.OnClickLis
                             obj = new JSONObject(result);
 
 
-                            //订单号不能是2，2是已经完成的订单，不要显示
+                            //订单号不能是2，2是已经完成的订单，不要显示（正常的是后台不要返回已完成的订单数据，以防万一）
                             if (obj.getInt("orderState") == 2) {
-                                PreferencesUtils.putString(getActivity(), "orderNumber", "");
+//                                PreferencesUtils.putString(getActivity(), "orderNumber", "");
                                 orderNumber = "";
                                 mNonDataTip.setVisibility(View.VISIBLE);
                                 mHasDataArea.setVisibility(View.GONE);
