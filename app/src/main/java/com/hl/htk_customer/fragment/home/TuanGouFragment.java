@@ -18,13 +18,12 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.activity.MemberPlatformActivity;
-import com.hl.htk_customer.activity.MyWebViewActivity;
 import com.hl.htk_customer.activity.SearchActivity;
 import com.hl.htk_customer.adapter.MyPageAdapter;
 import com.hl.htk_customer.adapter.RecommendShopListAdapter;
@@ -181,7 +180,15 @@ public class TuanGouFragment extends BaseFragment implements View.OnClickListene
             }
         });
 
-        getGuanggao();
+//        getGuanggao();
+
+        String testUrl = "http://img5.imgtn.bdimg.com/it/u=2264841171,3908720706&fm=27&gp=0.jpg";
+        ImageLoadManager.getInstance().setImage(testUrl, mAdvertisingOne);
+        ImageLoadManager.getInstance().setImage(testUrl, mAdvertisingTwo);
+        ImageLoadManager.getInstance().setImage(testUrl, mAdvertisingThree);
+        ImageLoadManager.getInstance().setImage(testUrl, mAdvertisingFour);
+        ImageLoadManager.getInstance().setImage(testUrl, mAdvertisingFive);
+
     }
 
 
@@ -276,19 +283,24 @@ public class TuanGouFragment extends BaseFragment implements View.OnClickListene
                 getTuanGouBestShop();
                 break;
             case R.id.iv_guanggao1:
-                goWebActivity(tgGuangGaoEntity.getData().get(0).getShopId());
+//                goWebActivity(tgGuangGaoEntity.getData().get(0).getShopId());
+                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_guanggao2:
-                goWebActivity(tgGuangGaoEntity.getData().get(1).getShopId());
+//                goWebActivity(tgGuangGaoEntity.getData().get(1).getShopId());
+                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_guanggao3:
-                goWebActivity(tgGuangGaoEntity.getData().get(2).getShopId());
+//                goWebActivity(tgGuangGaoEntity.getData().get(2).getShopId());
+                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_guanggao4:
-                goWebActivity(tgGuangGaoEntity.getData().get(3).getShopId());
+//                goWebActivity(tgGuangGaoEntity.getData().get(3).getShopId());
+                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_guanggao5:
-                goWebActivity(tgGuangGaoEntity.getData().get(4).getShopId());
+//                goWebActivity(tgGuangGaoEntity.getData().get(4).getShopId());
+                Toast.makeText(getActivity(), "广告推荐功能尚未开启，敬请期待~", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
