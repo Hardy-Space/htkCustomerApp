@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+                                    xmlns:tools="http://schemas.android.com/tools"
+                                    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/dp_10"
@@ -55,10 +56,12 @@
             android:id="@+id/tv_item_coupon_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:clickable="false"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
         /**
@@ -75,6 +78,24 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:text="不可用"/>
+
+        /**
+        * @modified by 马鹏昊
+        * @date 2018.3.6
+        * @desc 显示拥有的数量
+        */
+
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="8dp"
+            android:text="x0"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_coupon_check"
+            tools:ignore="MissingConstraints"/>
 
     </android.support.constraint.ConstraintLayout>
 

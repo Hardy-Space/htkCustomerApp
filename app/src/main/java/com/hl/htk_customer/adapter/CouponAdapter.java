@@ -59,6 +59,7 @@ public class CouponAdapter extends BaseQuickAdapter<CouponEntity.DataBean, BaseV
         helper.setText(R.id.tv_item_coupon_offer, Html.fromHtml(newMessageInfo))
                 .setText(R.id.tv_item_coupon_full_amount, String.format(mContext.getString(R.string.join_full_amount_preferential), (int) item.getTUseMoney()))
                 .setText(R.id.tv_item_coupon_name, item.getTName())
+                .setText(R.id.quantity, "x"+item.getQuantity())
                 .setText(R.id.tv_item_coupon_content, String.format(mContext.getString(R.string.join_coupon_content), item.getTExpiration(), item.getTUsePhone()));
 
 

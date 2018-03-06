@@ -59,6 +59,21 @@ public class CouponEntity {
         private double tUseMoney;
         private boolean isSelect;
 
+
+        /**
+         * @author 马鹏昊
+         * @desc 保存此优惠券的数量
+         */
+        private int quantity;
+        public int getQuantity() {
+            return quantity;
+        }
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+
+
+
         public int getId() {
             return id;
         }

@@ -33,6 +33,8 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListEntity.DataBean 
         String orderTime = "";
         if (item.getOrderTime().length()>19) {
            orderTime = item.getOrderTime().substring(0,19);
+        }else {
+            orderTime = item.getOrderTime();
         }
 
         helper.setText(R.id.item_order_title , item.getShopName())
