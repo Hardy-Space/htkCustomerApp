@@ -338,10 +338,13 @@ public class OrderedListActivity extends Activity implements View.OnClickListene
                 }
                 if (code == 100) {
                     String result = ToolUtils.getJsonParseResult(responseString);
+
                     if (!TextUtils.isEmpty(result)) {
                         JSONObject obj;
                         try {
                             obj = new JSONObject(result);
+                            String seatName = obj.getString("seatName");
+                            PreferencesUtils.putString(OrderedListActivity.this,"seatName",seatName);
                             String productList = obj.getString("productList");
                             JSONArray mArray = new JSONArray(productList);
                             for (int i = 0; i < mArray.length(); i++) {

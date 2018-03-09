@@ -231,10 +231,21 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                         e.printStackTrace();
                     }
                     chairData.addAll(seatList);
-                    if (chairData != null && chairData.size() > 0) {
-                        zhuoNo = chairData.get(0).getSeatName();
-                        tvZhuoNo.setText("" + zhuoNo);
+                    /**
+                     * @author 马鹏昊
+                     * @desc 已经选择的桌号放在第一个
+                     */
+                    zhuoNo = PreferencesUtils.getString(ComfirmOrderActivity.this,"seatName");
+                    SeatBean seatBean = new SeatBean();
+                    seatBean.setSeatName(zhuoNo);
+                    if (chairData!=null&&chairData.size()>0) {
+                        seatBean.setShopId(chairData.get(0).getShopId());
                     }
+                    chairData.add(0,seatBean);
+//                    if (chairData != null && chairData.size() > 0) {
+//                        zhuoNo = chairData.get(0).getSeatName();
+//                        tvZhuoNo.setText("" + zhuoNo);
+//                    }
                     PreferencesUtils.putString(ComfirmOrderActivity.this, "zhuoNo", "" + zhuoNo);
                 }
             }
