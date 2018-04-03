@@ -10,9 +10,9 @@ public class MyHttpConfing {
     public static final String tag = "TAG-->";
 
 //    private static final String baseUrl = "http://192.168.0.7:8080/htkApp/API/";//内网
-//    public static final String baseUrl = "http://120.27.5.36:8080/htkApp/API/";//外网
+    public static final String baseUrl = "http://120.27.5.36:8080/htkApp/API/";//外网
 //    public static final String baseUrl = "http://192.168.0.13:8080/htkApp/API/";//青岛办内网(马鹏昊)
-    public static final String baseUrl = "http://192.168.0.7:8080/htkApp/API/";//青岛办内网(田晋奇)
+//    public static final String baseUrl = "http://192.168.0.7:8080/htkApp/API/";//青岛办内网(田晋奇)
 //    private static final String baseUrl = "http://1704aa0586.51mypc.cn:32351/htkApp/API/";//后台测试使用
 //      private static final String baseUrl = "http://192.168.1.120:8080/htkApp/API/";
 

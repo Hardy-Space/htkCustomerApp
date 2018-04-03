@@ -271,10 +271,11 @@ public class HttpHelper {
      * 十五、确认调单接口
      * String orderNumber，String jsonProductList
      */
-    public void comfirmTiaoDan(Context context,String orderNumber,String shopId,String jsonProductList,JsonHandler<String> jsonHandler){
+    public void comfirmTiaoDan(Context context,String orderNumber,String seatName,String shopId,String jsonProductList,JsonHandler<String> jsonHandler){
         RequestParams params = new RequestParams();
         params.put("orderNumber", orderNumber);
         params.put("shopId", shopId);
+        params.put("seatName", seatName);
         params.put("jsonProductList", jsonProductList);
         requestForPost(context,ContactValues.COMFIRM_TIAODAN,params,jsonHandler);
     }

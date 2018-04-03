@@ -28,8 +28,10 @@ import com.hl.htk_customer.hldc.utils.PreferencesUtils;
 import com.hl.htk_customer.hldc.utils.ToolUtils;
 import com.hl.htk_customer.hldc.view.SeatPopupWindow;
 import com.hl.htk_customer.utils.MPHUtils;
+import com.hl.htk_customer.utils.MyApplication;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -260,7 +262,18 @@ public class DianCaiFragment extends BaseFragment implements OnClickListener {
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
                 loading.dismiss();
                 Log.d(TAG, "onSuccess=statusCode>" + statusCode + "<<==responseString==>>" + responseString);
-                convertStringToList(ToolUtils.getJsonParseResult(responseString));
+                try {
+                    JSONObject  object = new JSONObject(responseString);
+                    int state = object.optInt("code");
+                    if (state==30){
+                        Toast.makeText(MyApplication.getContext(), "您扫描的商家已过有效期,请联系商家", Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
+                        return;
+                    }
+                    convertStringToList(ToolUtils.getJsonParseResult(responseString));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

@@ -71,7 +71,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         mType = this.getIntent().getStringExtra("type");
         initViews();
         setOnClickListener();
-//        orderNumber = PreferencesUtils.getString(this, "orderNumber");
+        //        orderNumber = PreferencesUtils.getString(this, "orderNumber");
         //        if (!TextUtils.isEmpty(orderNumber)) {
         //            getComfirmOrderList();
         //        }
@@ -118,7 +118,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         tvMoney = findViewById(R.id.tv_moneyamount);
         //        tvMoney2 = findViewById(R.id.tv_money);
         tvTotalAmount = findViewById(R.id.tv_totalamount);
-//        tvShiFu = findViewById(R.id.tv_shifu);
+        //        tvShiFu = findViewById(R.id.tv_shifu);
         tvShiFu = findViewById(R.id.tv_orderAmount);
         linearConsume = findViewById(R.id.linear_consume);
         linearLocation = findViewById(R.id.linear_editlocation);
@@ -180,15 +180,15 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                 //                Toast.makeText(ComfirmOrderActivity.this, "修改备注", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_bottompay:
-//                if (!TextUtils.isEmpty(orderNumber)) {
-//                    if (!TextUtils.isEmpty(mType) && "xiadan".equals(mType)) {
-//                        commitOrderBtn();
-//                    } else if (!TextUtils.isEmpty(mType) && "tiaodan".equals(mType)) {
-//                        comfirmTiaoDan();
-//                    }
-//                } else {
-//                    Toast.makeText(ComfirmOrderActivity.this, "无初始订单编号", Toast.LENGTH_SHORT).show();
-//                }
+                //                if (!TextUtils.isEmpty(orderNumber)) {
+                //                    if (!TextUtils.isEmpty(mType) && "xiadan".equals(mType)) {
+                //                        commitOrderBtn();
+                //                    } else if (!TextUtils.isEmpty(mType) && "tiaodan".equals(mType)) {
+                //                        comfirmTiaoDan();
+                //                    }
+                //                } else {
+                //                    Toast.makeText(ComfirmOrderActivity.this, "无初始订单编号", Toast.LENGTH_SHORT).show();
+                //                }
                 if (!TextUtils.isEmpty(mType) && "xiadan".equals(mType)) {
                     commitOrderBtn();
                 } else if (!TextUtils.isEmpty(mType) && "tiaodan".equals(mType)) {
@@ -233,19 +233,24 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                     chairData.addAll(seatList);
                     /**
                      * @author 马鹏昊
-                     * @desc 已经选择的桌号放在第一个
+                     * @desc 如果是调单，已经选择的桌号放在第一个
                      */
-                    zhuoNo = PreferencesUtils.getString(ComfirmOrderActivity.this,"seatName");
-                    SeatBean seatBean = new SeatBean();
-                    seatBean.setSeatName(zhuoNo);
-                    if (chairData!=null&&chairData.size()>0) {
-                        seatBean.setShopId(chairData.get(0).getShopId());
+                    if (!TextUtils.isEmpty(mType) && "tiaodan".equals(mType)) {
+
+                        zhuoNo = PreferencesUtils.getString(ComfirmOrderActivity.this, "seatName");
+                        SeatBean seatBean = new SeatBean();
+                        seatBean.setSeatName(zhuoNo);
+                        if (chairData != null && chairData.size() > 0) {
+                            seatBean.setShopId(chairData.get(0).getShopId());
+                        }
+                        chairData.add(0, seatBean);
+                        tvZhuoNo.setText("" + zhuoNo);
+                    }else {
+                        if (chairData != null && chairData.size() > 0) {
+                            zhuoNo = chairData.get(0).getSeatName();
+                            tvZhuoNo.setText("" + zhuoNo);
+                        }
                     }
-                    chairData.add(0,seatBean);
-//                    if (chairData != null && chairData.size() > 0) {
-//                        zhuoNo = chairData.get(0).getSeatName();
-//                        tvZhuoNo.setText("" + zhuoNo);
-//                    }
                     PreferencesUtils.putString(ComfirmOrderActivity.this, "zhuoNo", "" + zhuoNo);
                 }
             }
@@ -292,8 +297,8 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         tvMoney1.setText(money + "元");
         //        tvMoney2.setText("共"+ money+"元");
         tvTotalAmount.setText("总价:" + money + "元");
-//        tvShiFu.setText("实付:" + money + "元");
-        tvShiFu.setText( money +"");
+        //        tvShiFu.setText("实付:" + money + "元");
+        tvShiFu.setText(money + "");
     }
 
     OrderedFoodBean mOrderedFoodBean = new OrderedFoodBean();
@@ -470,13 +475,13 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         seatName = PreferencesUtils.getString(ComfirmOrderActivity.this, "zhuoNo", null);
         discountAmount = Double.parseDouble(tvDiscountAmount.getText().toString());
         remark = tvBeiZhu.getText().toString();
-        orderAmount =  Double.parseDouble(tvShiFu.getText().toString());
+        orderAmount = Double.parseDouble(tvShiFu.getText().toString());
         String jsonStr = createJsonStr();
 
         final Dialog loading = MPHUtils.createLoadingDialog(this, "");
         loading.show();
 
-        HttpHelper.getInstance().commitOrderBtn(ComfirmOrderActivity.this,PreferencesUtils.getInt(this,"shopId")+"", remark, discountAmount,
+        HttpHelper.getInstance().commitOrderBtn(ComfirmOrderActivity.this, PreferencesUtils.getInt(this, "shopId") + "", remark, discountAmount,
                 seatName, orderAmount, jsonStr, discountCouponId, new JsonHandler<String>() {
 
                     @Override
@@ -488,7 +493,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                             String result = ToolUtils.getJsonParseResult(responseString);
                             PreferencesUtils.putString(ComfirmOrderActivity.this, "orderNumber", result);
                             Toast.makeText(ComfirmOrderActivity.this, "下单成功", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(ComfirmOrderActivity.this,DCMainActivity.class));
+                            startActivity(new Intent(ComfirmOrderActivity.this, DCMainActivity.class));
                             finish();
                         } else {
                             Toast.makeText(ComfirmOrderActivity.this, "下单失败", Toast.LENGTH_SHORT).show();
@@ -514,9 +519,9 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
         result.append("[");
         for (int i = 0; i < mOrderedFoodBean.getProductList().size(); i++) {
             OrderFoodBean bean = mOrderedFoodBean.getProductList().get(i);
-            result.append(bean.toString()+",");
+            result.append(bean.toString() + ",");
         }
-        result.deleteCharAt(result.length()-1);
+        result.deleteCharAt(result.length() - 1);
         result.append("]");
         return result.toString();
     }
@@ -556,43 +561,43 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
     //                });
     //    }
 
-//    private void comfirmTiaoDan() {
-//        HttpHelper.getInstance().comfirmTiaoDan(ComfirmOrderActivity.this, orderNumber, productStr, new JsonHandler<String>() {
-//
-//            @Override
-//            public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
-//                int state = ToolUtils.getNetBackCode(responseString);
-//                if (state == 100) {
-//                    Toast.makeText(ComfirmOrderActivity.this, "发送调单请求成功，请等待商家确认", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(ComfirmOrderActivity.this, "发送调单请求失败", Toast.LENGTH_SHORT).show();
-//                }
-//                finish();
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
-//                Log.d(TAG, "commitOrderBtn()==onFailure()==>>>" + responseString);
-//                Toast.makeText(ComfirmOrderActivity.this, "接口请求失败", Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-//
-//            @Override
-//            protected Object parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
-//                return null;
-//            }
-//        });
-//    }
+    //    private void comfirmTiaoDan() {
+    //        HttpHelper.getInstance().comfirmTiaoDan(ComfirmOrderActivity.this, orderNumber, productStr, new JsonHandler<String>() {
+    //
+    //            @Override
+    //            public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
+    //                int state = ToolUtils.getNetBackCode(responseString);
+    //                if (state == 100) {
+    //                    Toast.makeText(ComfirmOrderActivity.this, "发送调单请求成功，请等待商家确认", Toast.LENGTH_SHORT).show();
+    //                } else {
+    //                    Toast.makeText(ComfirmOrderActivity.this, "发送调单请求失败", Toast.LENGTH_SHORT).show();
+    //                }
+    //                finish();
+    //            }
+    //
+    //            @Override
+    //            public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
+    //                Log.d(TAG, "commitOrderBtn()==onFailure()==>>>" + responseString);
+    //                Toast.makeText(ComfirmOrderActivity.this, "接口请求失败", Toast.LENGTH_SHORT).show();
+    //                finish();
+    //            }
+    //
+    //            @Override
+    //            protected Object parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
+    //                return null;
+    //            }
+    //        });
+    //    }
 
     private void comfirmTiaoDan() {
         orderNumber = PreferencesUtils.getString(this, "orderNumber");
-
+        seatName = PreferencesUtils.getString(ComfirmOrderActivity.this, "zhuoNo", null);
 
         final Dialog loading = MPHUtils.createLoadingDialog(this, "");
         loading.show();
 
         //因为后台推送会有时间延迟导致调用超时，所以不管回调成功还是失败都提示成功即可（后台能够成功保存数据）
-        HttpHelper.getInstance().comfirmTiaoDan(ComfirmOrderActivity.this, orderNumber,PreferencesUtils.getInt(this,"shopId")+"", productStr, new JsonHandler<String>() {
+        HttpHelper.getInstance().comfirmTiaoDan(ComfirmOrderActivity.this, orderNumber, seatName,PreferencesUtils.getInt(this, "shopId") + "", productStr, new JsonHandler<String>() {
 
             @Override
             public void onSuccess(int statusCode, org.apache.http.Header[] headers, String responseString, Object response) {
@@ -600,7 +605,7 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
                 int state = ToolUtils.getNetBackCode(responseString);
                 if (state == 100) {
                     Toast.makeText(ComfirmOrderActivity.this, "发送调单请求成功，请等待商家确认", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ComfirmOrderActivity.this,DCMainActivity.class));
+                    startActivity(new Intent(ComfirmOrderActivity.this, DCMainActivity.class));
                     finish();
                 } else {
                     Toast.makeText(ComfirmOrderActivity.this, "商家未接单，无法调单", Toast.LENGTH_SHORT).show();
@@ -611,9 +616,9 @@ public class ComfirmOrderActivity extends Activity implements View.OnClickListen
             public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, String responseString, Object errorResponse) {
                 loading.dismiss();
                 Log.d(TAG, "commitOrderBtn()==onFailure()==>>>" + responseString);
-//                Toast.makeText(ComfirmOrderActivity.this, "接口请求失败", Toast.LENGTH_SHORT).show();
+                //                Toast.makeText(ComfirmOrderActivity.this, "接口请求失败", Toast.LENGTH_SHORT).show();
                 Toast.makeText(ComfirmOrderActivity.this, "发送调单请求成功，请等待商家确认", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ComfirmOrderActivity.this,DCMainActivity.class));
+                startActivity(new Intent(ComfirmOrderActivity.this, DCMainActivity.class));
                 finish();
             }
 
