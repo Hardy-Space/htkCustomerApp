@@ -99,6 +99,15 @@ public class ShopGoodsEntity {
             private int categoryId;
             private int shopId;
             private  int inventory;
+            private String description;
+
+            public String getDescription() {
+                return description;
+            }
+
+            public void setDescription(String description) {
+                this.description = description;
+            }
 
             public int getInventory() {
                 return inventory;

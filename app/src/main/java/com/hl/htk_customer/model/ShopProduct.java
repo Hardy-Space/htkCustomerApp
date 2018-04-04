@@ -27,6 +27,28 @@ public class ShopProduct implements Parcelable {
     private int inventory;//库存
 
 
+
+    private String desc;
+
+    //当前商品所属的分类在集合中的位置.
+    private int categoryPosition ;
+
+    public int getCategoryPosition() {
+        return categoryPosition;
+    }
+
+    public void setCategoryPosition(int categoryPosition) {
+        this.categoryPosition = categoryPosition;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     public ShopProduct(String goods, int number, String price, int id) {
 
         this.goods = goods;

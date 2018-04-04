@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +27,16 @@ import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.activity.ConfirmOrderActivity;
@@ -47,6 +52,7 @@ import com.hl.htk_customer.model.UserInfoManager;
 import com.hl.htk_customer.utils.AsynClient;
 import com.hl.htk_customer.utils.DoubleUtil;
 import com.hl.htk_customer.utils.GsonHttpResponseHandler;
+import com.hl.htk_customer.utils.ImageLoadManager;
 import com.hl.htk_customer.utils.MyHttpConfing;
 import com.hl.htk_customer.utils.UiFormat;
 import com.hl.htk_customer.widget.PinnedHeaderListView;
@@ -127,6 +133,12 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
 
     private List<ShopProduct> shopProductsAll;
 
+    /**
+     * @author 马鹏昊
+     * @desc 按照分类的顺序和其中商品的顺序依次填进去，为了在点击某个商品查看详情的时候获取相应的信息
+     */
+    private List<ShopProduct> allProducts;
+
     private ListView shoppingListView;
 
     private ShopAdapter shopAdapter;
@@ -158,6 +170,8 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
             }
         }
     };
+    private AlertDialog dialog;
+    private View v;
 
     @Nullable
     @Override
@@ -208,7 +222,11 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
             shopProductsAll = new ArrayList<>();
             List<ShopGoodsEntity.DataBean.TakeoutProductListBean> takeoutProductList = dataBean.getTakeoutProductList();
 
-            if (takeoutProductList == null) continue;
+            if (takeoutProductList == null) {
+                productCategorize.setProduct(shopProductsAll);
+                productCategorizes.add(productCategorize);
+                continue;
+            }
 
             for (int j = 0; j < takeoutProductList.size(); j++) {
 
@@ -218,6 +236,10 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
                 product.setPrice(takeoutProductList.get(j).getPrice() + "");
                 product.setPicture(takeoutProductList.get(j).getImgUrl());
                 product.setInventory(takeoutProductList.get(j).getInventory());
+                product.setDesc(takeoutProductList.get(j).getDescription());
+                product.setType(productCategorize.getType());
+                //保存该商品所属分类在集合中的位置
+                product.setCategoryPosition(i);
 
                 for (int z = 0; z < productList.size(); z++) {
                     if (productList.get(z).getGoods().equals(takeoutProductList.get(j).getProductName())) {
@@ -226,9 +248,16 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
                 }
 
                 shopProductsAll.add(product);
+
+                /**
+                 * @author 马鹏昊
+                 * @desc 按照分类的顺序和其中商品的顺序依次填进去，为了在点击某个商品查看详情的时候获取相应的信息
+                 */
+                allProducts.add(product);
             }
             productCategorize.setProduct(shopProductsAll);
             productCategorizes.add(productCategorize);
+
         }
         return productCategorizes;
 
@@ -249,6 +278,9 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
         cardLayout = (FrameLayout) getView().findViewById(R.id.cardLayout);
         cardShopLayout = (LinearLayout) getView().findViewById(R.id.cardShopLayout);
         bg_layout = getView().findViewById(R.id.bg_layout);
+
+        allProducts = new ArrayList<>();
+
         getGoods();
     }
 
@@ -270,7 +302,7 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
 
             @Override
             public void onSuccess(int statusCode, String rawJsonResponse, Object response) {
-                Log.i(TAG , rawJsonResponse);
+                Log.i(TAG, rawJsonResponse);
                 Gson gson = new Gson();
                 ShopGoodsEntity shopGoodsEntity = gson.fromJson(rawJsonResponse, ShopGoodsEntity.class);
                 if (shopGoodsEntity.getCode() == 100) {
@@ -365,6 +397,61 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
             }
         });
 
+        /**
+         * @author 马鹏昊
+         * @desc 点击查看商品详情
+         * @date 2018-4-4
+         */
+        dialog = new AlertDialog.Builder(getActivity()).setTitle("商品详情").create();
+        v = View.inflate(getActivity(), R.layout.product_detail, null);
+        dialog.setView(v);
+        morelist.setOnItemClickListener(new PinnedHeaderListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int section, int position, long id) {
+                TextView textView_Name = view.findViewById(R.id.name);
+                TextView textView_Price = view.findViewById(R.id.prise);
+                String productName = textView_Name.getText().toString();
+                float price = Float.parseFloat(textView_Price.getText().toString().substring(1,textView_Price.getText().toString().length()-1));
+                //真正的在数据源中的位置
+                int realDataPosition = -1;
+                for (int i = 0; i < allProducts.size(); i++) {
+                    ShopProduct p = allProducts.get(i);
+                    //因为有名字相同的情况，所以加上价格条件
+                    if (TextUtils.equals(productName, p.getGoods())&&(price==Float.parseFloat(p.getPrice()))) {
+                        realDataPosition = i;
+                        break;
+                    }
+                }
+                if (realDataPosition != -1) {
+                    ShopProduct product = allProducts.get(realDataPosition);
+                    Button closeBtn = v.findViewById(R.id.closeBtn);
+                    closeBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
+                    TextView productDesc = v.findViewById(R.id.productDesc);
+                    String proDesc = product.getDesc();
+                    productDesc.setText(proDesc);
+                    SimpleDraweeView productIcon = v.findViewById(R.id.productIcon);
+                    String picUrl = product.getPicture();
+                    ImageLoadManager.getInstance().setImage(picUrl, productIcon);
+                    //                    productIcon.setImageURI(picUrl);
+                } else {
+                    Toast.makeText(getActivity(), "找不到对应数据源", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onSectionClick(AdapterView<?> adapterView, View view, int section, long id) {
+
+            }
+        });
+
         // TODO: 2017/10/20 点击列表条目显示具体商品信息
 
         bg_layout.setOnClickListener(this);
@@ -375,14 +462,15 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
     private boolean contains(ShopProduct product) {
         boolean result = false;
 
-        if (productList.size() == 0) return false;
+        if (productList.size() == 0)
+            return false;
 
         for (int i = 0; i < productList.size(); i++) {
             //根据商品名判断会出现商品名称相同的情况，故应用id做判断
-//            if (productList.get(i).getGoods().equals(product.getGoods())) {
-//                result = true;
-//                break;
-//            }
+            //            if (productList.get(i).getGoods().equals(product.getGoods())) {
+            //                result = true;
+            //                break;
+            //            }
             if (productList.get(i).getId() == product.getId()) {
                 result = true;
                 break;
@@ -521,9 +609,11 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
                 break;
 
             case R.id.settlement:
-                if (productList == null) return;
+                if (productList == null)
+                    return;
 
-                if (productList.size() == 0) return;
+                if (productList.size() == 0)
+                    return;
 
                 if (!new UserInfoManager(getContext()).getISLOGIN()) {
                     showMessage("请先登录");
@@ -536,7 +626,7 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
                 bundle.putInt("shopId", shopId);
                 bundle.putDouble("price", sum);
                 double deliveryFee = getActivity().getIntent().getDoubleExtra("deliveryFee", 0);
-                bundle.putDouble("deliveryFee" , deliveryFee);
+                bundle.putDouble("deliveryFee", deliveryFee);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -549,7 +639,7 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     /**
-     *  创建动画层
+     * 创建动画层
      */
     private FrameLayout createAnimLayout() {
         ViewGroup rootView = (ViewGroup) getActivity().getWindow().getDecorView();
