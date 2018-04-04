@@ -31,12 +31,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hl.htk_customer.R;
 import com.hl.htk_customer.activity.ConfirmOrderActivity;
-import com.hl.htk_customer.activity.WmShopDetailActivity;
 import com.hl.htk_customer.adapter.wm.ShopAdapter;
 import com.hl.htk_customer.adapter.wm.TestSectionedAdapter;
 import com.hl.htk_customer.assistant.ShopToDetailListener;
@@ -210,7 +208,7 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
             shopProductsAll = new ArrayList<>();
             List<ShopGoodsEntity.DataBean.TakeoutProductListBean> takeoutProductList = dataBean.getTakeoutProductList();
 
-            if (takeoutProductList == null) break;
+            if (takeoutProductList == null) continue;
 
             for (int j = 0; j < takeoutProductList.size(); j++) {
 
