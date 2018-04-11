@@ -26,7 +26,7 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -60,7 +60,12 @@ import com.loopj.android.http.RequestParams;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2017/6/22.
@@ -119,7 +124,10 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
 
     private TextView defaultText;
 
-    private List<String> strings;
+    //    private List<String> strings;
+    private List<Map> categoryData;
+    private MyMainAdapter mMainAdapter;
+
 
     //父布局
     private RelativeLayout parentLayout;
@@ -205,7 +213,8 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
 
     public List<ProductType> getData(ShopGoodsEntity shopGoodsEntity) {
         productList = new ArrayList<>();
-        strings = new ArrayList<>();
+        //        strings = new ArrayList<>();
+        categoryData = new ArrayList<>();
 
         sum = getActivity().getIntent().getDoubleExtra("price", 0.0);
         if (sum > 0) {
@@ -329,14 +338,29 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
 
         });
 
+        /**
+         * @author 马鹏昊
+         * @desc 解决分类点击选中状态混乱问题
+         */
         for (ProductType type : productCategorizes) {
-            strings.add(type.getType());
+            Map map = new HashMap();
+            map.put("name", type.getType());
+            map.put("isSelected", false);
+            categoryData.add(map);
+            //            strings.add(type.getType());
         }
+        //设置第一项为默认选中状态
+        categoryData.get(0).put("isSelected", true);
+        //        mainlist.setAdapter(new ArrayAdapter<String>(getActivity(),
+        //                R.layout.categorize_item, strings));
+        mMainAdapter = new MyMainAdapter();
+        mainlist.setAdapter(mMainAdapter);
+
+
         morelist.setAdapter(sectionedAdapter);
 
         sectionedAdapter.setCallBackListener(this);
-        mainlist.setAdapter(new ArrayAdapter<String>(getActivity(),
-                R.layout.categorize_item, strings));
+
 
         shopAdapter = new ShopAdapter(getActivity(), productList);
         shoppingListView.setAdapter(shopAdapter);
@@ -349,15 +373,21 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
                                     int position, long arg3) {
                 isScroll = false;
 
-                for (int i = 0; i < mainlist.getChildCount(); i++) {
-                    if (i == position) {
-                        mainlist.getChildAt(i).setBackgroundColor(
-                                Color.rgb(255, 255, 255));
-                    } else {
-                        mainlist.getChildAt(i).setBackgroundColor(
-                                Color.TRANSPARENT);
-                    }
+                for (int i = 0; i < categoryData.size(); i++) {
+                    categoryData.get(i).put("isSelected",false);
                 }
+                Map map = categoryData.get(position);
+                map.put("isSelected",true);
+                mMainAdapter.notifyDataSetChanged();
+//                for (int i = 0; i < mainlist.getCount(); i++) {
+//                    if (i == position) {
+//                        mainlist.getChildAt(i).setBackgroundColor(
+//                                Color.rgb(255, 255, 255));
+//                    } else {
+//                        mainlist.getChildAt(i).setBackgroundColor(
+//                                Color.TRANSPARENT);
+//                    }
+//                }
                 int rightSection = 0;
                 for (int i = 0; i < position; i++) {
                     rightSection += sectionedAdapter.getCountForSection(i) + 1;
@@ -411,13 +441,15 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
                 TextView textView_Name = view.findViewById(R.id.name);
                 TextView textView_Price = view.findViewById(R.id.prise);
                 String productName = textView_Name.getText().toString();
-                float price = Float.parseFloat(textView_Price.getText().toString().substring(1,textView_Price.getText().toString().length()-1));
+                String str = textView_Price.getText().toString();
+                String priceStr = str.substring(1,str.length());
+                float price = Float.parseFloat(priceStr);
                 //真正的在数据源中的位置
                 int realDataPosition = -1;
                 for (int i = 0; i < allProducts.size(); i++) {
                     ShopProduct p = allProducts.get(i);
                     //因为有名字相同的情况，所以加上价格条件
-                    if (TextUtils.equals(productName, p.getGoods())&&(price==Float.parseFloat(p.getPrice()))) {
+                    if (TextUtils.equals(productName, p.getGoods()) && (price == Float.parseFloat(p.getPrice()))) {
                         realDataPosition = i;
                         break;
                     }
@@ -458,6 +490,59 @@ public class ItemFragment extends BaseFragment implements View.OnClickListener, 
         settlement.setOnClickListener(this);
         shopping_cart.setOnClickListener(this);
     }
+
+
+    class MyMainAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return categoryData.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+            if (convertView == null) {
+                convertView = View.inflate(getActivity(), R.layout.categorize_item, null);
+                viewHolder = new ViewHolder(convertView);
+                convertView.setTag(viewHolder);
+            }else
+                viewHolder = (ViewHolder) convertView.getTag();
+
+            Map map = categoryData.get(position);
+            viewHolder.mMainitemTxt.setText((String) map.get("name"));
+
+            if ((boolean)map.get("isSelected")){
+                convertView.setBackgroundColor(
+                        Color.rgb(255, 255, 255));
+            }else {
+                convertView.setBackgroundColor(
+                        Color.TRANSPARENT);
+            }
+
+            return convertView;
+        }
+
+        class ViewHolder {
+            @Bind(R.id.mainitem_txt)
+            TextView mMainitemTxt;
+
+            ViewHolder(View view) {
+                ButterKnife.bind(this, view);
+            }
+        }
+    }
+
 
     private boolean contains(ShopProduct product) {
         boolean result = false;

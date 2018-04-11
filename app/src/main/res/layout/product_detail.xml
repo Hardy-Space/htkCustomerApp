@@ -12,7 +12,7 @@
         android:id="@+id/productIcon"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:scaleType="fitXY"/>
+        android:scaleType="centerInside"/>
 
     <TextView
         android:id="@+id/productDesc"
