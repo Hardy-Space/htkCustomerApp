@@ -2,19 +2,19 @@ package com.hl.htk_customer.utils;
 
 /**
  * Created by Administrator on 2017/6/15.
- *
  */
 
 public class MyHttpConfing {
 
     public static final String tag = "TAG-->";
 
-//    private static final String baseUrl = "http://192.168.0.7:8080/htkApp/API/";//内网
-    public static final String baseUrl = "http://120.27.5.36:8080/htkApp/API/";//外网
-//    public static final String baseUrl = "http://192.168.0.13:8080/htkApp/API/";//青岛办内网(马鹏昊)
-//    public static final String baseUrl = "http://192.168.0.7:8080/htkApp/API/";//青岛办内网(田晋奇)
-//    private static final String baseUrl = "http://1704aa0586.51mypc.cn:32351/htkApp/API/";//后台测试使用
-//      private static final String baseUrl = "http://192.168.1.120:8080/htkApp/API/";
+    //    private static final String baseUrl = "http://192.168.0.7:8080/htkApp/API/";//内网
+    public static final String baseUrl = "http://120.27.5.36:8888/htkApp/API/";//远程服务器测试版本地址
+//    public static final String baseUrl = "http://120.27.5.36:8080/htkApp/API/";//客户版本外网
+//        public static final String baseUrl = "http://192.168.0.13:8080/htkApp/API/";//青岛办内网(马鹏昊)
+//        public static final String baseUrl = "http://192.168.0.7:8080/htkApp/API/";//青岛办内网(田晋奇)
+    //    private static final String baseUrl = "http://1704aa0586.51mypc.cn:32351/htkApp/API/";//后台测试使用
+    //      private static final String baseUrl = "http://192.168.1.120:8080/htkApp/API/";
 
     public static final String remember = baseUrl + "appMember/index?token=";
     public static final String rememberLoginOut = baseUrl + "appMember/index?";
@@ -36,7 +36,7 @@ public class MyHttpConfing {
     private static final String diancanUrl = baseUrl + "buffetFoodAPI";
 
     public static final String erweima = diancanUrl + "/confirmCollection";
-    public static final String getshopId = baseUrl+"appAPI/QRCodeDecoding";
+    public static final String getshopId = baseUrl + "appAPI/QRCodeDecoding";
 
     public static final String xiadan = payUrl + "/enterBuffetFoodSuccessfullyTransferred";
 
@@ -167,94 +167,94 @@ public class MyHttpConfing {
 
     public static final String diancanSuccess = diancanUrl + "/paymentSuccess";
 
-    public  static  final String  cuidan  = diancanUrl + "/reminderFormToMerchant";
+    public static final String cuidan = diancanUrl + "/reminderFormToMerchant";
 
-    public  static  final  String  tuicai = diancanUrl + "/confirmWithdrawalRequest";
+    public static final String tuicai = diancanUrl + "/confirmWithdrawalRequest";
 
     //获取自助点餐订单详情
-    public  static  final  String  getZZDCOrderDetail = diancanUrl + "/getAllOrderList";
+    public static final String getZZDCOrderDetail = diancanUrl + "/getAllOrderList";
 
     /**
      * 会员尊享平台首页数据
      * int shopId,  int pageNum
      */
-    public  static  final  String  getMemberHomeListData = memberBase + "/getMemberHomeListData";
+    public static final String getMemberHomeListData = memberBase + "/getMemberHomeListData";
 
     /**
      * 会员尊享平台我的数据
      * int shopId,  int token
      */
-    public  static  final  String  getMemberAccountMes = memberBase + "/getMemberAccountMes";
+    public static final String getMemberAccountMes = memberBase + "/getMemberAccountMes";
 
     /**
      * 会员尊享平台优惠券数据
      * int shopId,  int token
      */
-    public  static  final  String  getAccountCouponList = memberBase + "/getAccountCouponList";
+    public static final String getAccountCouponList = memberBase + "/getAccountCouponList";
 
     /**
      * 会员尊享平台获取店铺信息
      */
-    public  static  final  String  getShopIntroduce = memberBase + "/getShopIntroduce";
+    public static final String getShopIntroduce = memberBase + "/getShopIntroduce";
 
     /**
      * 会员尊享平台预定座位
      */
-    public  static  final  String  addReserveRequest = memberBase + "/addReserveRequest";
+    public static final String addReserveRequest = memberBase + "/addReserveRequest";
 
     /**
      * 会员尊享平台我的预约
      */
-    public  static  final  String  getAccountReserve = memberBase + "/getAccountReserve";
+    public static final String getAccountReserve = memberBase + "/getAccountReserve";
 
     /**
      * 会员尊享平台积分兑换
      */
-    public  static  final  String  getIntegralBuyData = memberBase + "/getIntegralBuyData";
+    public static final String getIntegralBuyData = memberBase + "/getIntegralBuyData";
 
     /**
      * 会员尊享平台积分记录
      */
-    public  static  final  String  getAccountIntegralRecord = memberBase + "/getAccountIntegralRecord";
+    public static final String getAccountIntegralRecord = memberBase + "/getAccountIntegralRecord";
 
     /**
      * 会员尊享平台，下载关注二维码
      */
-    public  static  final  String  getQrImgData = memberBase + "/getQrImgData";
+    public static final String getQrImgData = memberBase + "/getQrImgData";
 
     /**
      * 会员尊享平台，加入会员
      */
-    public  static  final  String  addMember = memberBase + "/addMember";
+    public static final String addMember = memberBase + "/addMember";
 
     /**
      * 会员尊享平台，积分兑换，兑换功能
      */
-    public  static  final  String  redeemOperation = memberBase + "/redeemOperation";
+    public static final String redeemOperation = memberBase + "/redeemOperation";
 
     /**
      * 会员尊享平台，获取交易记录
      */
-    public  static  final  String  getAccountTradingRecord = memberBase + "/getAccountTradingRecord";
+    public static final String getAccountTradingRecord = memberBase + "/getAccountTradingRecord";
 
     /**
      * 会员尊享平台，建议评价
      */
-    public  static  final  String  accountSuggestRequest = memberBase + "/accountSuggestRequest";
+    public static final String accountSuggestRequest = memberBase + "/accountSuggestRequest";
 
     /**
      * 获取店铺头像
      */
-    public  static  final  String  getShopImgUrl = allUrl1 + "/getShopImgUrl";
+    public static final String getShopImgUrl = allUrl1 + "/getShopImgUrl";
 
     /**
      * 预定座位详情
      */
-    public  static  final  String  getSeatOrderDetail = allUrl1 + "/getSeatOrderDetail";
+    public static final String getSeatOrderDetail = allUrl1 + "/getSeatOrderDetail";
     /**
      * 团购店铺相册
      */
-    public  static  final  String  getTuanGouShopPhoto = allUrl1 + "/getShopAlbumList";
+    public static final String getTuanGouShopPhoto = allUrl1 + "/getShopAlbumList";
 
 }
 

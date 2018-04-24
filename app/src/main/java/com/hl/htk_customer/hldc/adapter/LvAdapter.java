@@ -19,6 +19,7 @@ import com.hl.htk_customer.hldc.http.HttpHelper;
 import com.hl.htk_customer.hldc.http.JsonHandler;
 import com.hl.htk_customer.hldc.main.DCMainActivity;
 import com.hl.htk_customer.hldc.main.GoodDetailActivity;
+import com.hl.htk_customer.utils.MyApplication;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -63,6 +64,9 @@ public class LvAdapter extends BaseAdapter {
             view = LayoutInflater.from(mContext).inflate(R.layout.lv_item_layout,null);
             mviewHolder.img_add = view.findViewById(R.id.img_add);
             mviewHolder.lv_image = view.findViewById(R.id.lv_image);
+            //设置图片宽高比例为2.5：1
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (MyApplication.getScreenWidth()/2.5));
+            mviewHolder.lv_image.setLayoutParams(params);
             mviewHolder.img_shoucang = view.findViewById(R.id.img_shoucang);
             mviewHolder.xxa = view.findViewById(R.id.xingxinga);
             mviewHolder.xxb = view.findViewById(R.id.xingxingb);

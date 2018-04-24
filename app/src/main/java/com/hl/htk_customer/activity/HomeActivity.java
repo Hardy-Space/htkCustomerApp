@@ -1,9 +1,12 @@
 package com.hl.htk_customer.activity;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -11,12 +14,12 @@ import com.hl.htk_customer.R;
 import com.hl.htk_customer.adapter.MyPageAdapter;
 import com.hl.htk_customer.base.BaseActivity;
 import com.hl.htk_customer.base.BaseFragment;
-import com.hl.htk_customer.fragment.dingdan.DingDanWaiMaiFragment;
 import com.hl.htk_customer.fragment.home.DingDanFragment;
 import com.hl.htk_customer.fragment.home.MineFragment;
 import com.hl.htk_customer.fragment.home.TuanGouFragment;
 import com.hl.htk_customer.fragment.home.WaiMaiFragment;
 import com.hl.htk_customer.model.ScrollTopEntity;
+import com.hl.htk_customer.utils.MyApplication;
 import com.hl.htk_customer.utils.PermissionUtils;
 import com.hl.htk_customer.widget.MyViewPager;
 
@@ -66,6 +69,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+
+        WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;         // 屏幕宽度（像素）
+        int height = dm.heightPixels;       // 屏幕高度（像素）
+        MyApplication.setScreenWidth(width);
+        MyApplication.setScreenHeight(height);
+
+
+
         initWidget();
     }
 

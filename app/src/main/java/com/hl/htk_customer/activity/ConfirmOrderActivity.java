@@ -3,6 +3,7 @@ package com.hl.htk_customer.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,6 +19,7 @@ import com.hl.htk_customer.dialog.OneLineDialog;
 import com.hl.htk_customer.model.DefaultAddress;
 import com.hl.htk_customer.model.ShopInfoModel;
 import com.hl.htk_customer.model.ShopProduct;
+import com.hl.htk_customer.model.UserInfoManager;
 import com.hl.htk_customer.utils.Arith;
 import com.hl.htk_customer.utils.MyApplication;
 import com.hl.htk_customer.utils.pay.AliPayWaiMai;
@@ -188,15 +190,26 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
             tvUserInfo.setText("请选择收货地址");
             return;
         }
-        String sex = "";
-        if (app.getDefaultAddress().getSex() == 0) {
-            sex = "女士";
-        } else {
-            sex = "先生";
-        }
 
-        tvUserInfo.setText(app.getDefaultAddress().getUserName() + sex + "  " + app.getDefaultAddress().getPhoneNumber());
-        tvAddress.setText(app.getDefaultAddress().getLocation() + app.getDefaultAddress().getAddress());
+        /**
+         * @author 马鹏昊
+         * @desc 判断当前用户是否是上次保存地址信息的用户, 如果不是不要初始化地址信息
+         * @date 2018-4-24
+         */
+        UserInfoManager nowUser = new UserInfoManager(this);
+        String nowToken = nowUser.getToken();
+        String lastToken = app.getDefaultAddress().getToken();
+        if (nowToken.equals(lastToken)) {
+            String sex;
+            if (app.getDefaultAddress().getSex() == 0) {
+                sex = "女士";
+            } else {
+                sex = "先生";
+            }
+
+            tvUserInfo.setText(app.getDefaultAddress().getUserName() + sex + "  " + app.getDefaultAddress().getPhoneNumber());
+            tvAddress.setText(app.getDefaultAddress().getLocation() + app.getDefaultAddress().getAddress());
+        }
 
     }
 
@@ -231,7 +244,17 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.tv_submit:
 
-                if (app.getDefaultAddress().getAddressId() == -1) {
+                //                if (app.getDefaultAddress().getAddressId() == -1) {
+                //                    showMessage("请选择收货地址");
+                //                    return;
+                //                }
+                /**
+                 * @author 马鹏昊
+                 * @desc 之前是通过判断保存的地址信息有没有，现在改为判断当前页面的地址信息有没有
+                 * @date 2018-4-24
+                 */
+                String showInfo = tvUserInfo.getText().toString();
+                if (TextUtils.isEmpty(showInfo)) {
                     showMessage("请选择收货地址");
                     return;
                 }
@@ -287,8 +310,8 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                  * @desc 微信支付转账暂时不能自动转到银行卡，所以先屏蔽
                  */
                 //                payWayDialog.setData(list);
-//                payWayDialog.setShowOne("支付宝");
-//                payWayDialog.show();
+                //                payWayDialog.setShowOne("支付宝");
+                //                payWayDialog.show();
                 break;
             case R.id.confirm_order_Vouchers_num:
                 CouponActivity.launch(this, 1, shopId, goodsPrice);

@@ -41,6 +41,10 @@ public class MyApplication extends Application {
 
     private static Context mContext;
 
+    //屏幕的宽和高
+    private static int screenWidth;
+    private static int screenHeight;
+
 //    RefWatcher mRefWatcher;
 
     private static AMapLocation mAMapLocation;//保存定位信息
@@ -99,6 +103,21 @@ public class MyApplication extends Application {
         //二维码扫描初始化
         ZXingLibrary.initDisplayOpinion(this);
 
+    }
+
+    public static int getScreenWidth(){
+        return screenWidth;
+    }
+    public static int getScreenHeight(){
+        return screenHeight;
+    }
+
+    public static void setScreenWidth(int screenWidth) {
+        MyApplication.screenWidth = screenWidth;
+    }
+
+    public static void setScreenHeight(int screenHeight) {
+        MyApplication.screenHeight = screenHeight;
     }
 
     public LoginStateEntity getLoginState() {

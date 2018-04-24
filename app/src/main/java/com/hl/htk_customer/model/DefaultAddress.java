@@ -17,6 +17,23 @@ public class DefaultAddress {
     private String address = "";
     private long phoneNumber;
 
+    /**
+     * @author 马鹏昊
+     * @desc 判断当前用户是否是上次保存地址信息的用户时用到
+     * @date 2018-4-24
+     */
+    private String token;
+
+    public String getToken() {
+        return mSharedPreferences.getString("savedToken", "");
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+        mEditor.putString("savedToken", token);
+        mEditor.commit();
+    }
+
     Context mContext;
     SharedPreferences mSharedPreferences;
     SharedPreferences.Editor mEditor;

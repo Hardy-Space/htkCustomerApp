@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -106,6 +104,14 @@ public class HomeAddressActivity extends BaseActivity implements View.OnClickLis
                     app.getDefaultAddress().setLocation(item.getLocation());
                     app.getDefaultAddress().setAddress(item.getAddress());
                     app.getDefaultAddress().setSex(item.getSex());
+
+                    /**
+                     * @author 马鹏昊
+                     * @desc 判断当前用户是否是上次保存地址信息的用户时用到
+                     * @date 2018-4-24
+                     */
+                    app.getDefaultAddress().setToken(item.getToken());
+
                     finish();
                 }
             }
