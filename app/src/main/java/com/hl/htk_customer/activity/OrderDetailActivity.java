@@ -121,7 +121,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_order_detail);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
@@ -351,9 +351,18 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         tvPayStyle.setText("支付方式：" + payWay);
         tvOrderTime.setText("下单时间：" + data.getOrderTime());
 
+
         //未结单状态下，启动计时器,设置2秒延迟
         if (orderState == 1){
-            if (data.getTimeLeft() > 2000){
+//            if (data.getTimeLeft() > 2000){
+            /**
+             * @author 马鹏昊
+             * @desc 如果剩余时长不大于0，说明因为退出程序了并且商家也没有接单，这时退出程序
+             * 导致计时service关闭所以不会执行到倒计时结束从而执行取消订单的逻辑，而商家一直没接单所以这个订单状态
+             * 一直是用户刚下单状态（即orderState=1）,所以此时是过期订单，这时直接执行取消订单操作即可
+             */
+            if (data.getTimeLeft() > 0){
+                EventBus.getDefault().register(this);
                 OrderTimeService.startOrderTimeService(mContext.getApplicationContext() , (int)data.getTimeLeft());
             }else {
                 cancelOrder();

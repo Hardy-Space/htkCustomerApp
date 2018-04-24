@@ -13,7 +13,6 @@ import com.hl.htk_customer.model.TimeChangeEvent;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Administrator on 2017/10/26.
@@ -53,23 +52,23 @@ public class OrderTimeService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        time = intent.getIntExtra(TIME , 0);
-        cutdownTime = time;
-
-        countDownTimer = new CountDownTimer(time , 999){
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-                EventBus.getDefault().post(new TimeChangeEvent(getTime(millisUntilFinished) , false));
-                Log.i(TAG, "onTick: " + getTime(millisUntilFinished));
-            }
-
-            @Override
-            public void onFinish() {
-                EventBus.getDefault().post(new TimeChangeEvent(getTime(cutdownTime) , true));
-                Log.i(TAG, "onFinish: ");
-            }
-        };
+//        time = intent.getIntExtra(TIME , 0);
+//        cutdownTime = time;
+//
+//        countDownTimer = new CountDownTimer(time , 999){
+//
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//                EventBus.getDefault().post(new TimeChangeEvent(getTime(millisUntilFinished) , false));
+//                Log.i(TAG, "onTick: " + getTime(millisUntilFinished));
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                EventBus.getDefault().post(new TimeChangeEvent(getTime(cutdownTime) , true));
+//                Log.i(TAG, "onFinish: ");
+//            }
+//        };
     }
 
     /**
@@ -95,6 +94,35 @@ public class OrderTimeService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        /**
+         * @author 马鹏昊
+         * @desc 之前下面这段代码是放在onCreate里面的，但是startService方法启动只会执行一次onCreate方法，
+         * 所以倒计时的时间永远都是最初的那个值
+         */
+        if (countDownTimer!=null) {
+            countDownTimer.cancel();
+            countDownTimer = null ;
+        }
+
+        time = intent.getIntExtra(TIME , 0);
+        cutdownTime = time;
+
+        countDownTimer = new CountDownTimer(time , 999){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                EventBus.getDefault().post(new TimeChangeEvent(getTime(millisUntilFinished) , false));
+                Log.i(TAG, "onTick: " + getTime(millisUntilFinished));
+            }
+
+            @Override
+            public void onFinish() {
+                EventBus.getDefault().post(new TimeChangeEvent(getTime(cutdownTime) , true));
+                Log.i(TAG, "onFinish: ");
+            }
+        };
+
         Log.i(TAG, "onStartCommand: ");
         countDownTimer.start();
         return super.onStartCommand(intent, flags, startId);
