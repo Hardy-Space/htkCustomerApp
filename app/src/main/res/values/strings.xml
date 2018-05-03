@@ -111,7 +111,7 @@
     <string name="confirm_receipt">确认收货</string>
     <string name="daijinquan">商家代金券</string>
     <string name="integration_voucher">积分代金券</string>
-    <string name="hint_mark">请输入备注内容(可不填)</string>
+    <string name="hint_mark">请输入备注内容(可不填,最多20个字)</string>
     <string name="faild_location">定位失败</string>
     <string name="free">免费配送</string>
     <string name="peisongfei">配送费</string>

@@ -80,6 +80,16 @@ public class WmOrderDetailEntity {
         private String orderNumber;
         private int paymentMethod;
         private String orderTime;
+        private String remark;
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
         private Object oneProductName;
         private double deliveryFee;
         private int commentStatus;

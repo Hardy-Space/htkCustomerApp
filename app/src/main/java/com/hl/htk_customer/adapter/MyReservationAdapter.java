@@ -37,8 +37,12 @@ public class MyReservationAdapter extends BaseQuickAdapter<MyReservationEntity.D
                         .setTextColor(R.id.tv_reservation_seat_order_state , mContext.getResources().getColor(R.color.color_orange_dark));
                 break;
             case 1://商户已接单分配座位
-                helper.setText(R.id.tv_reservation_seat_order_state , "已接单")
+                helper.setText(R.id.tv_reservation_seat_order_state , "订座成功")
                         .setTextColor(R.id.tv_reservation_seat_order_state , Color.GREEN);
+                break;
+            case 2://座位已满
+                helper.setText(R.id.tv_reservation_seat_order_state , "座位已满，订座失败")
+                        .setTextColor(R.id.tv_reservation_seat_order_state , Color.RED);
                 break;
         }
     }

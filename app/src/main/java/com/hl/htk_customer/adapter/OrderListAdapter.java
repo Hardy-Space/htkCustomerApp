@@ -128,12 +128,15 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListEntity.DataBean 
 
     private void setDZ(BaseViewHolder helper, OrderListEntity.DataBean item) {
         String orderState = "";
-        switch (item.getOrderState()){
-            case 0://未上齐菜
+        switch (item.getStatus()){
+            case 0://等待接单
+                orderState = "等待接单";
+                break;
+            case 1://已接单
                 orderState = "订座成功";
                 break;
-            case 1://菜已上齐
-                orderState = "订单完成";
+            case 2://商家拒绝接单
+                orderState = "座位已满，订座失败";
                 break;
         }
         helper.setText(R.id.item_order_state , orderState );

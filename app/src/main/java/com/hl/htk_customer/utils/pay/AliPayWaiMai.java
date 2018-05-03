@@ -76,6 +76,8 @@ public class AliPayWaiMai implements PayStyle {
 
     private TextView submit;//提交按钮
 
+    private String remark;
+
     private Gson gson;
 
     private Handler mHandler = new Handler() {
@@ -127,7 +129,7 @@ public class AliPayWaiMai implements PayStyle {
     };
 
     public AliPayWaiMai(Activity context, String couponId, String orderAmount, String shopId, List<ProductList> list,
-                        String shippingAddress, String receivingCall, String receiptName, Double longitude, Double latitude, Integer sex, TextView submit) {
+                        String shippingAddress, String receivingCall, String receiptName, Double longitude, Double latitude, Integer sex, TextView submit, String remark) {
         this.mContext = context;
         this.orderAmount = orderAmount;
         this.shopId = shopId;
@@ -138,6 +140,13 @@ public class AliPayWaiMai implements PayStyle {
         this.latitude = latitude;
         this.sex = sex;
         this.submit = submit;
+
+        /**
+         * @author 马鹏昊
+         * @desc 加上备注
+         */
+        this.remark = remark;
+
 
         /**
          * @modified by 马鹏昊
@@ -177,6 +186,11 @@ public class AliPayWaiMai implements PayStyle {
         params.put("longitude", longitude);
         params.put("latitude", latitude);
         params.put("sex", sex);
+        /**
+         * @author 马鹏昊
+         * @desc 加上备注
+         */
+        params.put("remark", remark);
         AsynClient.post(MyHttpConfing.pay, mContext, params, new GsonHttpResponseHandler() {
 
             @Override

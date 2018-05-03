@@ -278,7 +278,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                             defaultAddress.getUserName(),
                             MyApplication.getmAMapLocation().getLongitude(),
                             MyApplication.getmAMapLocation().getLatitude(),
-                            defaultAddress.getSex(), tvSubmit);
+                            defaultAddress.getSex(), tvSubmit,etMark.getText().toString());
                     pay.pay();
                 } else {
                     DefaultAddress defaultAddress = app.getDefaultAddress();
@@ -299,7 +299,7 @@ public class ConfirmOrderActivity extends BaseActivity implements View.OnClickLi
                             defaultAddress.getUserName(),
                             MyApplication.getmAMapLocation().getLongitude(),
                             MyApplication.getmAMapLocation().getLatitude(),
-                            defaultAddress.getSex(), tvSubmit);
+                            defaultAddress.getSex(), tvSubmit ,etMark.getText().toString());
                     pay.pay();
                 }
                 break;

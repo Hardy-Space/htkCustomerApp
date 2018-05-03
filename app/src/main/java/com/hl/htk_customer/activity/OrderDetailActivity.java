@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -100,6 +101,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     TextView tvDaoJiShi;
     @Bind(R.id.tv_time)
     TextView tvTime;
+    @Bind(R.id.remark)
+    TextView tvRemark;
 
     private final int EVALUATE_REQUEST_CODE = 202;
     private List<ShopProduct> productList;
@@ -338,6 +341,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         tvPhoneNumber.setText(data.getReceivingCall() + "");
         tvAddress.setText(data.getShippingAddress());
         tvOrderId.setText("订单号：" + data.getOrderNumber());
+
+        String remarkMsg = TextUtils.isEmpty(data.getRemark())?"无备注信息":data.getRemark();
+        tvRemark.setText("备注：" + remarkMsg);
+
         String payWay = "";
 
         if (data.getPaymentMethod() == 0) {
@@ -353,13 +360,15 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
 
         //未结单状态下，启动计时器,设置2秒延迟
-        if (orderState == 1){
+        if (orderState == 1||orderState == 0){
 //            if (data.getTimeLeft() > 2000){
             /**
              * @author 马鹏昊
              * @desc 如果剩余时长不大于0，说明因为退出程序了并且商家也没有接单，这时退出程序
              * 导致计时service关闭所以不会执行到倒计时结束从而执行取消订单的逻辑，而商家一直没接单所以这个订单状态
              * 一直是用户刚下单状态（即orderState=1）,所以此时是过期订单，这时直接执行取消订单操作即可
+             * @modify_desc orderState等于0的情况是很少情况下支付宝系统任务堆积导致的没有发送给服务器端异步回调处理代码，所以
+             * 导致不同步，从而产生非法订单
              */
             if (data.getTimeLeft() > 0){
                 EventBus.getDefault().register(this);

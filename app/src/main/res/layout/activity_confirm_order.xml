@@ -237,6 +237,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_gray_edit"
                     android:gravity="top"
+                    android:maxLength="20"
                     android:hint="@string/hint_mark"
                     android:minHeight="80dp"
                     android:padding="10dp"

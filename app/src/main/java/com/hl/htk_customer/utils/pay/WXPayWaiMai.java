@@ -55,6 +55,8 @@ public class WXPayWaiMai implements PayStyle {
 
     private TextView submit;
 
+    private String remark;
+
     /**
      * @modified by 马鹏昊
      * @date 2018.1.3
@@ -65,8 +67,8 @@ public class WXPayWaiMai implements PayStyle {
 
     private Gson gson ;
 
-    public WXPayWaiMai(Activity context , String couponId,String orderAmount , String shopId , List<AliPayWaiMai.ProductList> list ,
-                       String shippingAddress , String receivingCall , String receiptName , Double longitude , Double latitude , Integer sex , TextView submit) {
+    public WXPayWaiMai(Activity context, String couponId, String orderAmount, String shopId, List<AliPayWaiMai.ProductList> list,
+                       String shippingAddress, String receivingCall, String receiptName, Double longitude, Double latitude, Integer sex, TextView submit, String remark) {
         this.mContext = context;
         this.orderAmount = orderAmount;
         this.shopId = shopId;
@@ -77,6 +79,12 @@ public class WXPayWaiMai implements PayStyle {
         this.latitude = latitude;
         this.sex = sex;
         this.submit = submit;
+
+        /**
+         * @author 马鹏昊
+         * @desc 加上备注
+         */
+        this.remark = remark;
 
         /**
          * @modified by 马鹏昊
@@ -118,6 +126,11 @@ public class WXPayWaiMai implements PayStyle {
         params.put("longitude" , longitude);
         params.put("latitude" , latitude);
         params.put("sex" , sex);
+        /**
+         * @author 马鹏昊
+         * @desc 加上备注
+         */
+        params.put("remark", remark);
         AsynClient.post(MyHttpConfing.pay, mContext, params, new GsonHttpResponseHandler() {
 
             @Override
